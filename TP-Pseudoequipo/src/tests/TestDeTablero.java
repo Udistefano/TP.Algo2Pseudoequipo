@@ -3,7 +3,6 @@ package tests;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-import tp2prueba.Casillero;
 import tp2prueba.Ficha;
 import tp2prueba.Tablero;
 
