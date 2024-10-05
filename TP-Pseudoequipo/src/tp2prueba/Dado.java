@@ -25,8 +25,8 @@ public class Dado {
     public void jugarDado() {
         this.valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
     }
-    //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
+    //GETTERS SIMPLES -----------------------------------------------------------------------------------------
     /**
      * pre: -
      * @return el valor del dado
