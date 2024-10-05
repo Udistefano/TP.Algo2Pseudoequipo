@@ -7,8 +7,8 @@ public static void main(String[] args) {
 	 dimenciones[1] = 3;
 	 dimenciones[2] = 3;
 	 int jugadores = 3;
-	 
-	 Juego tateti = new Juego(dimenciones, jugadores);
+//
+//	 Juego tateti = new Juego(dimenciones, jugadores);
 	
 	 
 }	
