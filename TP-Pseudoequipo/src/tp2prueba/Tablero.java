@@ -3,6 +3,7 @@ package tp2prueba;
 /*
  * Este tablero esta implementado en 2 dimensiones, 
  * hay que implementarlo en 3 dimensiones.
+ * Faltan los metodos tambien.
  */
 
 public class Tablero<T> {
