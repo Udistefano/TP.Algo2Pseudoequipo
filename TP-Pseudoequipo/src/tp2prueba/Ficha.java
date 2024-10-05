@@ -9,7 +9,7 @@ public class Ficha {
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 	
 	public Ficha(char simbolo) {
-		//validar
+		//TODO: validar constructor ficha
 		this.simbolo = simbolo;
 	}
 	

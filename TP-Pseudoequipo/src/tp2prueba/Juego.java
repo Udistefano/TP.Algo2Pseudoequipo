@@ -6,18 +6,14 @@ public class Juego {
 	private Mazo mazo = null;
 
     public Juego(Tablero tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
-        if (tablero == null) {
-            throw new Exception("El tablero no puede ser nulo");
-        }
+        ValidacionUtiles.validarSiEsNulo(tablero);
+        ValidacionUtiles.validarSiEsNulo(jugadores);
+        ValidacionUtiles.validarSiEsNulo(mazo);
+
         this.tablero = tablero;
         this.jugadores = jugadores;
         this.mazo = mazo;
     }
-//public Juego(int[] dimensiones,int cantJugadores)throws Exception{
-//	this.tablero = new Tablero(dimensiones);
-//
-//	for(int i = 0 ; i < cantJugadores; i++){
-//		this.jugadores = new Lista(cantJugadores);
-//		}
-//	}
+
+
 }
