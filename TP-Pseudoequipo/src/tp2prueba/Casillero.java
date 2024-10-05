@@ -36,7 +36,11 @@ public class Casillero<T> {
 	
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
 //METODOS GENERALES ---------------------------------------------------------------------------------------
-	
+
+	/**
+	 * pre: -
+	 * @return una cadena mostrando las coordenadas del casillero
+	 */
 	@Override
 	public String toString() {	
 		return "Casillero (" + this.x + ", " + this.y + ", " + this.z + ")";
@@ -49,24 +53,46 @@ public class Casillero<T> {
 	}
 	
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
-	
+
+	/**
+	 * pre: -
+	 * @return la coordenada x
+	 */
 	public int getX() {
 		return this.x;
 	}
 
+	/**
+	 * pre: -
+	 * @return la coordenada y
+	 */
 	public int getY() {
 		return this.y;
 	}
 
+	/**
+	 * pre: -
+	 * @return la coordenada z
+	 */
 	public int getZ() {
 		return this.z;
 	}
 
+	/**
+	 * pre: -
+	 * @return el dato de tipo T
+	 */
 	public T getDato() {
 		return this.dato;
 	}
 		
-//SETTERS SIMPLES -----------------------------------------------------------------------------------------	
+//SETTERS SIMPLES -----------------------------------------------------------------------------------------
+
+	/**
+	 * pre:
+	 * @param dato
+	 * post: setea el dato del casillero al dato pasado por parametro
+	 */
 	public void setDato(T dato) {
 		this.dato = dato;		
 	}	
