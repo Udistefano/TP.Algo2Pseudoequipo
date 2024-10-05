@@ -26,7 +26,10 @@ public class Tablero<T> {
 	 * post: crea un tablero de ancho 'ancho' contando de 1 a ancho inclusive
 	 */
 	public Tablero(int ancho, int alto, int profundidad) throws Exception {
-		//tarea validar > 0
+		Casillero.validarCoordenada(ancho);
+		Casillero.validarCoordenada(alto);
+		Casillero.validarCoordenada(profundidad);
+
 		this.ancho = ancho;
 		this.alto = alto;
 		this.profundidad = profundidad;
@@ -34,7 +37,6 @@ public class Tablero<T> {
 
 		for (int i = 1; i <= ancho; i++) {
 			Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
-
 			for (int j = 1; j <= alto; j++) {
 				Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
 				for (int k = 1; k <= profundidad; k++) {

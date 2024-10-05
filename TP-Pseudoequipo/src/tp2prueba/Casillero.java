@@ -19,15 +19,9 @@ public class Casillero<T> {
 	 * @throws Exception si alguno de los parametros es menor a 1
 	 */
 	public Casillero(int x, int y, int z) throws Exception {
-		if (x < 1) {
-			throw new Exception("X debe ser mayor a 0");
-		}
-		if (y < 1) {
-			throw new Exception("Y debe ser mayor a 0");
-		}
-		if (z < 1) {
-			throw new Exception("Z debe ser mayor a 0");
-		}
+		validarCoordenada(x);
+		validarCoordenada(y);
+		validarCoordenada(z);
 
 		this.x = x;
 		this.y = y;
@@ -44,6 +38,17 @@ public class Casillero<T> {
 	@Override
 	public String toString() {	
 		return "Casillero (" + this.x + ", " + this.y + ", " + this.z + ")";
+	}
+	/**
+	 * pre: --
+	 * @param coordenada
+	 * @throws Exception
+	 * post: Se valida que las coordenadas sean positivas y mayores a 0
+	 */
+	public static void validarCoordenada(int coordenada) throws Exception {
+		if(coordenada < 1) {
+			throw new Exception("La coordenada " + coordenada + " debe ser mayor a 1");
+		}
 	}
 	
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
