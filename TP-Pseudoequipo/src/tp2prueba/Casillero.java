@@ -6,6 +6,7 @@ public class Casillero<T> {
 	
 	private int x = 0;
 	private int y = 0;
+	private int z = 0;
 	private T dato = null;
 	
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -14,17 +15,23 @@ public class Casillero<T> {
 	 * pre:
 	 * @param x: 1 o mayor
 	 * @param y: 1 o mayor
-	 * @throws Exception
+	 * @param z: 1 o mayor
+	 * @throws Exception si alguno de los parametros es menor a 1
 	 */
-	public Casillero(int x, int y) throws Exception {
+	public Casillero(int x, int y, int z) throws Exception {
 		if (x < 1) {
 			throw new Exception("X debe ser mayor a 0");
 		}
 		if (y < 1) {
 			throw new Exception("Y debe ser mayor a 0");
 		}
+		if (z < 1) {
+			throw new Exception("Z debe ser mayor a 0");
+		}
+
 		this.x = x;
 		this.y = y;
+		this.z = z;
 	}
 	
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -32,7 +39,7 @@ public class Casillero<T> {
 	
 	@Override
 	public String toString() {	
-		return "Casillero (" + this.x + ", " + this.y + ")";
+		return "Casillero (" + this.x + ", " + this.y + ", " + this.z + ")";
 	}
 	
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
@@ -44,10 +51,15 @@ public class Casillero<T> {
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 	
 	public int getX() {
-		return x;
+		return this.x;
 	}
+
 	public int getY() {
-		return y;
+		return this.y;
+	}
+
+	public int getZ() {
+		return this.z;
 	}
 
 	public T getDato() {
