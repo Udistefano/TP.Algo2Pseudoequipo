@@ -138,6 +138,14 @@ public class Lista<T> {
 		}
 		return elemento;
 	}
+	
+	protected void aumentarTamanio() {
+		this.longitud++;
+	}
+	
+	protected void disminuirTamanio() {
+		this.longitud++;
+	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
@@ -152,6 +160,8 @@ public class Lista<T> {
 	 * pre : posición pertenece al intervalo: [1, contarElementos()]
 	 * post: devuelve el nodo en la posición indicada.
 	 */
+	
+
 	private Nodo<T> getNodo(int posicion) throws Exception {
 		validarPosicion(posicion);
 		Nodo<T> actual = this.primero;
@@ -161,12 +171,21 @@ public class Lista<T> {
 		return actual;
 	}
 
-	private void validarPosicion(int posicion) throws Exception {
+	protected void validarPosicion(int posicion) throws Exception {
 		if ((posicion < 1) ||
 				(posicion > this.longitud + 1)) {
 			throw new Exception("La posicion debe estar entre 1 y tamaño + 1");
 		}
 	}
+	
+	protected Nodo<T> getPrimero() {
+		return this.primero;
+	}
+	
+	//SETTERS SIMPLES -----------------------------------------------------------------------------------------
+	
+	protected void setPrimero(Nodo<T> primero) {
+		this.primero = primero;
+	}
 
-	//SETTERS SIMPLES -----------------------------------------------------------------------------------------	
-}
+	}

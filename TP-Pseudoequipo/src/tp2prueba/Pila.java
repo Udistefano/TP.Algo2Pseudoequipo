@@ -1,25 +1,20 @@
 package tp2prueba;
 
-
-public class Cola<T> {
+public class Pila<T> {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 
-	private Nodo<T> frente = null;
-
-	private Nodo<T> ultimo = null;
-
+	private Nodo<T> tope = null;
 	private int tamanio = 0;
 
 	//CONSTRUCTORES -------------------------------------------------------------------------------------------
 
 	/**
 	 * pre:
-	 * post: inicializa la cola vacia para su uso
+	 * post: inicializa la pila vacia para su uso
 	 */
-	public Cola() {
-		this.frente = null;
-		this.ultimo = null;
+	public Pila() {
+		this.tope = null;
 		this.tamanio = 0;
 	}
 
@@ -36,45 +31,49 @@ public class Cola<T> {
 
 	/*
 	 * pre: el elemento no es vacio
-	 * post: agrega el elemento a la cola
+	 * post: agrega el elemento a la pila
 	 */
-	public void acolar(T elemento) {
-		Nodo<T> nuevo = new Nodo<T>(elemento);
-		if (!this.estaVacia()) {
-			this.ultimo.setSiguiente(nuevo);
-			this.ultimo = nuevo;
-		} else {
-			this.frente = nuevo;
-			this.ultimo = nuevo;
-		}
+	public void apilar(T elemento) {
+		Nodo<T>nuevo = new Nodo<T>(elemento);
+		nuevo.setSiguiente(this.tope);
+		this.tope = nuevo;
 		this.tamanio++;
 	}
 
 	/*
 	 * pre: el elemento no es vacio
-	 * post: agrega el elemento a la cola
+	 * post: agrega el elemento a la pila
 	 */
-	void acolar(Lista<T> lista) {
+	public void apilar(Lista<T> lista) {
 		//validar
 		lista.iniciarCursor();
 		while (!lista.avanzarCursor()) {
-			this.acolar(lista.obtenerCursor());
+			this.apilar(lista.obtenerCursor());
 		}
 	}
 
 	/*
 	 * pre :
-	 * post: devuelve el elemento en el frente de la cola quitandolo.
+	 * post: devuelve el elemento en el tope de la pila y achica la pila en 1.
 	 */
-	public T desacolar() {
+	public T desapilar() {
 		T elemento = null;
 		if (!this.estaVacia()) {
-			elemento = this.frente.getDato();
-			this.frente = this.frente.getSiguiente();
+			elemento = this.tope.getDato();
+			this.tope = this.tope.getSiguiente();
 			this.tamanio--;
-			if (estaVacia()) {
-				this.ultimo = null;
-			}
+		}
+		return elemento;
+	}
+
+	/**
+	 * pre: -
+	 * post: devuelve el elemento en el tope de la pila (solo lectura)
+	 */
+	public T obtener() {
+		T elemento = null;
+		if (!this.estaVacia()) {
+			elemento = this.tope.getDato();
 		}
 		return elemento;
 	}
@@ -83,24 +82,11 @@ public class Cola<T> {
 	 * post: devuelve la cantidad de elementos que tiene la cola.
 	 */
 	public int contarElementos() {
-
 		return this.tamanio;
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
-
-	/*
-	 * pre :
-	 * post: devuelve el elemento en el frente de la cola. Solo lectura
-	 */
-	public T obtener() {
-		T elemento = null;
-		if (!this.estaVacia()) {
-			elemento = this.frente.getDato();
-		}
-		return elemento;
-	}
-
 	//SETTERS SIMPLES -----------------------------------------------------------------------------------------	
-}
 
+
+}
