@@ -23,7 +23,7 @@ public class Dado {
      * post: le da al dado un valor entre VALOR_MINIMO y VALOR_MAXIMO
      */
     public void jugarDado() {
-        this.valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
+        this.valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1); 
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

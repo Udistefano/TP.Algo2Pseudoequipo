@@ -162,7 +162,7 @@ public class Lista<T> {
 	 */
 	
 
-	private Nodo<T> getNodo(int posicion) throws Exception {
+	protected Nodo<T> getNodo(int posicion) throws Exception {
 		validarPosicion(posicion);
 		Nodo<T> actual = this.primero;
 		for(int i = 1; i < posicion; i++) {

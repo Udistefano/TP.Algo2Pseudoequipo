@@ -3,12 +3,12 @@ package tp2prueba;
 public class Ficha {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
-	private Jugador jugador = null;
+ 
 	private char simbolo;
 	
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 	
-	public Ficha(char simbolo) {
+	public Ficha( char simbolo) { 
 		//TODO: validar constructor ficha
 		this.simbolo = simbolo;
 	}

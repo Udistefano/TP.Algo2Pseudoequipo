@@ -59,7 +59,7 @@ public class Pila<T> {
 	public T desapilar() {
 		T elemento = null;
 		if (!this.estaVacia()) {
-			elemento = this.tope.getDato();
+			elemento = this.tope.getDato(); 
 			this.tope = this.tope.getSiguiente();
 			this.tamanio--;
 		}
