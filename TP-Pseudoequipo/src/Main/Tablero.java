@@ -34,27 +34,29 @@ public class Tablero<T> {
 		this.profundidad = profundidad;
 		this.tablero = new Lista<Lista<Lista<Casillero<T>>>>();
 
-		for (int i = 1; i <= ancho; i++) {
+		for (int x = 1; x <= ancho; x++) {
 			Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
-			for (int j = 1; j <= alto; j++) {
+			for (int y = 1; y <= alto; y++) {
 				Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
-				for (int k = 1; k <= profundidad; k++) {
-					Casillero nuevoCasillero = new Casillero<T>(i, j, k);
+				for (int z = 1; z <= profundidad; z++) {
+					Casillero nuevoCasillero = new Casillero<T>(x, y, z);
 					fila.agregar(nuevoCasillero);
 					
 
 				    // Relacionar vecinos, este está en 2 dimensiones para tomar referencia.
-					//Estoy en (i, j), tengo que asignar (i-1, j + 0), (i-1, j-1), (i, j-1) --> esto es en 2 dimensiones.
-					// En 3 dimensiones deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
-					for(int k = -1; k <= 1; k++) {
-						if (this.existeElCasillero(i-1, k)) {
-							
-							relacionarCasillerosVecinos(this.getCasillero(i-1, k), nuevoCasillero, -1, k);					
+					// Estoy en (i, j), tengo que asignar (i-1, j+1), (i-1, j+0), (i-1, j-1), (i, j-1) --> 2D
+					// En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
+					for(int i = -1; i <= 1; i++) {  // sería el eje z
+						for(int k = -1; k <= 1; k++) {
+							if (this.existeElCasillero(x-1, k, i)) { // seria el eje y para un plano
+								relacionarCasillerosVecinos(this.getCasillero(x-1, k, i), nuevoCasillero, -1, k, i);					
+							}
+						}
+						if (this.existeElCasillero(x, y-1, i)) {
+							relacionarCasillerosVecinos(this.getCasillero(x, y-1, i), nuevoCasillero, 0, -1, i);
 						}
 					}
-					if (this.existeElCasillero(i, j-1)) {
-						relacionarCasillerosVecinos(this.getCasillero(i, j-1), nuevoCasillero, 0, -1);
-					}
+					
 				}
 				
 				//Avanzo a siguiente fila para la busqueda de vecinos
@@ -85,10 +87,12 @@ public class Tablero<T> {
 	 */
 	
 	// Este metodo esta en 2 dimensiones, pasar a 3dimensiones y que valide,
-	public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int i, int j) {
+	public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) {
 		//Validar
-		casillero2.setCasilleroVecino(casillero1, i, j);
-		casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(i), Casillero.invertirCoordenadaDeVecino(j));
+		casillero2.setCasilleroVecino(casillero1, x, y, z);
+		casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(x), 
+										Casillero.invertirCoordenadaDeVecino(y), 
+										Casillero.invertirCoordenadaDeVecino(z));
 	}
 	
 	/**
