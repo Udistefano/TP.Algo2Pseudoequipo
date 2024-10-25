@@ -1,4 +1,6 @@
-package tp2prueba;
+package Main;
+
+import Estructuras.Lista;
 
 public class Juego {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------

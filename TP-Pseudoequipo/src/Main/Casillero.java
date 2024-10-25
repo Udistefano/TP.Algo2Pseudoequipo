@@ -1,4 +1,4 @@
-package tp2prueba;
+package Main;
 
 public class Casillero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------

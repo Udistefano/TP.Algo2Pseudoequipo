@@ -1,4 +1,4 @@
-package tp2prueba;
+package Estructuras;
 
 public class NodoDoblementeEnlazado<T> extends Nodo<T> {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------

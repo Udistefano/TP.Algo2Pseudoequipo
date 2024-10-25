@@ -1,4 +1,4 @@
-package tp2prueba;
+package Estructuras;
 
 public class TemplateDeClase {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-package tp2prueba;
+package Main;
 
 import java.util.Random;
 

@@ -1,6 +1,6 @@
-package tp2prueba;
+package Main;
 
-public class main {
+public class Main {
     public static void main(String[] args) {
 //        TestDeDado test = new TestDeDado();
     }

@@ -1,4 +1,4 @@
-package tp2prueba;
+package Main;
 
 public enum TipoDeCarta {
 	PERDER_TURNO,

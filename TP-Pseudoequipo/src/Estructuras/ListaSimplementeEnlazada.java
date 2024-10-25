@@ -1,4 +1,4 @@
-package tp2prueba;
+package Estructuras;
 
 public class ListaSimplementeEnlazada<T> extends Lista<T> {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
-package tp2prueba;
-
-import ar.uba.fi.cb100.semana07.jueves.Casillero;
+package Main;
 
 /*
  * Este tablero esta implementado en 2 dimensiones, 
  * hay que implementarlo en 3 dimensiones.
  * Faltan los metodos tambien.
  */
+
+import Estructuras.Lista;
 
 public class Tablero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ public class Tablero<T> {
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 	
 	/**
-	 * 
+	 * TODO: documentar pre post de Tablero constructor
 	 * @param ancho
 	 * @param alto
 	 * @param profundidad

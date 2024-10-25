@@ -1,4 +1,4 @@
-package tests;
+package Tests;
 
 public class TestDeCarta {
 

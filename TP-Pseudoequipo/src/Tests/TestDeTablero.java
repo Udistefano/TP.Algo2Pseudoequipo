@@ -1,10 +1,10 @@
-package tests;
+package Tests;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-import tp2prueba.Ficha;
-import tp2prueba.Tablero;
+import Main.Ficha;
+import Main.Tablero;
 
 public class TestDeTablero {
 	

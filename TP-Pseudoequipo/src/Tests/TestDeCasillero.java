@@ -1,8 +1,8 @@
-package tests;
+package Tests;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import tp2prueba.Casillero;
+import Main.Casillero;
 
 public class TestDeCasillero {
 
