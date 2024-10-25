@@ -36,8 +36,12 @@ public class Tablero<T> {
 
 		for (int x = 1; x <= ancho; x++) {
 			Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
+			this.tablero.agregar(plano);
+
 			for (int y = 1; y <= alto; y++) {
 				Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
+				plano.agregar(fila);
+
 				for (int z = 1; z <= profundidad; z++) {
 					Casillero nuevoCasillero = new Casillero<T>(x, y, z);
 					fila.agregar(nuevoCasillero);
@@ -61,14 +65,8 @@ public class Tablero<T> {
 				
 				//Avanzo a siguiente fila para la busqueda de vecinos
 				this.tablero.avanzarCursor();
-					
-					
-				plano.agregar(fila);
 			}
-
-			this.tablero.agregar(plano);
 		}
-		
 	}
 
 
