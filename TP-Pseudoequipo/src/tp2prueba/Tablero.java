@@ -1,5 +1,7 @@
 package tp2prueba;
 
+import ar.uba.fi.cb100.semana07.jueves.Casillero;
+
 /*
  * Este tablero esta implementado en 2 dimensiones, 
  * hay que implementarlo en 3 dimensiones.
@@ -40,8 +42,28 @@ public class Tablero<T> {
 			for (int j = 1; j <= alto; j++) {
 				Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
 				for (int k = 1; k <= profundidad; k++) {
-					fila.agregar(new Casillero<T>(i, j, k));
+					Casillero nuevoCasillero = new Casillero<T>(i, j, k);
+					fila.agregar(nuevoCasillero);
+					
+
+				    // Relacionar vecinos, este está en 2 dimensiones para tomar referencia.
+					//Estoy en (i, j), tengo que asignar (i-1, j + 0), (i-1, j-1), (i, j-1) --> esto es en 2 dimensiones.
+					// En 3 dimensiones deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
+					for(int k = -1; k <= 1; k++) {
+						if (this.existeElCasillero(i-1, k)) {
+							
+							relacionarCasillerosVecinos(this.getCasillero(i-1, k), nuevoCasillero, -1, k);					
+						}
+					}
+					if (this.existeElCasillero(i, j-1)) {
+						relacionarCasillerosVecinos(this.getCasillero(i, j-1), nuevoCasillero, 0, -1);
+					}
 				}
+				
+				//Avanzo a siguiente fila para la busqueda de vecinos
+				this.tablero.avanzarCursor();
+					
+					
 				plano.agregar(fila);
 			}
 
@@ -50,11 +72,29 @@ public class Tablero<T> {
 		
 	}
 
+
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
 //METODOS GENERALES ---------------------------------------------------------------------------------------
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
-
+	/**
+	 * pre:
+	 * @param casillero1: no puede ser vacio
+	 * @param casillero2: no puede ser vacio
+	 * @param i: rango entre -1, 0 y 1
+	 * @param j: rango entre -1, 0 y 1
+	 * post: relaciona los dos vecinos en sus matrices de vecinos, en el casillero1 como i y j, y en casillero2
+	 *       como el opuesto
+	 */
+	
+	// Este metodo esta en 2 dimensiones, pasar a 3dimensiones y que valide,
+	public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int i, int j) {
+		//Validar
+		casillero2.setCasilleroVecino(casillero1, i, j);
+		casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(i), Casillero.invertirCoordenadaDeVecino(j));
+	}
+	
+	
 	
 	/**
 	 * TODO: documentar metodos de comportamiento de tablero

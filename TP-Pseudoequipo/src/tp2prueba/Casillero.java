@@ -1,7 +1,5 @@
 package tp2prueba;
 
-import ar.uba.fi.cb100.semana07.jueves.Casillero;
-
 public class Casillero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	public static int CANTIDAD_DE_VECINOS = 9; // Esto no se valido todavia
