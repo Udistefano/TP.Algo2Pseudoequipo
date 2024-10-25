@@ -131,6 +131,14 @@ public class Casillero<T> {
 				return this.vecinos[1][2] != null;
 			case IZQUIERDA:
 				return this.vecinos[1][0] != null;
+			case DERECHA_ARRIBA:
+				return this.vecinos[0][2] != null;
+			case DERECHA_ABAJO:
+				return this.vecinos[2][2] != null;
+			case IZQUIERDA_ARRIBA:
+				return this.vecinos[0][0] != null;
+			case IZQUIERDA_ABAJO:
+				return this.vecinos[2][0] != null;
 			default:
 				throw new Exception("No se encontro el casillero vecino para chequear su existencia");
 		}
@@ -187,12 +195,22 @@ public class Casillero<T> {
 	/**
 	 * pre:
 	 * @param movimiento un movimiento en 2D, no puede ser nulo
-	 * @return el casillero vecino que este en la direccion 'movimiento'
+	 * @return el casillero vecino que este en la movimiento pasada por parametro
 	 * @throws Exception si no es un movimiento valido o si es nulo
 	 */
 	public Casillero<T> getCasilleroVecino(Movimiento movimiento) throws Exception {
+		return this.getCasilleroVecino(Direccion.valueOf(movimiento.toString()));
+	}
+
+	/**
+	 * pre:
+	 * @param direccion un direccion en 2D, no puede ser nulo
+	 * @return el casillero vecino que este en la direccion pasada por parametro
+	 * @throws Exception si no es un direccion valido o si es nulo
+	 */
+	public Casillero<T> getCasilleroVecino(Direccion direccion) throws Exception {
 		// TODO: implemento getCasilleroVecino en 2D, hay que implementarlo en 3D con ADELANTE, ATRAS
-		switch (movimiento) {
+		switch (direccion) {
 			case ABAJO:
 				return this.vecinos[2][1];
 			case ARRIBA:
@@ -201,6 +219,14 @@ public class Casillero<T> {
 				return this.vecinos[1][2];
 			case IZQUIERDA:
 				return this.vecinos[1][0];
+			case DERECHA_ARRIBA:
+				return this.vecinos[0][2];
+			case DERECHA_ABAJO:
+				return this.vecinos[2][2];
+			case IZQUIERDA_ARRIBA:
+				return this.vecinos[0][0];
+			case IZQUIERDA_ABAJO:
+				return this.vecinos[2][0];
 			default:
 				throw new Exception("No se encontro el casillero vecino");
 		}

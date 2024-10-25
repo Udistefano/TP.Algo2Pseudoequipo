@@ -91,8 +91,6 @@ public class Tablero<T> {
 		casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(i), Casillero.invertirCoordenadaDeVecino(j));
 	}
 	
-	
-	
 	/**
 	 * TODO: documentar metodos de comportamiento de tablero
 	 * @param x
