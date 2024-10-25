@@ -23,7 +23,7 @@ public class Casillero<T> {
 	 */
 	@SuppressWarnings("unchecked")
 	public Casillero(int x, int y, int z) throws Exception {
-		this.validarCoordenadas(x, y, z);
+		validarCoordenadas(x, y, z);
 
 		this.x = x;
 		this.y = y;
@@ -122,20 +122,42 @@ public class Casillero<T> {
 	public T getDato() {
 		return this.dato;
 	}
-	
-	/**
-     * pre: 
-     * @param x: -1, 0 o 1 para indicar izquierda, centro o derecha respectivamente
-     * @param y: -1, 0 o 1 para indicar arriba, centro o abajo respectivamente
-     * @param z: -1, 0 o 1 para indicar delante, centro o detrás respectivamente
-     * @return devuelve el casillero vecino
-	 * @throws Exception si alguna de las coordenadas es menor a 1
-     */
-    public Casillero<T> getCasilleroVecino(int x, int y, int z) throws Exception {
-		this.validarCoordenadas(x, y, z);
 
-        return this.vecinos[x + 1][y + 1][z + 1]; // Ajustar índice para matriz 3x3x3
-    }
+//	/**
+//     * pre:
+//     * @param x: -1, 0 o 1 para indicar izquierda, centro o derecha respectivamente
+//     * @param y: -1, 0 o 1 para indicar arriba, centro o abajo respectivamente
+//     * @param z: -1, 0 o 1 para indicar delante, centro o detrás respectivamente
+//     * @return devuelve el casillero vecino
+//	 * @throws Exception si alguna de las coordenadas es menor a 1
+//     */
+//    public Casillero<T> getCasilleroVecino(int x, int y, int z) throws Exception {
+//		validarCoordenadas(x, y, z);
+//
+//        return this.vecinos[x + 1][y + 1][z + 1]; // Ajustar índice para matriz 3x3x3
+//    }
+
+	/**
+	 * pre:
+	 * @param movimiento no debe ser nulo
+	 * @return el casillero vecino que este en la direccion 'movimiento'
+	 * @throws Exception si no es un movimiento valido o si es nulo
+	 */
+	public Casillero<T> getCasilleroVecino(Movimiento movimiento) throws Exception {
+		// TODO: implemento getCasilleroVecino en 2D, hay que implementarlo en 3D con ADELANTE, ATRAS
+		switch (movimiento) {
+			case ABAJO:
+				return this.vecinos[2][1];
+			case ARRIBA:
+				return this.vecinos[0][1];
+			case DERECHA:
+				return this.vecinos[1][2];
+			case IZQUIERDA:
+				return this.vecinos[1][0];
+			default:
+				throw new Exception("No se encontro el casillero vecino");
+		}
+	}
 
     /**
 	 * pre: --
