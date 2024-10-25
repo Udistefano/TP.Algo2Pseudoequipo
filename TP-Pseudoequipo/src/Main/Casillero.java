@@ -2,33 +2,33 @@ package Main;
 
 public class Casillero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
-	public static int CANTIDAD_DE_VECINOS = 9; // Esto no se valido todavia
+	public static int CANTIDAD_DE_VECINOS = 3; // Esto no se valido todavia
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 	
 	private int x = 0;
 	private int y = 0;
 	private int z = 0;
 	private T dato = null;
-	private Casillero<T>[][][] vecinos;
+	private Casillero<T>[][][] vecinos = null;
 	
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 	
 	/**
 	 * pre:
-	 * @param x: 1 o mayor
-	 * @param y: 1 o mayor
-	 * @param z: 1 o mayor
+	 * @param x debe ser mayor o igual a 1
+	 * @param y debe ser mayor o igual a 1
+	 * @param z debe ser mayor o igual a 1
 	 * @throws Exception si alguno de los parametros es menor a 1
+	 * post: crea un casillero con las coordenadas pasadas por parametros y sus vecinos
 	 */
+	@SuppressWarnings("unchecked")
 	public Casillero(int x, int y, int z) throws Exception {
-		validarCoordenada(x);
-		validarCoordenada(y);
-		validarCoordenada(z);
+		this.validarCoordenadas(x, y, z);
 
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.vecinos = new Casillero[CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS];
+		this.vecinos =  new Casillero[CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS];
         for (int i = 0; i < this.vecinos.length ; i++) {
             for (int j = 0; j < this.vecinos.length; j++) {
                 for (int k = 0; k < this.vecinos.length; k++) {
@@ -56,18 +56,33 @@ public class Casillero<T> {
 	public String toString() {	
 		return "Casillero (" + this.x + ", " + this.y + ", " + this.z + ")";
 	}
+
 	/**
-	 * pre: --
-	 * @param coordenada
-	 * @throws Exception
-	 * post: Se valida que las coordenadas sean positivas y mayores a 0
+	 * pre:
+	 * @param x debe ser mayor o igual a 1
+	 * @param y debe ser mayor o igual a 1
+	 * @param z debe ser mayor o igual a 1
+	 * @throws Exception si alguna de las coordenadas es menor a 1
+	 * post: valida que las coordenadas sean mayores o igual a 1
+	 */
+	public static void validarCoordenadas(int x, int y, int z) throws Exception {
+		validarCoordenada(x);
+		validarCoordenada(y);
+		validarCoordenada(z);
+	}
+
+	/**
+	 * pre:
+	 * @param coordenada debe ser mayor o igual a 1
+	 * @throws Exception si la coordenada es menor a 1
+	 * post: Se valida que las coordenada sea mayor o igual a 1
 	 */
 	public static void validarCoordenada(int coordenada) throws Exception {
 		if(coordenada < 1) {
 			throw new Exception("La coordenada " + coordenada + " debe ser mayor a 1");
 		}
 	}
-	
+
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 	
 	public boolean estaOcupado() {
@@ -114,23 +129,22 @@ public class Casillero<T> {
      * @param y: -1, 0 o 1 para indicar arriba, centro o abajo respectivamente
      * @param z: -1, 0 o 1 para indicar delante, centro o detrás respectivamente
      * @return devuelve el casillero vecino
-	 * @throws Exception 
+	 * @throws Exception si alguna de las coordenadas es menor a 1
      */
     public Casillero<T> getCasilleroVecino(int x, int y, int z) throws Exception {
-    	validarCoordenada(x);
-    	validarCoordenada(y);
-    	validarCoordenada(z);
+		this.validarCoordenadas(x, y, z);
+
         return this.vecinos[x + 1][y + 1][z + 1]; // Ajustar índice para matriz 3x3x3
     }
-    
 
     /**
-     * Devuelve una matriz 3D con los vecinos, y el casillero actual en el centro
-     * @return
+	 * pre: --
+     * @return Devuelve una matriz 3D con los vecinos, y el casillero actual en el centro
      */
     @SuppressWarnings("unchecked")
     public Casillero<T>[][][] getCasillerosVecinos() {
         Casillero<T>[][][] matriz = new Casillero[3][3][3];
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 3; k++) {
@@ -138,6 +152,7 @@ public class Casillero<T> {
                 }
             }
         }
+
         return matriz;
     }
 		

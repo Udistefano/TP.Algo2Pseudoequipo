@@ -20,17 +20,14 @@ public class Tablero<T> {
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 	
 	/**
-	 * TODO: documentar pre post de Tablero constructor
-	 * @param ancho
-	 * @param alto
-	 * @param profundidad
-	 * @throws Exception 
+	 * @param ancho debe ser mayor o igual a 1
+	 * @param alto debe ser mayor o igual a 1
+	 * @param profundidad debe ser mayor o igual a 1
+	 * @throws Exception si alguna de las coordenadas es menor a 1
 	 * post: crea un tablero de ancho 'ancho' contando de 1 a ancho inclusive
 	 */
 	public Tablero(int ancho, int alto, int profundidad) throws Exception {
-		Casillero.validarCoordenada(ancho);
-		Casillero.validarCoordenada(alto);
-		Casillero.validarCoordenada(profundidad);
+		Casillero.validarCoordenadas(ancho, alto, profundidad);
 
 		this.ancho = ancho;
 		this.alto = alto;
