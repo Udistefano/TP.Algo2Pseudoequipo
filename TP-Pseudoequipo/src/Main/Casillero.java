@@ -84,9 +84,56 @@ public class Casillero<T> {
 	}
 
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
-	
+
+	/**
+	 * pre: --
+	 * post: elimina el dato del casillero
+	 */
+	public void vaciar() {
+		this.setDato(null);
+	}
+
+	/**
+	 * pre: --
+	 * @return verdadero si hay un dato en casillero, falso si el casillero esta vacio
+	 */
 	public boolean estaOcupado() {
 		return this.dato != null;
+	}
+
+	/**
+	 * pre:
+	 * @param dato no puede ser nulo
+	 * @return verdadero si el dato del casillero equivale al dato pasado por parametro, falso no si equivale
+	 * @throws Exception si el dato es nulo
+	 */
+	public boolean tiene(T dato) throws Exception {
+		if (dato == null) {
+			throw new Exception("El dato no puede ser nulo");
+		}
+		return this.dato.equals(dato);
+	}
+
+	/**
+	 * pre:
+	 * @param movimiento un movimiento en 2D, no puede ser nulo
+	 * @return verdadero si existe el casillero vecino que este en la direccion 'movimiento', falso si no existe
+	 * @throws Exception si no es un movimiento valido o si es nulo
+	 */
+	public boolean existeElVecino(Movimiento movimiento) throws Exception {
+		// TODO: implemento existeElVecino en 2D, hay que implementarlo en 3D con ADELANTE, ATRAS
+		switch (movimiento) {
+			case ABAJO:
+				return this.vecinos[2][1] != null;
+			case ARRIBA:
+				return this.vecinos[0][1] != null;
+			case DERECHA:
+				return this.vecinos[1][2] != null;
+			case IZQUIERDA:
+				return this.vecinos[1][0] != null;
+			default:
+				throw new Exception("No se encontro el casillero vecino para chequear su existencia");
+		}
 	}
 	
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -139,7 +186,7 @@ public class Casillero<T> {
 
 	/**
 	 * pre:
-	 * @param movimiento no debe ser nulo
+	 * @param movimiento un movimiento en 2D, no puede ser nulo
 	 * @return el casillero vecino que este en la direccion 'movimiento'
 	 * @throws Exception si no es un movimiento valido o si es nulo
 	 */
