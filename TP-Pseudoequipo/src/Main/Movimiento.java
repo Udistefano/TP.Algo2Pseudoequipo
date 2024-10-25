@@ -1,9 +1,12 @@
 package Main;
 
-// TODO: implemento el Enum Movimiento en 2D, hay que implementarlo en 3D con ADELANTE, ATRAS
+// Para indicar los movimientos de la ficha (por ejemplo para mover una ficha)
+// No se puede mover en diagonal la ficha (CREO?¿)
 public enum Movimiento {
     ARRIBA,
     ABAJO,
     IZQUIERDA,
-    DERECHA
+    DERECHA,
+    ADELANTE,
+    ATRAS
 }

@@ -116,29 +116,24 @@ public class Casillero<T> {
 
 	/**
 	 * pre:
-	 * @param movimiento un movimiento en 2D, no puede ser nulo
+	 * @param movimiento un movimiento en 3D, no puede ser nulo
 	 * @return verdadero si existe el casillero vecino que este en la direccion 'movimiento', falso si no existe
 	 * @throws Exception si no es un movimiento valido o si es nulo
 	 */
 	public boolean existeElVecino(Movimiento movimiento) throws Exception {
-		// TODO: implemento existeElVecino en 2D, hay que implementarlo en 3D con ADELANTE, ATRAS
 		switch (movimiento) {
 			case ABAJO:
-				return this.vecinos[2][1] != null;
+				return this.vecinos[2][1][1] != null;
 			case ARRIBA:
-				return this.vecinos[0][1] != null;
+				return this.vecinos[0][1][1] != null;
 			case DERECHA:
-				return this.vecinos[1][2] != null;
+				return this.vecinos[1][2][1] != null;
 			case IZQUIERDA:
-				return this.vecinos[1][0] != null;
-			case DERECHA_ARRIBA:
-				return this.vecinos[0][2] != null;
-			case DERECHA_ABAJO:
-				return this.vecinos[2][2] != null;
-			case IZQUIERDA_ARRIBA:
-				return this.vecinos[0][0] != null;
-			case IZQUIERDA_ABAJO:
-				return this.vecinos[2][0] != null;
+				return this.vecinos[1][0][1] != null;
+			case ADELANTE:
+				return this.vecinos[1][1][0] != null;
+			case ATRAS:
+				return this.vecinos[1][1][2] != null;
 			default:
 				throw new Exception("No se encontro el casillero vecino para chequear su existencia");
 		}
@@ -194,7 +189,7 @@ public class Casillero<T> {
 
 	/**
 	 * pre:
-	 * @param movimiento un movimiento en 2D, no puede ser nulo
+	 * @param movimiento un movimiento en 3D, no puede ser nulo
 	 * @return el casillero vecino que este en la movimiento pasada por parametro
 	 * @throws Exception si no es un movimiento valido o si es nulo
 	 */
@@ -204,29 +199,60 @@ public class Casillero<T> {
 
 	/**
 	 * pre:
-	 * @param direccion un direccion en 2D, no puede ser nulo
+	 * @param direccion un direccion en 3D, no puede ser nulo
 	 * @return el casillero vecino que este en la direccion pasada por parametro
 	 * @throws Exception si no es un direccion valido o si es nulo
 	 */
 	public Casillero<T> getCasilleroVecino(Direccion direccion) throws Exception {
-		// TODO: implemento getCasilleroVecino en 2D, hay que implementarlo en 3D con ADELANTE, ATRAS
 		switch (direccion) {
-			case ABAJO:
-				return this.vecinos[2][1];
-			case ARRIBA:
-				return this.vecinos[0][1];
-			case DERECHA:
-				return this.vecinos[1][2];
-			case IZQUIERDA:
-				return this.vecinos[1][0];
-			case DERECHA_ARRIBA:
-				return this.vecinos[0][2];
-			case DERECHA_ABAJO:
-				return this.vecinos[2][2];
-			case IZQUIERDA_ARRIBA:
-				return this.vecinos[0][0];
-			case IZQUIERDA_ABAJO:
-				return this.vecinos[2][0];
+			case ATRAS_ABAJO:
+				return this.vecinos[2][1][0];
+			case ATRAS_ARRIBA:
+				return this.vecinos[0][1][0];
+			case ATRAS_DERECHA:
+				return this.vecinos[1][2][0];
+			case ATRAS_IZQUIERDA:
+				return this.vecinos[1][0][0];
+			case ATRAS_DERECHA_ARRIBA:
+				return this.vecinos[0][2][0];
+			case ATRAS_DERECHA_ABAJO:
+				return this.vecinos[2][2][0];
+			case ATRAS_IZQUIERDA_ARRIBA:
+				return this.vecinos[0][0][0];
+			case ATRAS_IZQUIERDA_ABAJO:
+				return this.vecinos[2][0][0];
+			case CENTRO_ABAJO:
+				return this.vecinos[2][1][1];
+			case CENTRO_ARRIBA:
+				return this.vecinos[0][1][1];
+			case CENTRO_DERECHA:
+				return this.vecinos[1][2][1];
+			case CENTRO_IZQUIERDA:
+				return this.vecinos[1][0][1];
+			case CENTRO_DERECHA_ARRIBA:
+				return this.vecinos[0][2][1];
+			case CENTRO_DERECHA_ABAJO:
+				return this.vecinos[2][2][1];
+			case CENTRO_IZQUIERDA_ARRIBA:
+				return this.vecinos[0][0][1];
+			case CENTRO_IZQUIERDA_ABAJO:
+				return this.vecinos[2][0][1];
+			case ADELANTE_ABAJO:
+				return this.vecinos[2][1][2];
+			case ADELANTE_ARRIBA:
+				return this.vecinos[0][1][2];
+			case ADELANTE_DERECHA:
+				return this.vecinos[1][2][2];
+			case ADELANTE_IZQUIERDA:
+				return this.vecinos[1][0][2];
+			case ADELANTE_DERECHA_ARRIBA:
+				return this.vecinos[0][2][2];
+			case ADELANTE_DERECHA_ABAJO:
+				return this.vecinos[2][2][2];
+			case ADELANTE_IZQUIERDA_ARRIBA:
+				return this.vecinos[0][0][2];
+			case ADELANTE_IZQUIERDA_ABAJO:
+				return this.vecinos[2][0][2];
 			default:
 				throw new Exception("No se encontro el casillero vecino");
 		}
