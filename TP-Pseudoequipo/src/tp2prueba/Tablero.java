@@ -47,12 +47,15 @@ public class Tablero<T> {
 
 			this.tablero.agregar(plano);
 		}
+		
 	}
 
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
 //METODOS GENERALES ---------------------------------------------------------------------------------------
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
+
+	
 	/**
 	 * TODO: documentar metodos de comportamiento de tablero
 	 * @param x
@@ -77,6 +80,19 @@ public class Tablero<T> {
 	public Casillero<T> getCasillero(int x, int y, int z) throws Exception {
 		//validar
 		return this.tablero.obtener(x).obtener(y).obtener(z);
+	}
+	
+	public boolean existeElCasillero(int x, int y, int z) throws Exception {
+		boolean existe = true;
+		if ((x < 1) || (y < 1) || (z < 1)){
+			   existe = false;
+		   }
+		if ((x > getAncho()) ||
+			(y > getAlto()) || 
+			(z > getProfundidad())) {
+				existe = false;
+		}
+		return existe;
 	}
 
 	/**
