@@ -111,6 +111,9 @@ public class Casillero<T> {
 		if (dato == null) {
 			throw new Exception("El dato no puede ser nulo");
 		}
+		if (this.dato == null) {
+			return false;
+		}
 		return this.dato.equals(dato);
 	}
 
