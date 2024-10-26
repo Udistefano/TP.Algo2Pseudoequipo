@@ -36,36 +36,40 @@ public class Tablero<T> {
         this.profundidad = profundidad;
         this.tablero = new Lista<Lista<Lista<Casillero<T>>>>();
 
-        for (int x = 1; x <= ancho; x++) {
+        for (int x = 1; x <= this.getAncho(); x++) {
             Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
             this.tablero.agregar(plano);
 
-            for (int y = 1; y <= alto; y++) {
+            for (int y = 1; y <= this.getAlto(); y++) {
                 Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
                 plano.agregar(fila);
 
-                for (int z = 1; z <= profundidad; z++) {
+                for (int z = 1; z <= this.getProfundidad(); z++) {
                     Casillero<T> nuevoCasillero = new Casillero<T>(x, y, z);
                     fila.agregar(nuevoCasillero);
+                }
+            }
+        }
 
+        for (int x = 1; x <= this.getAncho(); x++) {
+            for (int y = 1; y <= this.getAlto(); y++) {
+                for (int z = 1; z <= this.getProfundidad(); z++) {
+                    Casillero<T> casillero = this.getCasillero(x, y, z);
 
                     // Relacionar vecinos, este está en 2 dimensiones para tomar referencia.
                     // Estoy en (i, j), tengo que asignar (i-1, j+1), (i-1, j+0), (i-1, j-1), (i, j-1) --> 2D
                     // En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
                     for (int i = -1; i <= 1; i++) {  // sería el eje z
                         for (int j = -1; j <= 1; j++) {
-                            if (this.existeElCasillero(x - 1, j, i)) { // seria el eje y para un plano
-                                relacionarCasillerosVecinos(this.getCasillero(x - 1, j, i), nuevoCasillero, -1, j, i);
+                            if (this.existeElCasillero(x - 1, j, z + i)) { // seria el eje y para un plano
+                                relacionarCasillerosVecinos(this.getCasillero(x - 1, j, z + i), casillero, -1, j, i);
                             }
                         }
-                        if (this.existeElCasillero(x, y - 1, i)) {
-                            relacionarCasillerosVecinos(this.getCasillero(x, y - 1, i), nuevoCasillero, 0, -1, i);
+                        if (this.existeElCasillero(x, y - 1, z + i)) {
+                            relacionarCasillerosVecinos(this.getCasillero(x, y - 1, z + i), casillero, 0, -1, i);
                         }
                     }
                 }
-
-                // Avanzo a siguiente fila para la busqueda de vecinos
-                this.tablero.avanzarCursor();
             }
         }
     }
@@ -168,9 +172,12 @@ public class Tablero<T> {
                 (z < 1)) {
             return false;
         }
-        return (x <= this.tablero.getLongitud()) &&
-                (y <= this.tablero.obtener(x).getLongitud()) &&
-                (z <= this.tablero.obtener(x).obtener(y).getLongitud());
+        if ((x > this.getAncho()) ||
+                (y > this.getAlto()) ||
+                (z > this.getProfundidad())) {
+            return false;
+        }
+        return true;
     }
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
