@@ -41,22 +41,6 @@ public class Casillero<T> {
 	
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
 
-	//METODOS DE CLASE ----------------------------------------------------------------------------------------
-	public static int invertirCoordenadaDeVecino(int i) {
-	    return -i;
-	}
-	
-//METODOS GENERALES ---------------------------------------------------------------------------------------
-
-	/**
-	 * pre: -
-	 * @return una cadena mostrando las coordenadas del casillero
-	 */
-	@Override
-	public String toString() {	
-		return "Casillero (" + this.x + ", " + this.y + ", " + this.z + ")";
-	}
-
 	/**
 	 * pre:
 	 * @param x debe ser mayor o igual a 1
@@ -81,6 +65,21 @@ public class Casillero<T> {
 		if(coordenada < 1) {
 			throw new Exception("La coordenada " + coordenada + " debe ser mayor a 1");
 		}
+	}
+
+	public static int invertirCoordenadaDeVecino(int i) {
+	    return -i;
+	}
+
+//METODOS GENERALES ---------------------------------------------------------------------------------------
+
+	/**
+	 * pre: -
+	 * @return una cadena mostrando las coordenadas del casillero
+	 */
+	@Override
+	public String toString() {
+		return "Casillero (" + this.x + ", " + this.y + ", " + this.z + ")";
 	}
 
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
