@@ -29,7 +29,7 @@ public class Casillero<T> {
 		this.y = y;
 		this.z = z;
 		this.vecinos =  new Casillero[CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS][CANTIDAD_DE_VECINOS];
-        for (int i = 0; i < this.vecinos.length ; i++) {
+		for (int i = 0; i < this.vecinos.length ; i++) {
             for (int j = 0; j < this.vecinos.length; j++) {
                 for (int k = 0; k < this.vecinos.length; k++) {
                     this.vecinos[i][j][k] = null;
@@ -272,7 +272,6 @@ public class Casillero<T> {
             for (int j = 0; j < 3; j++) {
                 for (int k = 0; k < 3; k++) {
                     matriz[i][j][k] = this.vecinos[i][j][k];
-                }
             }
         }
 
@@ -296,8 +295,13 @@ public class Casillero<T> {
      * @param x: -1, 0 o 1 para indicar izquierda, centro o derecha respectivamente
      * @param y: -1, 0 o 1 para indicar arriba, centro o abajo respectivamente
      * @param z: -1, 0 o 1 para indicar delante, centro o detrás respectivamente
+	 * @throws Exception 
      */
-    public void setCasilleroVecino(Casillero<T> casillero, int x, int y, int z) {
-        this.vecinos[x + 1][y + 1][z + 1] = casillero;
+	// Cambiar la lógica para acceder a los vecinos al obtener y establecer
+    public void setCasilleroVecino(Casillero<T> casillero, int x, int y, int z) throws Exception {
+        if (x < -1 || x > 1 || y < -1 || y > 1 || z < -1 || z > 1) {
+            throw new Exception("Los índices deben estar en el rango de -1 a 1");
+        }
+        this.vecinos[x + 1][y + 1][z + 1] = casillero; // Ajuste de índice
     }
 }

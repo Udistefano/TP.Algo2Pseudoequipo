@@ -37,36 +37,41 @@ public class Tablero<T> {
         this.tablero = new Lista<Lista<Lista<Casillero<T>>>>();
 
         for (int x = 1; x <= ancho; x++) {
-            Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
-            this.tablero.agregar(plano);
+        	Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
+        	this.tablero.agregar(plano);
 
-            for (int y = 1; y <= alto; y++) {
-                Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
-                plano.agregar(fila);
+        	for (int y = 1; y <= alto; y++) {
+        		Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
+        		plano.agregar(fila);
 
-                for (int z = 1; z <= profundidad; z++) {
-                    Casillero<T> nuevoCasillero = new Casillero<T>(x, y, z);
-                    fila.agregar(nuevoCasillero);
+        		for (int z = 1; z <= profundidad; z++) {
+        			Casillero<T> nuevoCasillero = new Casillero<T>(x, y, z);
+        			fila.agregar(nuevoCasillero);
 
 
-                    // Relacionar vecinos, este está en 2 dimensiones para tomar referencia.
-                    // Estoy en (i, j), tengo que asignar (i-1, j+1), (i-1, j+0), (i-1, j-1), (i, j-1) --> 2D
-                    // En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
-                    for (int i = -1; i <= 1; i++) {  // sería el eje z
-                        for (int j = -1; j <= 1; j++) {
-                            if (this.existeElCasillero(x - 1, j, i)) { // seria el eje y para un plano
-                                relacionarCasillerosVecinos(this.getCasillero(x - 1, j, i), nuevoCasillero, -1, j, i);
-                            }
-                        }
-                        if (this.existeElCasillero(x, y - 1, i)) {
-                            relacionarCasillerosVecinos(this.getCasillero(x, y - 1, i), nuevoCasillero, 0, -1, i);
-                        }
-                    }
-                }
+        			// Relacionar vecinos, este está en 2 dimensiones para tomar referencia.
+        			// Estoy en (i, j), tengo que asignar (i-1, j+1), (i-1, j+0), (i-1, j-1), (i, j-1) --> 2D
+        			// En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
+        			for (int dx = -1; dx <= 1; dx++) { // eje x
+        				for (int dy = -1; dy <= 1; dy++) { // eje y
+        					for (int dz = -1; dz <= 1; dz++) { // eje z
+        						if (!(dx == 0 && dy == 0 && dz == 0)) { // no relacionar consigo mismo
+        							if (this.existeElCasillero(x + dx, y + dy, z + dz)) {
+        								relacionarCasillerosVecinos(
+        										nuevoCasillero, 
+        										this.getCasillero(x + dx, y + dy, z + dz), 
+        										dx, dy, dz
+        										);
+        							}
+        						}
+        					}
+        				}
+        			}
 
-                // Avanzo a siguiente fila para la busqueda de vecinos
-                this.tablero.avanzarCursor();
-            }
+        			// Avanzo a siguiente fila para la busqueda de vecinos
+        			this.tablero.avanzarCursor();
+        		}
+        }
         }
     }
 
@@ -85,19 +90,12 @@ public class Tablero<T> {
      *                    post: relaciona los dos vecinos en sus matrices de vecinos, en el casillero1 como x, y, z, y en casillero2
      *                    como el opuesto
      */
-    public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) throws Exception {
-//        if (!this.existeElCasillero(x, y, z)) {
-//            throw new Exception("Coordenadas de casillero vecino invalidas");
-//        }
-        if ((casillero1 == null) ||
-                (casillero2 == null)) {
+    public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int dx, int dy, int dz) throws Exception {
+        if ((casillero1 == null) || (casillero2 == null)) {
             throw new Exception("El casillero no puede ser nulo");
         }
-
-        casillero2.setCasilleroVecino(casillero1, x, y, z);
-        casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(x),
-                Casillero.invertirCoordenadaDeVecino(y),
-                Casillero.invertirCoordenadaDeVecino(z));
+        casillero2.setCasilleroVecino(casillero1, dx, dy, dz);
+        casillero1.setCasilleroVecino(casillero2, -dx, -dy, -dz);
     }
 
     /**

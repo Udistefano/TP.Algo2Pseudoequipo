@@ -1,12 +1,15 @@
 package Tests;
 
+import Main.Dado;
+import Main.Ficha;
+import Main.Movimiento;
 import Main.Tablero;
 
 public class MainVecinos {
 
 	public static void main(String[] args) throws Exception {
-		Tablero<String> tablero = new Tablero<String>(3, 3, 3);
-
+		
+		Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
 		System.out.println(tablero.getCasillero(2, 2, 2));
 		System.out.println("Tablero de " + tablero.getAlto() + " x " + tablero.getAncho());
 
