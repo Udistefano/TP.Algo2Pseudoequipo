@@ -20,6 +20,8 @@ public class Tablero<T> {
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
     /**
+     * pre:
+     *
      * @param ancho       debe ser mayor o igual a 1
      * @param alto        debe ser mayor o igual a 1
      * @param profundidad debe ser mayor o igual a 1
@@ -52,11 +54,11 @@ public class Tablero<T> {
                     // En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
                     for (int i = -1; i <= 1; i++) {  // sería el eje z
                         for (int j = -1; j <= 1; j++) {
-                            if (this.existeElCasilleroVecino(x - 1, j, i)) { // seria el eje y para un plano
+                            if (this.existeElCasillero(x - 1, j, i)) { // seria el eje y para un plano
                                 relacionarCasillerosVecinos(this.getCasillero(x - 1, j, i), nuevoCasillero, -1, j, i);
                             }
                         }
-                        if (this.existeElCasilleroVecino(x, y - 1, i)) {
+                        if (this.existeElCasillero(x, y - 1, i)) {
                             relacionarCasillerosVecinos(this.getCasillero(x, y - 1, i), nuevoCasillero, 0, -1, i);
                         }
                     }
@@ -74,6 +76,7 @@ public class Tablero<T> {
 
     /**
      * pre:
+     *
      * @param casillero1: no puede ser nulo
      * @param casillero2: no puede ser nulo
      * @param x:          rango entre -1, 0 y 1
@@ -83,9 +86,9 @@ public class Tablero<T> {
      *                    como el opuesto
      */
     public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) throws Exception {
-        if (!this.existeElCasilleroVecino(x, y, z)) {
-            throw new Exception("Coordenadas de casillero vecino invalidas");
-        }
+//        if (!this.existeElCasillero(x, y, z)) {
+//            throw new Exception("Coordenadas de casillero vecino invalidas");
+//        }
         if ((casillero1 == null) ||
                 (casillero2 == null)) {
             throw new Exception("El casillero no puede ser nulo");
@@ -98,9 +101,11 @@ public class Tablero<T> {
     }
 
     /**
-     * @param x     no puede ser menor a 1 ni mayor a this.getAncho()
-     * @param y     no puede ser menor a 1 ni mayor a this.getAlto()
-     * @param z     no puede ser menor a 1 ni mayor a this.getProfundidad()
+     * pre:
+     *
+     * @param x     no puede ser menor a 1 ni mayor al ancho del tablero
+     * @param y     no puede ser menor a 1 ni mayor al alto del tablero
+     * @param z     no puede ser menor a 1 ni mayor a la profundidad del tablero
      * @param ficha no puede ser nula
      * @throws Exception si no existe el casillero o si la ficha es nula
      */
@@ -117,9 +122,11 @@ public class Tablero<T> {
     }
 
     /**
-     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
-     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
-     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
+     * pre:
+     *
+     * @param x no puede ser menor a 1 ni mayor al ancho del tablero
+     * @param y no puede ser menor a 1 ni mayor al alto del tablero
+     * @param z no puede ser menor a 1 ni mayor a la profundidad del tablero
      * @return el casillero en las coordenadas pasadas por parametro
      * @throws Exception si alguna de las coordenadas es invalida
      */
@@ -131,9 +138,11 @@ public class Tablero<T> {
     }
 
     /**
-     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
-     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
-     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
+     * pre:
+     *
+     * @param x no puede ser menor a 1 ni mayor al ancho del tablero
+     * @param y no puede ser menor a 1 ni mayor al alto del tablero
+     * @param z no puede ser menor a 1 ni mayor a la profundidad del tablero
      * @return el dato del casillero en las coordenadas pasadas por parametro
      * @throws Exception si alguna de las coordenadas es invalida
      */
@@ -147,74 +156,21 @@ public class Tablero<T> {
     /**
      * pre:
      *
-     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
-     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
-     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
-     * @return verdadero si existe el casillero, falso si no existe
-     * @throws Exception si alguna de las coordenadas es invalida
-     */
-    public boolean existeElCasillero(int x, int y, int z) throws Exception {
-        return (this.esCoordenadaXValida(x)) &&
-                (this.esCoordenadaYValida(y)) &&
-                (this.esCoordenadaZValida(z));
-    }
-
-    /**
-     * pre:
-     *
-     * @param x no puede ser menor a 1 ni mayor a ......
-     * @param y no puede ser menor a 1 ni mayor a ......
-     * @param z no puede ser menor a 1 ni mayor a ......
+     * @param x no puede ser menor a 1 ni mayor al ancho del tablero
+     * @param y no puede ser menor a 1 ni mayor al alto del tablero
+     * @param z no puede ser menor a 1 ni mayor a la profundidad del tablero
      * @return verdadero si existe el casillero vecino, falso si no existe
      * @throws Exception si alguna de las coordenadas es invalida
      */
-    //FIXME: existeElCasilleroVecino no funciona bien con los vecinos
-    //		ESTA INCOMPLETA ESTA FUNCION!!!!!!!!!!!!!!!!11
-    public boolean existeElCasilleroVecino(int x, int y, int z) throws Exception {
-        if ((x > 1) ||
-                (y > 1) ||
-                (z > 1)) {
+    public boolean existeElCasillero(int x, int y, int z) throws Exception {
+        if ((x < 1) ||
+                (y < 1) ||
+                (z < 1)) {
             return false;
         }
-        if ((x < -1) &&
-                (y < -1) &&
-                (z < -1)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * pre:
-     *
-     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
-     * @return verdadero si la coordenada x es valida, falso si es invalida
-     */
-    public boolean esCoordenadaXValida(int x) {
-        return (x >= 1) &&
-                (x <= this.getAncho());
-    }
-
-    /**
-     * pre:
-     *
-     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
-     * @return verdadero si la coordenada y es valida, falso si es invalida
-     */
-    public boolean esCoordenadaYValida(int y) {
-        return (y >= 1) &&
-                (y <= this.getAlto());
-    }
-
-    /**
-     * pre:
-     *
-     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
-     * @return verdadero si la coordenada z es valida, falso si es invalida
-     */
-    public boolean esCoordenadaZValida(int z) {
-        return (z >= 1) &&
-                (z <= this.getProfundidad());
+        return (x <= this.tablero.getLongitud()) &&
+                (y <= this.tablero.obtener(x).getLongitud()) &&
+                (z <= this.tablero.obtener(x).obtener(y).getLongitud());
     }
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
