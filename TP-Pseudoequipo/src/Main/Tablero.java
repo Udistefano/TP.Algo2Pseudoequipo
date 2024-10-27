@@ -36,6 +36,21 @@ public class Tablero<T> {
         this.profundidad = profundidad;
         this.tablero = new Lista<Lista<Lista<Casillero<T>>>>();
 
+        this.crearTablero();
+        this.relacionarTodosLosCasillerosVecinosDelTablero();
+    }
+
+//METODOS DE CLASE ----------------------------------------------------------------------------------------
+//METODOS GENERALES ---------------------------------------------------------------------------------------
+//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+
+    /**
+     * pre: --
+     *
+     * @throws Exception si alguna de las coordenadas es invalida
+     *                   post: crea un tablero de 3 dimensiones
+     */
+    public void crearTablero() throws Exception {
         for (int x = 1; x <= this.getAncho(); x++) {
             Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
             this.tablero.agregar(plano);
@@ -50,53 +65,69 @@ public class Tablero<T> {
                 }
             }
         }
+    }
 
+    /**
+     * pre: --
+     *
+     * @throws Exception si alguna de las coordenadas es invalida
+     *                   post: relaciona todos los casilleros vecinos, de todos los casilleros del tablero
+     */
+    public void relacionarTodosLosCasillerosVecinosDelTablero() throws Exception {
         for (int x = 1; x <= this.getAncho(); x++) {
             for (int y = 1; y <= this.getAlto(); y++) {
                 for (int z = 1; z <= this.getProfundidad(); z++) {
-                    Casillero<T> casillero = this.getCasillero(x, y, z);
-
-                    /*
-                        Relacionar vecinos en 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros:
-                        (x-1, y-1),
-                        (x-1, y),
-                        (x-1, y+1),
-                        (x, y-1)
-
-                        En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1, y tambien asignando
-                        (x, y, z-1), (x, y, z+1)
-
-                        Relacionar vecinos en 3D si estamos en las coordenadas (x, y, z) debemos asignar los casilleros:
-                        (x-1, y-1, z-1), (x-1, y-1, z), (x-1, y-1, z+1),
-                        (x-1, y, z-1), (x-1, y, z), (x-1, y, z+1),
-                        (x-1, y+1, z-1), (x-1, y+1, z), (x-1, y+1, z+1),
-                        (x, y-1, z-1), (x, y-1, z), (x, y-1, z+1),
-                        (x, y, z-1), (x, y, z+1),
-                     */
-                    for (int i = -1; i <= 1; i++) {  // sería el eje z
-                        for (int j = -1; j <= 1; j++) {
-                            if (this.existeElCasillero(x - 1, y + j, z + i)) { // seria el eje y para un plano
-                                this.relacionarCasillerosVecinos(this.getCasillero(x - 1, y + j, z + i), casillero, -1, j, i);
-                            }
-                        }
-
-                        if (this.existeElCasillero(x, y - 1, z + i)) {
-                            this.relacionarCasillerosVecinos(this.getCasillero(x, y - 1, z + i), casillero, 0, -1, i);
-                        }
-
-                        if ((this.existeElCasillero(x, y, z + i))
-                                && (i != 0)) {
-                            this.relacionarCasillerosVecinos(this.getCasillero(x, y, z + i), casillero, 0, 0, i);
-                        }
-                    }
+                    this.relacionarTodosLosCasillerosVecinosDelCasilleroActual(x, y, z);
                 }
             }
         }
     }
 
-//METODOS DE CLASE ----------------------------------------------------------------------------------------
-//METODOS GENERALES ---------------------------------------------------------------------------------------
-//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+    /**
+     * pre:
+     *
+     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
+     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
+     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
+     * @throws Exception si alguna de las coordenadas es invalida
+     *                   post: Relaciona los vecinos del casillero actual
+     *                   En 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros:
+     *                   (x-1, y-1),
+     *                   (x-1, y),
+     *                   (x-1, y+1),
+     *                   (x, y-1)
+     *                   <p>
+     *                   En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1, y tambien asignando
+     *                   (x, y, z-1), (x, y, z+1)
+     *                   <p>
+     *                   En 3D si estamos en las coordenadas (x, y, z) debemos asignar los casilleros:
+     *                   (x-1, y-1, z-1), (x-1, y-1, z), (x-1, y-1, z+1),
+     *                   (x-1, y, z-1), (x-1, y, z), (x-1, y, z+1),
+     *                   (x-1, y+1, z-1), (x-1, y+1, z), (x-1, y+1, z+1),
+     *                   (x, y-1, z-1), (x, y-1, z), (x, y-1, z+1),
+     *                   (x, y, z-1), (x, y, z+1).
+     */
+    public void relacionarTodosLosCasillerosVecinosDelCasilleroActual(int x, int y, int z) throws Exception {
+        // TODO: validar relacionarTodosLosCasillerosVecinosDelCasilleroActual
+        Casillero<T> casillero = this.getCasillero(x, y, z);
+
+        for (int i = -1; i <= 1; i++) {  // sería el eje z
+            for (int j = -1; j <= 1; j++) {
+                if (this.existeElCasillero(x - 1, y + j, z + i)) { // seria el eje y para un plano
+                    this.relacionarCasillerosVecinos(this.getCasillero(x - 1, y + j, z + i), casillero, -1, j, i);
+                }
+            }
+
+            if (this.existeElCasillero(x, y - 1, z + i)) {
+                this.relacionarCasillerosVecinos(this.getCasillero(x, y - 1, z + i), casillero, 0, -1, i);
+            }
+
+            if ((this.existeElCasillero(x, y, z + i))
+                    && (i != 0)) {
+                this.relacionarCasillerosVecinos(this.getCasillero(x, y, z + i), casillero, 0, 0, i);
+            }
+        }
+    }
 
     /**
      * pre:
@@ -110,6 +141,7 @@ public class Tablero<T> {
      *                    como el opuesto
      */
     public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) throws Exception {
+        // TODO: validar relacionarCasillerosVecinos
 //        if (!this.existeElCasillero(x, y, z)) {
 //            throw new Exception("Coordenadas de casillero vecino invalidas");
 //        }
@@ -127,9 +159,9 @@ public class Tablero<T> {
     /**
      * pre:
      *
-     * @param x     no puede ser menor a 1 ni mayor al ancho del tablero
-     * @param y     no puede ser menor a 1 ni mayor al alto del tablero
-     * @param z     no puede ser menor a 1 ni mayor a la profundidad del tablero
+     * @param x     no puede ser menor a 1 ni mayor a this.getAncho()
+     * @param y     no puede ser menor a 1 ni mayor a this.getAlto()
+     * @param z     no puede ser menor a 1 ni mayor a this.getProfundidad()
      * @param ficha no puede ser nula
      * @throws Exception si no existe el casillero o si la ficha es nula
      */
@@ -148,9 +180,9 @@ public class Tablero<T> {
     /**
      * pre:
      *
-     * @param x no puede ser menor a 1 ni mayor al ancho del tablero
-     * @param y no puede ser menor a 1 ni mayor al alto del tablero
-     * @param z no puede ser menor a 1 ni mayor a la profundidad del tablero
+     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
+     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
+     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
      * @return el casillero en las coordenadas pasadas por parametro
      * @throws Exception si alguna de las coordenadas es invalida
      */
@@ -164,9 +196,9 @@ public class Tablero<T> {
     /**
      * pre:
      *
-     * @param x no puede ser menor a 1 ni mayor al ancho del tablero
-     * @param y no puede ser menor a 1 ni mayor al alto del tablero
-     * @param z no puede ser menor a 1 ni mayor a la profundidad del tablero
+     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
+     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
+     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
      * @return el dato del casillero en las coordenadas pasadas por parametro
      * @throws Exception si alguna de las coordenadas es invalida
      */
@@ -180,9 +212,9 @@ public class Tablero<T> {
     /**
      * pre:
      *
-     * @param x no puede ser menor a 1 ni mayor al ancho del tablero
-     * @param y no puede ser menor a 1 ni mayor al alto del tablero
-     * @param z no puede ser menor a 1 ni mayor a la profundidad del tablero
+     * @param x no puede ser menor a 1 ni mayor a this.getAncho()
+     * @param y no puede ser menor a 1 ni mayor a this.getAlto()
+     * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
      * @return verdadero si existe el casillero vecino, falso si no existe
      * @throws Exception si alguna de las coordenadas es invalida
      */
@@ -192,12 +224,9 @@ public class Tablero<T> {
                 (z < 1)) {
             return false;
         }
-        if ((x > this.getAncho()) ||
-                (y > this.getAlto()) ||
-                (z > this.getProfundidad())) {
-            return false;
-        }
-        return true;
+        return (x <= this.getAncho()) &&
+                (y <= this.getAlto()) &&
+                (z <= this.getProfundidad());
     }
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
