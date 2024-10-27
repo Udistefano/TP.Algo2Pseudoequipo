@@ -56,17 +56,37 @@ public class Tablero<T> {
                 for (int z = 1; z <= this.getProfundidad(); z++) {
                     Casillero<T> casillero = this.getCasillero(x, y, z);
 
-                    // Relacionar vecinos, este está en 2 dimensiones para tomar referencia.
-                    // Estoy en (i, j), tengo que asignar (i-1, j+1), (i-1, j+0), (i-1, j-1), (i, j-1) --> 2D
-                    // En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1
+                    /*
+                        Relacionar vecinos en 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros:
+                        (x-1, y-1),
+                        (x-1, y),
+                        (x-1, y+1),
+                        (x, y-1)
+
+                        En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1, y tambien asignando
+                        (x, y, z-1), (x, y, z+1)
+
+                        Relacionar vecinos en 3D si estamos en las coordenadas (x, y, z) debemos asignar los casilleros:
+                        (x-1, y-1, z-1), (x-1, y-1, z), (x-1, y-1, z+1),
+                        (x-1, y, z-1), (x-1, y, z), (x-1, y, z+1),
+                        (x-1, y+1, z-1), (x-1, y+1, z), (x-1, y+1, z+1),
+                        (x, y-1, z-1), (x, y-1, z), (x, y-1, z+1),
+                        (x, y, z-1), (x, y, z+1),
+                     */
                     for (int i = -1; i <= 1; i++) {  // sería el eje z
                         for (int j = -1; j <= 1; j++) {
-                            if (this.existeElCasillero(x - 1, j, z + i)) { // seria el eje y para un plano
-                                relacionarCasillerosVecinos(this.getCasillero(x - 1, j, z + i), casillero, -1, j, i);
+                            if (this.existeElCasillero(x - 1, y + j, z + i)) { // seria el eje y para un plano
+                                this.relacionarCasillerosVecinos(this.getCasillero(x - 1, y + j, z + i), casillero, -1, j, i);
                             }
                         }
+
                         if (this.existeElCasillero(x, y - 1, z + i)) {
-                            relacionarCasillerosVecinos(this.getCasillero(x, y - 1, z + i), casillero, 0, -1, i);
+                            this.relacionarCasillerosVecinos(this.getCasillero(x, y - 1, z + i), casillero, 0, -1, i);
+                        }
+
+                        if ((this.existeElCasillero(x, y, z + i))
+                                && (i != 0)) {
+                            this.relacionarCasillerosVecinos(this.getCasillero(x, y, z + i), casillero, 0, 0, i);
                         }
                     }
                 }

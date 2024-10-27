@@ -18,7 +18,7 @@ public class TestDeTablero {
 
         // Se valida que la excepción funcione
         Assertions.assertThrows(Exception.class, () -> {
-            Tablero<Ficha> tablero2 = new Tablero<Ficha>(0, -3, 334);
+            new Tablero<Ficha>(0, -3, 334);
         });
     }
 
@@ -57,78 +57,71 @@ public class TestDeTablero {
         }
     }
 
-    // Si es el casillero central en un tablero 3x3x3 entonces todos los demas casilleros seran
-    // sus vecinos
+    // Si es el casillero central (2, 2, 2) en un tablero 3x3x3 entonces todos los demas casilleros sera sus vecinos,
+    // deberia tener 27 vecinos incluyendose
+
     @Test
     public void testVecinosDeCasilleroEnElCentro() throws Exception {
         Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
-        // Conseguimos el casillero central en las coordenadas (2, 2, 2)
         Casillero<Ficha> casilleroCentral = tablero.getCasillero(2, 2, 2);
-        // Conseguimos los vecinos del casillero central
         Casillero<Ficha>[][][] vecinos = casilleroCentral.getCasillerosVecinos();
+        int cantidadDeVecinos = 0;
 
         for (int x = 0; x <= 2; x++) {
             for (int y = 0; y <= 2; y++) {
                 for (int z = 0; z <= 2; z++) {
-                    // Comprobamos que el vecino no sea nulo
-                    Assertions.assertNotNull(vecinos[x][y][z]);
+                    testQueCasilleroNoSeaNulo(x, y, z, vecinos, casilleroCentral);
+                    cantidadDeVecinos++;
+                }
+            }
+        }
 
-                    // Conseguimos el casillero vecino
-                    Casillero<Ficha> casilleroVecino = vecinos[x][y][z];
+        // Si el casillero esta en (2, 2, 2) deberia tener 27 vecinos incluyendose
+        Assertions.assertEquals(cantidadDeVecinos, 27);
+    }
+    // Si es el casillero central izquierdo (2, 2, 1) en un tablero 3x3x3 entonces todos los demas casilleros seran sus vecinos,
+    // exceptuando el plano con profundidad 3 (la matriz de vecinos no deberia tener vecinos en z = 0, osea a su
+    // izquierda), deberia tener 18 vecinos incluyendose
 
-                    // Comprobamos que sus coordenadas esten bien
-                    Assertions.assertEquals(casilleroVecino.getX(), x + 1);
-                    Assertions.assertEquals(casilleroVecino.getY(), y + 1);
-                    Assertions.assertEquals(casilleroVecino.getZ(), z + 1);
+    @Test
+    public void testVecinosDeCasilleroEnElCentroIzquierdo() throws Exception {
+        Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
+        Casillero<Ficha> casilleroCentralIzquierdo = tablero.getCasillero(2, 2, 1);
+        Casillero<Ficha>[][][] vecinos = casilleroCentralIzquierdo.getCasillerosVecinos();
+        int cantidadDeVecinos = 0;
 
-                    // Comprobamos que el vecino central sea el mismo casillero central
-                    if ((x == 1)
-                            && (y == 1)
-                            && (z == 1)) {
-                        Assertions.assertEquals(casilleroVecino, casilleroCentral);
+        for (int x = 0; x <= 2; x++) {
+            for (int y = 0; y <= 2; y++) {
+                for (int z = 0; z <= 2; z++) {
+                    if (z == 0) {
+                        // Si estamos en el plano izquierdo de vecinos, entonces deberia ser un vecino nulo
+                        Assertions.assertNull(vecinos[x][y][z]);
+                    } else {
+                        testQueCasilleroNoSeaNulo(x, y, z, vecinos, casilleroCentralIzquierdo);
+                        cantidadDeVecinos++;
                     }
                 }
             }
         }
+
+        // Si el casillero esta en (2, 2, 1) deberia tener 18 vecinos incluyendose
+        Assertions.assertEquals(cantidadDeVecinos, 18);
     }
 
-    // Si es el casillero central izquierdo en un tablero 3x3x3 entonces todos los demas casilleros seran
-    // sus vecinos, exceptuando el plano con profundidad 3
-    @Test
-    public void testVecinosDeCasilleroEnElCentroIzquierdo() throws Exception {
-        Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
-        // Conseguimos el casillero central en las coordenadas (2, 2, 2)
-        Casillero<Ficha> casilleroCentralIzquierdo = tablero.getCasillero(2, 2, 1);
-        // Conseguimos los vecinos del casillero central
-        Casillero<Ficha>[][][] vecinos = casilleroCentralIzquierdo.getCasillerosVecinos();
+    // Test util, que reutilizamos en varios tests, comprueba que el vecino en las coordenadas (x, y, z) no sea nulo,
+    // y que si son las coordenadas (1, 1, 1) este vecino sea el casilleroActual
+    public void testQueCasilleroNoSeaNulo(int x, int y, int z, Casillero<Ficha>[][][] vecinos, Casillero<Ficha> casilleroActual) {
+        // Comprobamos que el vecino no sea nulo
+        Assertions.assertNotNull(vecinos[x][y][z]);
 
-        for (int x = 0; x <= 2; x++) {
-            for (int y = 0; y <= 2; y++) {
-                for (int z = 0; z <= 2; z++) {
-                    if (z == 2) {
-                        // Si estamos en el plano con profundidad 3, entonces deberia ser un vecino nulo
-                        Assertions.assertNull(vecinos[x][y][z]);
-                    } else {
-                        // Comprobamos que el vecino no sea nulo
-                        Assertions.assertNotNull(vecinos[x][y][z]);
+        // Conseguimos el casillero vecino
+        Casillero<Ficha> casilleroVecino = vecinos[x][y][z];
 
-                        // Conseguimos el casillero vecino
-                        Casillero<Ficha> casilleroVecino = vecinos[x][y][z];
-
-                        // Comprobamos que sus coordenadas esten bien
-                        Assertions.assertEquals(casilleroVecino.getX(), x + 1);
-                        Assertions.assertEquals(casilleroVecino.getY(), y + 1);
-                        Assertions.assertEquals(casilleroVecino.getZ(), z + 1);
-
-                        // Comprobamos que el vecino central sea el mismo casillero central
-                        if ((x == 1)
-                                && (y == 1)
-                                && (z == 0)) {
-                            Assertions.assertEquals(casilleroVecino, casilleroCentralIzquierdo);
-                        }
-                    }
-                }
-            }
+        // Comprobamos que el vecino central sea el mismo casillero central
+        if ((x == 1)
+                && (y == 1)
+                && (z == 1)) {
+            Assertions.assertEquals(casilleroVecino, casilleroActual);
         }
     }
 }
