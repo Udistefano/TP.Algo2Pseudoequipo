@@ -59,7 +59,6 @@ public class TestDeTablero {
 
     // Si es el casillero central (2, 2, 2) en un tablero 3x3x3 entonces todos los demas casilleros sera sus vecinos,
     // deberia tener 27 vecinos incluyendose
-
     @Test
     public void testVecinosDeCasilleroEnElCentro() throws Exception {
         Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
@@ -79,10 +78,10 @@ public class TestDeTablero {
         // Si el casillero esta en (2, 2, 2) deberia tener 27 vecinos incluyendose
         Assertions.assertEquals(cantidadDeVecinos, 27);
     }
+
     // Si es el casillero central izquierdo (2, 2, 1) en un tablero 3x3x3 entonces todos los demas casilleros seran sus vecinos,
     // exceptuando el plano con profundidad 3 (la matriz de vecinos no deberia tener vecinos en z = 0, osea a su
     // izquierda), deberia tener 18 vecinos incluyendose
-
     @Test
     public void testVecinosDeCasilleroEnElCentroIzquierdo() throws Exception {
         Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);

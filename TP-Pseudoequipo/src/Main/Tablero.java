@@ -26,7 +26,7 @@ public class Tablero<T> {
      * @param alto        debe ser mayor o igual a 1
      * @param profundidad debe ser mayor o igual a 1
      * @throws Exception si alguna de las coordenadas es menor a 1
-     *                   post: crea un tablero de ancho 'ancho' contando de 1 a ancho inclusive
+     *                   <p>post: crea un tablero de ancho 'ancho' contando de 1 a ancho inclusive
      */
     public Tablero(int ancho, int alto, int profundidad) throws Exception {
         Casillero.validarCoordenadas(ancho, alto, profundidad);
@@ -48,7 +48,7 @@ public class Tablero<T> {
      * pre: --
      *
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   post: crea un tablero de 3 dimensiones
+     *                   <p>post: crea un tablero de 3 dimensiones
      */
     public void crearTablero() throws Exception {
         for (int x = 1; x <= this.getAncho(); x++) {
@@ -71,7 +71,7 @@ public class Tablero<T> {
      * pre: --
      *
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   post: relaciona todos los casilleros vecinos, de todos los casilleros del tablero
+     *                   <p>post: relaciona todos los casilleros vecinos, de todos los casilleros del tablero
      */
     public void relacionarTodosLosCasillerosVecinosDelTablero() throws Exception {
         for (int x = 1; x <= this.getAncho(); x++) {
@@ -90,25 +90,14 @@ public class Tablero<T> {
      * @param y no puede ser menor a 1 ni mayor a this.getAlto()
      * @param z no puede ser menor a 1 ni mayor a this.getProfundidad()
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   post: Relaciona los vecinos del casillero actual
-     *                   En 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros:
-     *                   (x-1, y-1),
-     *                   (x-1, y),
-     *                   (x-1, y+1),
-     *                   (x, y-1)
-     *                   <p>
-     *                   En 3D deberia ser lo mismo pero agregandole el eje z variando desde -1 a +1, y tambien asignando
+     *                   <p>post: Relaciona todos los vecinos del casillero actual
+     *                   <p>En 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros: (x-1, y-1),
+     *                   (x-1, y), (x-1, y+1), (x, y-1)
+     *                   <p>En 3D es similar, pero le agregamos de coordenada z variando desde -1 a +1, y tambien asignando
      *                   (x, y, z-1), (x, y, z+1)
-     *                   <p>
-     *                   En 3D si estamos en las coordenadas (x, y, z) debemos asignar los casilleros:
-     *                   (x-1, y-1, z-1), (x-1, y-1, z), (x-1, y-1, z+1),
-     *                   (x-1, y, z-1), (x-1, y, z), (x-1, y, z+1),
-     *                   (x-1, y+1, z-1), (x-1, y+1, z), (x-1, y+1, z+1),
-     *                   (x, y-1, z-1), (x, y-1, z), (x, y-1, z+1),
-     *                   (x, y, z-1), (x, y, z+1).
      */
     public void relacionarTodosLosCasillerosVecinosDelCasilleroActual(int x, int y, int z) throws Exception {
-        // TODO: validar relacionarTodosLosCasillerosVecinosDelCasilleroActual
+        Casillero.validarCoordenadas(x, y, z);
         Casillero<T> casillero = this.getCasillero(x, y, z);
 
         for (int i = -1; i <= 1; i++) {  // sería el eje z
@@ -137,14 +126,11 @@ public class Tablero<T> {
      * @param x:          rango entre -1, 0 y 1
      * @param y:          rango entre -1, 0 y 1
      * @param z:          rango entre -1, 0 y 1
-     *                    post: relaciona los dos vecinos en sus matrices de vecinos, en el casillero1 como x, y, z, y en casillero2
+     *                    <p>post: relaciona los dos vecinos en sus matrices de vecinos, en el casillero1 como x, y, z, y en casillero2
      *                    como el opuesto
      */
     public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) throws Exception {
-        // TODO: validar relacionarCasillerosVecinos
-//        if (!this.existeElCasillero(x, y, z)) {
-//            throw new Exception("Coordenadas de casillero vecino invalidas");
-//        }
+        Casillero.validarCoordenadasDeVecino(x, y, z);
         if ((casillero1 == null) ||
                 (casillero2 == null)) {
             throw new Exception("El casillero no puede ser nulo");
