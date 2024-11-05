@@ -2,7 +2,7 @@ package Main;
 
 import Estructuras.Lista;
 
-public class Juego {
+public class Partida {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private Tablero tablero = null;
@@ -10,7 +10,7 @@ public class Juego {
     private Mazo mazo = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
-    public Juego(Tablero tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
+    public Partida(Tablero tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
         ValidacionUtiles.validarSiEsNulo(tablero);
         ValidacionUtiles.validarSiEsNulo(jugadores);
         ValidacionUtiles.validarSiEsNulo(mazo);

@@ -1,6 +1,8 @@
-package Main;
+package Cartas;
 
-public class Carta {
+import Main.TipoDeCarta;
+
+public class abstract Carta {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private TipoDeCarta tipo = null;
