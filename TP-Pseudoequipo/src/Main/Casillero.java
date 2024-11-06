@@ -216,20 +216,6 @@ public class Casillero<T> {
         return this.dato;
     }
 
-//	/**
-//     * pre:
-//     * @param x: -1, 0 o 1 para indicar izquierda, centro o derecha respectivamente
-//     * @param y: -1, 0 o 1 para indicar arriba, centro o abajo respectivamente
-//     * @param z: -1, 0 o 1 para indicar delante, centro o detrás respectivamente
-//     * @return devuelve el casillero vecino
-//	 * @throws Exception si alguna de las coordenadas es menor a 1
-//     */
-//    public Casillero<T> getCasilleroVecino(int x, int y, int z) throws Exception {
-//		validarCoordenadas(x, y, z);
-//
-//        return this.vecinos[x + 1][y + 1][z + 1]; // Ajustar índice para matriz 3x3x3
-//    }
-
     /**
      * pre:
      *
@@ -250,6 +236,7 @@ public class Casillero<T> {
         return this.getCasilleroVecino(Direccion.valueOf(movimiento.toString()));
     }
 
+    // TODO: crear enum Plano, que pueda ser ADELANTE, ATRAS, CENTRO, asi no escribimos tanto codigo repetido
     /**
      * pre:
      *

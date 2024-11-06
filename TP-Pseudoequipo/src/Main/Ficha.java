@@ -1,5 +1,6 @@
 package Main;
 
+// TODO: documentar metodos de clase Ficha
 public class Ficha {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
@@ -27,7 +28,19 @@ public class Ficha {
 	public char getSimbolo() {
 		return simbolo;
 	}
-	
+
+	/**
+	 * pre:
+	 * @param ficha no puede ser nulo
+	 * @return verdadero si el dato de la ficha pasada por parametro y la ficha actual son iguales, falso si no
+	 */
+    public boolean esElMismoSimbolo(Ficha ficha) throws Exception {
+		if (ficha == null) {
+			throw new Exception("La ficha no puede ser nulo");
+		}
+		return this.simbolo == ficha.getSimbolo();
+    }
+
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------	
 	
 }
