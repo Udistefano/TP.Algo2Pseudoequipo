@@ -56,6 +56,37 @@ public class Partida {
         // TODO: implementar Juego.jugarTurno
     }
 
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @param jugador no puede ser nulo
+     * @return mueve la ficha hacia el casillero en la direccion 'movimiento' ingresados por el jugador en el tablero,
+     *         y retorna el casillero donde se movio la ficha
+     * @throws Exception si el tablero o jugador son nulos, o si el casillero en la direccion 'movimiento' no existe,
+     *                   o esta ocupado
+     */
+    public Casillero<Ficha> mover(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
+        if (tablero == null) {
+            throw new Exception("El tablero no puede ser nulo");
+        }
+        if (jugador == null) {
+            throw new Exception("El jugador no puede ser nulo");
+        }
+        Ficha ficha = null; // TODO: preguntar la ficha al jugador
+        Movimiento movimiento = null; // TODO: preguntar el movimiento al jugador
+        Casillero<Ficha> casillero = tablero.getCasillero(ficha);
+
+        if (!casillero.existeElVecino(movimiento)) {
+            throw new Exception("No existe el movimiento");
+        }
+        if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
+            throw new Exception("El casillero al que se quiere mover esta ocupado");
+        }
+        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), ficha);
+
+        return casillero.getCasilleroVecino(movimiento);
+    }
+
     public void verificarGanador(Casillero<Ficha> casillero) throws Exception {
         //validar
         // FIXME: cantidad de fichas deberia estar fijo en 3, o debe ser dinamico??
