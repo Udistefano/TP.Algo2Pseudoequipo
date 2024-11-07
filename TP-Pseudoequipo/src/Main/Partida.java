@@ -210,5 +210,19 @@ public class Partida {
         return 1 + contarFichasSeguidas(casillero.getCasilleroVecino(direccion), direccion, ficha);
     }
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
+
+	public Tablero getTablero() {
+		return tablero;
+	}
+
+	public Lista<Jugador> getJugadores() {
+		return jugadores;
+	}
+
+	public Mazo getMazo() {
+		return mazo;
+	}
+    
+    
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }

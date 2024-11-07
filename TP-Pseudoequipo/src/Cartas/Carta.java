@@ -10,16 +10,15 @@ public abstract class  Carta {
 	private static long idActual = 1L;
 	
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
-    private TipoDeCarta tipo = null;
+    protected TipoDeCarta tipo = null;
     private Long id = null;
+    protected String titulo = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
-    protected Carta(TipoDeCarta tipo) throws Exception {
-        if (tipo == null) {
-            throw new Exception("El tipo de carta no puede ser nulo");
-        }
+    protected Carta() throws Exception {
 
         this.tipo = tipo;
+        this.titulo = titulo;
         this.id = idActual++;
     }
 
@@ -34,7 +33,7 @@ public abstract class  Carta {
     @Override
     public String toString() {
     	// TODO Auto-generated method stub
-    	return super.toString();
+    	return getTitulo() + "(" + getId() + ")";
     }
     
     @Override
@@ -67,6 +66,10 @@ public abstract class  Carta {
     
     public Long getId() {
     	return this.id;
+    }
+    
+    public String getTitulo() {
+    	return this.titulo;
     }
     
     

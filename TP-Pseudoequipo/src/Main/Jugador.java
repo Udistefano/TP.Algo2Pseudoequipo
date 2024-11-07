@@ -9,10 +9,10 @@ public class Jugador {
 	
 	
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
-
+	private String nombre = null;
     private char simbolo = 0;
     private Lista<Ficha> fichas = null;
-    private Lista<Carta> mano = null;
+    public Lista<Carta> mano = null;
 
  
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -22,7 +22,8 @@ public class Jugador {
 	 * @throws Exception si simbolo es vacio
 	 * post: inicializa una ficha con el simbolo pasado por parametro, y jugador nulo
 	 */
-    public Jugador(char simbolo ) {
+    public Jugador(char simbolo, String nombre) {
+    	this.nombre = nombre;
         this.simbolo = simbolo;
         this.fichas = new Lista<Ficha>();
         this.mano = new Lista<Carta>();
@@ -102,5 +103,10 @@ public class Jugador {
     public char getSimbolo(){
     	return this.simbolo;
     }
+	public String getNombre() {
+		return nombre;
+	}
+    
+    
     
 }
