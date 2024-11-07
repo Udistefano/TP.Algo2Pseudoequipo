@@ -41,17 +41,6 @@ public class Partida {
         }
     }
 
-    /**
-     * pre:
-     *
-     * @param jugador
-     * @return un booleano indicando si el jugador gano el juego
-     */
-    public boolean verificarGanador(Jugador jugador) {
-        // TODO: implementar Juego.verificarGanador
-        return true;
-    }
-
     public void jugarTurno(Jugador jugador) {
         // TODO: implementar Juego.jugarTurno
     }
@@ -88,7 +77,9 @@ public class Partida {
     }
 
     public void verificarGanador(Casillero<Ficha> casillero) throws Exception {
-        //validar
+        if (casillero == null) {
+            throw new Exception("El casillero no puede ser nulo");
+        }
         // FIXME: cantidad de fichas deberia estar fijo en 3, o debe ser dinamico??
         int cantidadDeFichas = 3;
 
