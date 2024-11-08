@@ -6,6 +6,7 @@ public enum TipoDeCarta {
 	ANULAR_CASILLERO,
 	VOLVER_JUGADA_ANTERIOR,
 	CAMBIAR_COLOR_FICHA,
+	BORRAR_CARTAS_JUGADOR
 	// TODO: agregar 2 tipos de carta mas
 }
 
