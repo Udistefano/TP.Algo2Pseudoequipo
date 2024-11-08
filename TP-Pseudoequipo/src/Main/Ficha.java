@@ -58,6 +58,19 @@ public class Ficha {
         return this.color;
     }
 
+    /**
+     * pre:
+     * @param ficha no puede ser nula
+     * @return verdadero si el simbolo de la ficha actual equivale al de la ficha pasada por parametro
+     * @throws Exception si la ficha es nula
+     */
+    public boolean esElMismoSimbolo(Ficha ficha) throws Exception {
+        if (ficha == null) {
+            throw new Exception("La ficha con la cual comparar no puede ser nula");
+        }
+        return this.simbolo == ficha.getSimbolo();
+    }
+
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 
     // FIXME: los setters de simbolo y color de Ficha deben ser public o protected?
