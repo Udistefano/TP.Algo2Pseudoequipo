@@ -5,6 +5,8 @@ import Estructuras.Lista;
 import Main.Casillero;
 import Main.Ficha;
 import Main.Jugador;
+import Main.Partida;
+import Main.Tablero;
 
 public class JugadaCambiarColorFicha extends Jugada {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -28,15 +30,25 @@ public class JugadaCambiarColorFicha extends Jugada {
 	 * post: Cambia de color la ficha en el casillero y la agrega a las fichas del nuevo jugador que es propietariod e esa ficha
 	 */
 	@Override
-	public void jugar(Jugador jugador, Casillero<Ficha> casillero) throws Exception {
+	public void jugar(Partida partida, Turno turnoActual) throws Exception {
+		// pide el casillero a cambiar, con direcciones x, y, z
+		int x = 0;
+		int y = 0;
+		int z = 0;
+		Tablero tablero = partida.getTablero();
+		Casillero casillero = tablero.getCasillero(x, y, z);
+		Jugador jugadorActual = turnoActual.getJugador;
+		cambiarColor(jugadorActual, casillero);
+		
+	}
+	
+	public void cambiarColor(Jugador jugador, Casillero<Ficha> casillero) throws Exception{
 		if(casillero.getDato() == null) {
 			throw new Exception("No se puede cambiar de color porque no hay ninguna ficha");
 		}
 		Ficha ficha = casillero.getDato();  // Obtengo la ficha del casillero
-ficha.setJugador(jugador);          // Seteo el jugador de la ficha al nuevo jugador
+		ficha.setColor(jugador.getColor());          // Seteo el jugador de la ficha al nuevo jugador
 		ficha.setSimbolo(jugador.getSimbolo());  // seteo el simbolo de la ficha al del nuevo jugador (Esto sería como el color)
-		jugador.agregarFicha(ficha);   // Agrego esta ficha a la lista de fichas del tablero
-		
 	}
 
 

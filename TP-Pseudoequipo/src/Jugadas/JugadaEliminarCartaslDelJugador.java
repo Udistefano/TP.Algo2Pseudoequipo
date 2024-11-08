@@ -28,9 +28,9 @@ public class JugadaEliminarCartaslDelJugador extends Jugada {
      * post: Elimina todas las cartas del mazo del contrincante
      */
 	@Override
-	public void jugar(Partida tateti, Turno turnoActual) throws Exception {
+	public void jugar(Partida partida, Turno turnoActual) throws Exception {
 		Jugador jugador = null;
-		Lista<Jugador> jugadores = tateti.getJugadores();
+		Lista<Jugador> jugadores = partida.getJugadores();
 		String nombreJugador = null; // pide jugador por teclado
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {

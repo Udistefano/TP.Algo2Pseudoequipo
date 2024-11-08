@@ -11,6 +11,7 @@ public class Jugador {
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 	private String nombre = null;
     private char simbolo = 0;
+    private String color = null;
     private Lista<Ficha> fichas = null;
     public Lista<Carta> mano = null;
 
@@ -122,6 +123,10 @@ public class Jugador {
 	public String getNombre() {
 		return nombre;
 	}
+	public String getColor() {
+		return color;
+	}
+	
     
     
     
