@@ -264,6 +264,20 @@ public class Partida {
         return mazo;
     }
 
+    public Jugador getJugador(String nombreDelJugador) throws Exception {
+        if ((nombreDelJugador == null)
+            || (nombreDelJugador.isEmpty())) {
+            throw new Exception("El nombre del jugador no puede ser vacio");
+        }
+
+        this.jugadores.iniciarCursor();
+        while (this.jugadores.avanzarCursor()) {
+            if (this.jugadores.obtenerCursor().getNombre().equals(nombreDelJugador)) {
+                return this.jugadores.obtenerCursor();
+            }
+        }
+    }
+
 
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }
