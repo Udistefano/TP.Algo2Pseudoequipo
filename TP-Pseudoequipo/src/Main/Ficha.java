@@ -1,5 +1,9 @@
 package Main;
 
+import Cartas.Carta;
+
+import java.util.Objects;
+
 public class Ficha {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
@@ -39,6 +43,32 @@ public class Ficha {
         return "" + this.simbolo;
     }
 
+    /**
+     * pre:
+     * @param obj con el cual comparar a la ficha actual
+     * @return verdadero si obj equivale a la ficha actual, falso si no
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Ficha other = (Ficha) obj;
+        return (this.simbolo == other.getSimbolo()) &&
+                (this.color.equals(other.getColor()));
+    }
+
+    /**
+     * pre: --
+     * @return el hashCode de la ficha actual
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(simbolo, color);
+    }
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
@@ -56,19 +86,6 @@ public class Ficha {
      */
     public String getColor() {
         return this.color;
-    }
-
-    /**
-     * pre:
-     * @param ficha no puede ser nula
-     * @return verdadero si el simbolo de la ficha actual equivale al de la ficha pasada por parametro
-     * @throws Exception si la ficha es nula
-     */
-    public boolean esElMismoSimbolo(Ficha ficha) throws Exception {
-        if (ficha == null) {
-            throw new Exception("La ficha con la cual comparar no puede ser nula");
-        }
-        return this.simbolo == ficha.getSimbolo();
     }
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------

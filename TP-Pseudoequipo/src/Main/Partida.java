@@ -42,54 +42,53 @@ public class Partida {
         }
     }
 
-    
-    public void jugar() throws Exception {
-		//while x turno
-		//Levantar la carta
-		
-		Turno turnoActual = null;
-		Casillero<Ficha> casilleroDestino = null;
-		turnoActual.iniciarTurno();
-		if (turnoActual.estaBloqueado()) {
-			while (turnoActual.haySubturnos()) {
-				turnoActual.utilizarSubturno();
-				if (!turnoActual.getJugador().tieneTodasLasFichasEnElTablero()) {
-					jugadaInicial(this.tablero, turnoActual.getJugador());
-				} else {
-					casilleroDestino = mover(this.tablero, turnoActual.getJugador());
-				}
-				
-				//Si juega una carta
-				Carta cartaActual = null; //preguntar la carta del jugador
-				if (cartaActual != null) {	
-					cartaActual.getJugada().jugar(this, turnoActual);
-				}				
-			}
-		}		
-		turnoActual.terminarTurno();
-		verificarGanador(casilleroDestino);
-	}
-	
-	
-	public void jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
 
-		Ficha ficha = null; //crea
-		int x = 0; //pregunta la posicion
-		int y = 0;
-		Casillero<Ficha> casillero = tablero.getCasillero(x, y);
-		if (casillero.estaOcupado()) {
-			throw new Exception("El casillero esta ocupado");
-		}
-		casillero.setDato(ficha);
-	}
-    
-    
+    public void jugar() throws Exception {
+        //while x turno
+        //Levantar la carta
+
+        Turno turnoActual = null;
+        Casillero<Ficha> casilleroDestino = null;
+        turnoActual.iniciarTurno();
+        if (turnoActual.estaBloqueado()) {
+            while (turnoActual.haySubturnos()) {
+                turnoActual.utilizarSubturno();
+                if (!turnoActual.getJugador().tieneTodasLasFichasEnElTablero()) {
+                    jugadaInicial(this.tablero, turnoActual.getJugador());
+                } else {
+                    casilleroDestino = mover(this.tablero, turnoActual.getJugador());
+                }
+
+                //Si juega una carta
+                Carta cartaActual = null; //preguntar la carta del jugador
+                if (cartaActual != null) {
+                    cartaActual.getJugada().jugar(this, turnoActual);
+                }
+            }
+        }
+        turnoActual.terminarTurno();
+        verificarGanador(casilleroDestino);
+    }
+
+    public void jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
+
+        Ficha ficha = null; //crea
+        int x = 0; //pregunta la posicion
+        int y = 0;
+        Casillero<Ficha> casillero = tablero.getCasillero(x, y);
+        if (casillero.estaOcupado()) {
+            throw new Exception("El casillero esta ocupado");
+        }
+        casillero.setDato(ficha);
+    }
+
     /**
      * pre:
+     *
      * @param tablero no puede ser nulo
      * @param jugador no puede ser nulo
      * @return mueve la ficha hacia el casillero en la direccion 'movimiento' ingresados por el jugador en el tablero,
-     *         y retorna el casillero donde se movio la ficha
+     * y retorna el casillero donde se movio la ficha
      * @throws Exception si el tablero o jugador son nulos, o si el casillero en la direccion 'movimiento' no existe,
      *                   o esta ocupado
      */
@@ -199,14 +198,12 @@ public class Partida {
             // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
         }
     }
-    
-    
-    
 
     /**
      * pre:
-     * @param casillero no puede ser nulo
-     * @param direccion no puede ser nulo
+     *
+     * @param casillero          no puede ser nulo
+     * @param direccion          no puede ser nulo
      * @param direccionContraria no puede ser nulo
      * @return la cantidad de fichas seguidas del valor de la ficha, en la direccion respecto del casillero pasados por
      * parametro, y la direccion contraria
@@ -246,27 +243,27 @@ public class Partida {
             throw new Exception("La ficha no puede ser nula");
         }
 
-        if (!casillero.getDato().esElMismoSimbolo(ficha)) {
+        if (!casillero.getDato().equals(ficha)) {
             return 0;
         }
         return 1 + contarFichasSeguidas(casillero.getCasilleroVecino(direccion), direccion, ficha);
     }
-    
-    
+
+
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-	public Tablero getTablero() {
-		return tablero;
-	}
+    public Tablero getTablero() {
+        return tablero;
+    }
 
-	public Lista<Jugador> getJugadores() {
-		return jugadores;
-	}
+    public Lista<Jugador> getJugadores() {
+        return jugadores;
+    }
 
-	public Mazo getMazo() {
-		return mazo;
-	}
-    
-    
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }
