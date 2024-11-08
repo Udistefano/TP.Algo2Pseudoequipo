@@ -93,7 +93,23 @@ public class Jugador {
 		return this.mano.obtenerCursor().getTipo(); 
     	
     }
+    
+    // Soy ulises, creo que esto esta bien implementado, cualquier cosa mandenme
+    /**
+     * pre: metodo para agregar a su lista fichas cuando se usa la carta para cambiar color de su ficha
+     * @param ficha
+     * @throws Exception
+     * post: Agrega la ficha que cambió de color a su lista
+     */
+    public void agregarFicha(Ficha ficha) throws Exception {
+    	if(ficha == null) {
+    		throw new Exception("La ficha no puede ser null");
+    	}
+    	this.fichas.agregar(ficha);
     }
+
+
+
     /**
 	 * pre:
 	 * @param 

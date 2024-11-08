@@ -5,6 +5,7 @@ public class Ficha {
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 	 private char simbolo = ' ';
 	 private Jugador jugador = null;
+
 	 
 	
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -33,5 +34,15 @@ public class Ficha {
 		return this.jugador;
 	}
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------	
+
+	public void setSimbolo(char simbolo) {
+		this.simbolo = simbolo;
+	}
+
+	public void setJugador(Jugador jugador) {
+		this.jugador = jugador;
+	}
+	
+	
 	
 }
