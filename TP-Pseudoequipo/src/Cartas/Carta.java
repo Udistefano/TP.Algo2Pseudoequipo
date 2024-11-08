@@ -14,7 +14,7 @@ public abstract class Carta {
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 	
 	private Long id = null; //1 2 3 4 5 6 7 8 9 .... 9223372036854775807
-	private String titulo = null;
+	protected String titulo = null;
 	
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 	

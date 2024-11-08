@@ -1,50 +1,34 @@
 package Cartas;
 
 import Estructuras.Lista;
+import Jugadas.Jugada;
+import Jugadas.JugadaEliminarCartaslDelJugador;
+import Jugadas.JugadaPierdeTurno;
 import Main.Jugador;
 
 
-
-
 public class CartaEliminarCartasDelJugador extends Carta {
+	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
+	//ATRIBUTOS -----------------------------------------------------------------------------------------------
+	//CONSTRUCTORES -------------------------------------------------------------------------------------------
+		
+		public CartaEliminarCartasDelJugador() {}
 
-
-//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
-//ATRIBUTOS -----------------------------------------------------------------------------------------------
-
-	
-//CONSTRUCTORES -------------------------------------------------------------------------------------------
-	protected CartaEliminarCartasDelJugador() throws Exception {
-		this.titulo = "Carta eliminar cartas de jugador";
-		// TODO Auto-generated constructor stub
-	}
-//METODOS DE CLASE ----------------------------------------------------------------------------------------
-//METODOS GENERALES ---------------------------------------------------------------------------------------
-//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
-    
-	/**
-     * pre: debe tner una  carta de este estilo
-     * @param nombreJugador
-     * @param jugadores
-     * @throws Exception si el jugador no esta dentro de jugadores
-     * post: Elimina todas las cartas del mazo del contrincante
-     */
-	public void realizarEfecto(String nombreJugador, Lista<Jugador> jugadores) throws Exception {
-		Jugador jugador = null;
-		jugadores.iniciarCursor();
-		while(jugadores.avanzarCursor()) {
-			Jugador jugadorActual = jugadores.obtenerCursor();
-			if (nombreJugador == jugadorActual.getNombre()) {
-				jugador = jugadorActual;
-			}
+	//METODOS DE CLASE ----------------------------------------------------------------------------------------
+	//METODOS GENERALES ---------------------------------------------------------------------------------------
+	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+		
+		@Override
+		protected String getTituloPorDefecto() {
+			return "Carta eliminar cartas de jugador";
 		}
-		if (jugador == null ) {
-			throw new Exception("El jugador no está dentro de los jugadores");
+
+		@Override
+		public Jugada getJugada() {
+			return new JugadaEliminarCartaslDelJugador(this);
 		}
-		jugador.mano = null;
-	}
-	
+		
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
-    //SETTERS SIMPLES -----------------------------------------------------------------------------------------
-
+	//SETTERS SIMPLES -----------------------------------------------------------------------------------------	
 }
+

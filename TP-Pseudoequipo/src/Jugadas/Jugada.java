@@ -1,7 +1,9 @@
 package Jugadas;
 
 import Cartas.Carta;
+import Estructuras.Lista;
 import Main.Ficha;
+import Main.Jugador;
 import Main.Partida;
 import Main.Tablero;
 
@@ -22,14 +24,18 @@ public abstract class Jugada {
 //METODOS GENERALES ---------------------------------------------------------------------------------------
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 	
-	public abstract void jugar(Partida tateti, 
-								Turno turnoActual) throws Exception;
-
+	
+	public void jugar(String nombreJugador, Lista<Jugador> jugadores) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 	
 	public Carta getCarta() {
 		return carta;
 	}
+
+
 	
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------	
 }
