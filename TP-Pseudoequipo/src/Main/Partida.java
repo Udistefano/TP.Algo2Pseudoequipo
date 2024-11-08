@@ -1,5 +1,6 @@
 package Main;
 
+import Cartas.Carta;
 import Estructuras.Lista;
 
 public class Partida {
@@ -41,10 +42,48 @@ public class Partida {
         }
     }
 
-    public void jugarTurno(Jugador jugador) {
-        // TODO: implementar Juego.jugarTurno
-    }
+    
+    public void jugar() throws Exception {
+		//while x turno
+		//Levantar la carta
+		
+		Turno turnoActual = null;
+		Casillero<Ficha> casilleroDestino = null;
+		turnoActual.iniciarTurno();
+		if (turnoActual.estaBloqueado()) {
+			while (turnoActual.haySubturnos()) {
+				turnoActual.utilizarSubturno();
+				if (!turnoActual.getJugador().tieneTodasLasFichasEnElTablero()) {
+					jugadaInicial(this.tablero, turnoActual.getJugador());
+				} else {
+					casilleroDestino = mover(this.tablero, turnoActual.getJugador());
+				}
+				
+				//Si juega una carta
+				Carta cartaActual = null; //preguntar la carta del jugador
+				if (cartaActual != null) {	
+					cartaActual.getJugada().jugar(this, turnoActual);
+				}				
+			}
+		}		
+		turnoActual.terminarTurno();
+		verificarGanador(casilleroDestino);
+	}
+	
+	
+	public void jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
 
+		Ficha ficha = null; //crea
+		int x = 0; //pregunta la posicion
+		int y = 0;
+		Casillero<Ficha> casillero = tablero.getCasillero(x, y);
+		if (casillero.estaOcupado()) {
+			throw new Exception("El casillero esta ocupado");
+		}
+		casillero.setDato(ficha);
+	}
+    
+    
     /**
      * pre:
      * @param tablero no puede ser nulo
@@ -160,6 +199,9 @@ public class Partida {
             // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
         }
     }
+    
+    
+    
 
     /**
      * pre:
@@ -209,6 +251,8 @@ public class Partida {
         }
         return 1 + contarFichasSeguidas(casillero.getCasilleroVecino(direccion), direccion, ficha);
     }
+    
+    
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
 	public Tablero getTablero() {
