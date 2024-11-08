@@ -2,41 +2,46 @@ package Cartas;
 
 import java.util.Objects;
 
+import Jugadas.Jugada;
 import Main.TipoDeCarta;
 
-public abstract class  Carta {
-    //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
-    
-	private static long idActual = 1L;
+
+public abstract class Carta {
+//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	
-	//ATRIBUTOS -----------------------------------------------------------------------------------------------
-    protected TipoDeCarta tipo = null;
-    private Long id = null;
-    protected String titulo = null;
+	private static Long IdActual = 1L;
+	
+//ATRIBUTOS -----------------------------------------------------------------------------------------------
+	
+	private Long id = null; //1 2 3 4 5 6 7 8 9 .... 9223372036854775807
+	private String titulo = null;
+	
+//CONSTRUCTORES -------------------------------------------------------------------------------------------
+	
+	protected Carta() {
+		this.titulo = getTituloPorDefecto();
+		this.id = Carta.getIdActual();
+	}
+	
+	protected Carta(String titulo) {
+		this.titulo = titulo;
+		this.id = Carta.getIdActual();
+	}
+		
+//METODOS DE CLASE ----------------------------------------------------------------------------------------
+	
+	private static Long getIdActual() {
+		return Carta.IdActual++;
+	}
+	
+//METODOS GENERALES ---------------------------------------------------------------------------------------
+	
+	@Override
+	public String toString() {
+		return this.getTitulo() + " (" + this.id + ")";
+	}
 
-    //CONSTRUCTORES -------------------------------------------------------------------------------------------
-    protected Carta() throws Exception {
-
-        this.tipo = tipo;
-        this.titulo = titulo;
-        this.id = idActual++;
-    }
-
-    //METODOS DE CLASE ----------------------------------------------------------------------------------------
-    
-    private static Long getIdActual() {
-    	return Carta.idActual++;
-    }
-    
-    //METODOS GENERALES ---------------------------------------------------------------------------------------
-    
-    @Override
-    public String toString() {
-    	// TODO Auto-generated method stub
-    	return getTitulo() + "(" + getId() + ")";
-    }
-    
-    @Override
+	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
@@ -52,26 +57,22 @@ public abstract class  Carta {
 		Carta other = (Carta) obj;
 		return Objects.equals(id, other.id);
 	}
-    
-    //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
-	public void realizarEfecto(){
-    	
-    }
 	
+//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+	
+	protected abstract String getTituloPorDefecto();
+	
+	public abstract Jugada getJugada();
+	
+//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-    //GETTERS SIMPLES -----------------------------------------------------------------------------------------
-    public TipoDeCarta getTipo() {
-        return this.tipo;
-    }
-    
-    public Long getId() {
-    	return this.id;
-    }
-    
-    public String getTitulo() {
-    	return this.titulo;
-    }
-    
-    
-    //SETTERS SIMPLES -----------------------------------------------------------------------------------------
+	public String getTitulo() {
+		return this.titulo;
+	}
+	
+	public Long getId() {
+		return this.id;
+	}
+	
+//SETTERS SIMPLES -----------------------------------------------------------------------------------------	
 }
