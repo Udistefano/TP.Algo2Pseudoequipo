@@ -1,10 +1,7 @@
 package Cartas;
 
-import Estructuras.Lista;
 import Jugadas.Jugada;
 import Jugadas.JugadaEliminarCartaslDelJugador;
-import Jugadas.JugadaPierdeTurno;
-import Main.Jugador;
 
 
 public class CartaEliminarCartasDelJugador extends Carta {

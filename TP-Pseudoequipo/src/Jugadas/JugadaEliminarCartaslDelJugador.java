@@ -18,7 +18,8 @@ public class JugadaEliminarCartaslDelJugador extends Jugada {
 //METODOS GENERALES ---------------------------------------------------------------------------------------
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 	
-
+	// a este codigo despues pasarle la partida y el turno, con esto, pedirle al usuario
+	// el nombre del jugador al que le borrará las cartas, si ese esta ahí, se realiza lo ya hecho
 	/**
      * pre: debe tner una  carta de este estilo
      * @param nombreJugador
@@ -27,8 +28,10 @@ public class JugadaEliminarCartaslDelJugador extends Jugada {
      * post: Elimina todas las cartas del mazo del contrincante
      */
 	@Override
-	public void jugar(String nombreJugador, Lista<Jugador> jugadores) throws Exception {
+	public void jugar(Partida tateti, Turno turnoActual) throws Exception {
 		Jugador jugador = null;
+		Lista<Jugador> jugadores = tateti.getJugadores();
+		String nombreJugador = null; // pide jugador por teclado
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();
