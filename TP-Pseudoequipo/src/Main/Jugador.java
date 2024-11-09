@@ -5,10 +5,12 @@ import Estructuras.Lista;
 
 import java.util.Objects;
 
+
 public class Jugador {
-    //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
+	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private String nombre = null;
+    private int cantidadFichas;
     private char simbolo = 0;
     private String color = null;
     public Lista<Carta> mano = null;
@@ -24,11 +26,17 @@ public class Jugador {
      * post: inicializa un jugador con el simbolo, nombre y color pasados por parametro, y con fichas y mano
      *       vacias
      */
-    public Jugador(String nombre, char simbolo, String color) throws Exception {
+    public Jugador(String nombre, char simbolo, String color, int cantidadFichas) throws Exception {
         this.nombre = nombre;
         this.simbolo = simbolo;
         this.color = color;
         this.fichas = new Lista<Ficha>();
+        this.cantidadFichas = cantidadFichas;
+        Ficha ficha = new Ficha(simbolo, color);
+        for (int i= 0; i < cantidadFichas; i++) {
+        	this.fichas.agregar(ficha);
+        }
+        	
         this.mano = new Lista<Carta>(); // FIXME: la mano de cartas del jugador, no tendria que ser una pila?
     }
 
