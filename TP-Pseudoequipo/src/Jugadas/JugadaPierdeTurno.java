@@ -32,7 +32,7 @@ public class JugadaPierdeTurno extends Jugada {
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
         // TODO: validar nombreDelJugador, jugador
         String nombreDelJugador = Teclado.preguntarNombreJugadorAEliminar();
-        Jugador jugador = partida.getJugador(nombreDelJugador);
+        Jugador jugador = partida.getJugadores().obtener(nombreDelJugador);
         Turno turno = partida.getTurnoSiguiente(jugador);
 
         turno.incrementarBloqueosRestantes(1);

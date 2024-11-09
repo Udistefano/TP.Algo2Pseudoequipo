@@ -108,6 +108,23 @@ public class Lista<T> {
 	}
 
 	/**
+	 * pre:
+	 * @param dato con lo que buscamos identificar algun elemento de la lista
+	 * @return el elemento de la lista, el cual fue identificado con el dato
+	 * @throws Exception si no se logro encontrar ningun elemento de la lista, identificado con dato
+	 */
+	public T obtener(Object dato) throws Exception {
+		Nodo<T> cursor = this.primero;
+		while (cursor != null) {
+			if (cursor.getDato().equals(dato)) {
+				return cursor.getDato();
+			}
+			cursor = cursor.getSiguiente();
+		}
+		throw new Exception("No se encontro ningun nodo con ese valor!");
+	}
+
+	/**
 	 * pre : posición pertenece al intervalo: [1, contarElementos()]
 	 * pos: cambia el elemento de la posicion
 	 */

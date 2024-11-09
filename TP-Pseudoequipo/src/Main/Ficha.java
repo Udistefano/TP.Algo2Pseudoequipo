@@ -69,6 +69,7 @@ public class Ficha {
     public int hashCode() {
         return Objects.hash(simbolo, color);
     }
+
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 

@@ -42,7 +42,6 @@ public class Partida {
         }
     }
 
-
     public void jugar() throws Exception {
         //while x turno
         //Levantar la carta
@@ -249,7 +248,6 @@ public class Partida {
         return 1 + contarFichasSeguidas(casillero.getCasilleroVecino(direccion), direccion, ficha);
     }
 
-
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
     public Tablero getTablero() {
@@ -263,21 +261,6 @@ public class Partida {
     public Mazo getMazo() {
         return mazo;
     }
-
-    public Jugador getJugador(String nombreDelJugador) throws Exception {
-        if ((nombreDelJugador == null)
-            || (nombreDelJugador.isEmpty())) {
-            throw new Exception("El nombre del jugador no puede ser vacio");
-        }
-
-        this.jugadores.iniciarCursor();
-        while (this.jugadores.avanzarCursor()) {
-            if (this.jugadores.obtenerCursor().getNombre().equals(nombreDelJugador)) {
-                return this.jugadores.obtenerCursor();
-            }
-        }
-    }
-
 
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }
