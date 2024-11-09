@@ -4,6 +4,7 @@ import Cartas.Carta;
 import Main.Partida;
 import Main.Jugador;
 import Main.Turno;
+import Main.Teclado;
 
 /**
  * El jugador decide a quien le hace perder el turno
@@ -13,7 +14,12 @@ public class JugadaPierdeTurno extends Jugada {
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
-    public JugadaPierdeTurno(Carta carta) {
+    /**
+     * pre:
+     * @param carta no puede ser nula
+     * @throws Exception si la carta es nula
+     */
+    public JugadaPierdeTurno(Carta carta) throws Exception {
         super(carta);
     }
 
@@ -26,12 +32,11 @@ public class JugadaPierdeTurno extends Jugada {
      * @param partida no puede ser nulo
      * @param turnoActual no puede ser nulo
      * @throws Exception si algun parametro es nulo
-     * post: juega la jugada pierde turno
+     * post: le pierde un turno al jugador que se le pregunta al jugador actual
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
-        // TODO: validar nombreDelJugador, jugador
-        String nombreDelJugador = Teclado.preguntarNombreJugadorAEliminar();
+        String nombreDelJugador = Teclado.preguntarNombreDelJugadorAEliminar();
         Jugador jugador = partida.getJugadores().obtener(nombreDelJugador);
         Turno turno = partida.getTurnoSiguiente(jugador);
 

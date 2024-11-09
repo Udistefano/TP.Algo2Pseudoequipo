@@ -6,19 +6,33 @@ import Estructuras.Lista;
 public class Partida {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
-    private Tablero tablero = null;
+    private Tablero<Ficha> tablero = null;
     private Lista<Jugador> jugadores = null;
     private Mazo mazo = null;
+    // FIXME: en Partida, turnos deberia ser un Vector, una Lista, o una Pila ???????
+    private Lista<Turno> turnos = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
-    public Partida(Tablero tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
+
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @param jugadores no puede ser nulo
+     * @param mazo no puede ser nulo
+     * @throws Exception si alguno de los parametros es nulo
+     * post: inicializa la partida con el tablero, jugadores y mazo pasados por parametro, e inicializa
+     *       el teclado
+     */
+    public Partida(Tablero<Ficha> tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
         ValidacionUtiles.validarSiEsNulo(tablero);
         ValidacionUtiles.validarSiEsNulo(jugadores);
         ValidacionUtiles.validarSiEsNulo(mazo);
 
+        Teclado.inicializar();
         this.tablero = tablero;
         this.jugadores = jugadores;
         this.mazo = mazo;
+        this.turnos = new Lista<Turno>();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -40,6 +54,8 @@ public class Partida {
                 juegoTerminado = true;
             }
         }
+
+        Teclado.finalizar();
     }
 
     public void jugar() throws Exception {
@@ -248,16 +264,52 @@ public class Partida {
         return 1 + contarFichasSeguidas(casillero.getCasilleroVecino(direccion), direccion, ficha);
     }
 
+    /**
+     * pre:
+     * @param jugador no puede ser nulo
+     * @return el turno siguiente de jugador pasado por parametro
+     * @throws Exception si el jugador es nulo
+     */
+    public Turno getTurnoSiguiente(Jugador jugador) throws Exception {
+        if (jugador == null) {
+            throw new Exception("El jugador no puede ser nulo");
+        }
+        turnos.iniciarCursor();
+        while (turnos.avanzarCursor()) {
+            if (turnos.obtenerCursor().getJugador().equals(jugador)) {
+                return turnos.obtenerCursor();
+            }
+        }
+        throw new Exception("No se encontro el turno siguiente del jugador " + jugador.getNombre());
+    }
+
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-    public Tablero getTablero() {
+    /**
+     * pre: --
+     * @return el tablero de la partida
+     */
+    public Tablero<Ficha> getTablero() {
         return tablero;
     }
 
-    public Lista<Jugador> getJugadores() {
-        return jugadores;
+    /**
+     * pre: --
+     * @return una copia de los jugadores de la partida
+     */
+    public Lista<Jugador> getJugadores() throws Exception {
+        Lista<Jugador> copiaDeJugadores = new Lista<Jugador>();
+        this.jugadores.iniciarCursor();
+        while (this.jugadores.avanzarCursor()) {
+            copiaDeJugadores.agregar(this.jugadores.obtenerCursor());
+        }
+        return copiaDeJugadores;
     }
 
+    /**
+     * pre: --
+     * @return el mazo de la partida
+     */
     public Mazo getMazo() {
         return mazo;
     }

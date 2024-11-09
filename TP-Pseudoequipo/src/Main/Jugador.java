@@ -3,6 +3,8 @@ package Main;
 import Cartas.Carta;
 import Estructuras.Lista;
 
+import java.util.Objects;
+
 public class Jugador {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
@@ -54,7 +56,35 @@ public class Jugador {
                 (this.color.equals(other.color));
     }
 
+    /**
+     * pre: --
+     * @return el hashCode del jugador actual
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(simbolo, color);
+    }
+
+    /**
+     * pre: --
+     * @return una cadena mostrando el nombre del jugador y simbolo
+     */
+    public String toString() {
+        return this.nombre + " " + this.simbolo;
+    }
+
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+
+    /**
+     * pre: --
+     * @return verdadero si el jugador tiene todas las fichas en el tablero, falso si no
+     */
+    // TODO: el profe agrego este metodo en su TDA Jugador en la clase 20, pero no lo implemento
+    //       hay que implementarlo y ver donde usarlo
+    public boolean tieneTodasLasFichasEnElTablero() {
+        return false;
+    }
+
     /**
      * pre:
      *
