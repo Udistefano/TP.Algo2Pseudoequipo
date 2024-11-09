@@ -1,5 +1,7 @@
 package Main;
 
+import Cartas.Carta;
+
 import java.util.Scanner;
 
 public class Teclado {
@@ -59,6 +61,10 @@ public class Teclado {
     public static String preguntarNombreDelJugador() throws Exception {
         System.out.println("Ingrese su nombre: ");
         return leerCadenaNoVacia();
+    }
+
+    public static Carta preguntarCarta() {
+
     }
 
     /**

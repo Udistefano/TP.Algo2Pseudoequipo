@@ -2,6 +2,7 @@ package Main;
 
 import Cartas.Carta;
 import Estructuras.Lista;
+import Estructuras.Vector;
 
 public class Partida {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -11,7 +12,8 @@ public class Partida {
     private Mazo mazo = null;
     private Dado dado;
     // FIXME: en Partida, turnos deberia ser un Vector, una Lista, o una Pila ???????
-    private Lista<Turno> turnos = null;
+//    private Lista<Turno> turnos = null;
+    private Vector<Turno> turnos = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -33,7 +35,12 @@ public class Partida {
         this.tablero = tablero;
         this.jugadores = jugadores;
         this.mazo = mazo;
-        this.turnos = new Lista<Turno>();
+//        this.turnos = new Lista<Turno>();
+        this.turnos = new Vector<Turno>(jugadores.getLongitud(), null);
+        for (int i = 0; i < jugadores.getLongitud(); i++) {
+            Turno turno = new Turno(jugadores.obtener(i));
+            this.turnos.agregar(i, turno);
+        }
         this.dado = new Dado();
     }
 
@@ -41,18 +48,23 @@ public class Partida {
     //METODOS GENERALES ---------------------------------------------------------------------------------------
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
-
+    /**
+     * pre: --
+     * @throws Exception
+     * post:
+     */
     public void jugar() throws Exception {
-    	
-    	turnos.iniciarCursor();
     	boolean hayGanador = false;
+        int posicion = 0;
+
         while(!hayGanador) {
-        	turnos.avanzarCursor();
         	dado.jugarDado();                       //tirar dado
         	int cartasALevantar = dado.getValor();  //Cartas a levantar
         	// Mostrar lo que sale por pantalla;
-            //Levantar la cartas
-            Turno turnoActual = turnos.obtenerCursor();
+            // Levantar la cartas
+            Turno turnoActual = turnos.obtener(posicion);
+            mazo.levantarCartas(cartasALevantar, turnoActual.getJugador());
+
             Casillero<Ficha> casilleroDestino = null;
             turnoActual.iniciarTurno();
             if (turnoActual.estaBloqueado()) {
@@ -65,16 +77,21 @@ public class Partida {
                     }
 
                     //Si juega una carta
-                    Carta cartaActual = null; //preguntar la carta del jugador
+                    Carta cartaActual = Teclado.preguntarCarta(); //preguntar la carta del jugador
                     if (cartaActual != null) {
                         cartaActual.getJugada().jugar(this, turnoActual);
                     }
                 }
             }
+
             turnoActual.terminarTurno();
             hayGanador = verificarGanador(casilleroDestino);
+
+            posicion++;
+            if (posicion == turnos.getLongitud()) {
+                posicion = 0;
+            }
         }
-    	
     }
     
     
