@@ -20,13 +20,8 @@ public class Ficha {
      * post: inicializa la ficha con el simbolo y color dados
      */
     public Ficha(char simbolo, String color) throws Exception {
-        if (simbolo == ' ') {
-            throw new Exception("El simbolo no puede ser vacio");
-        }
-        if ((color == null) ||
-                (color.isEmpty())) {
-            throw new Exception("El color no puede ser vacio");
-        }
+        Validacion.validarSiEsNulo(simbolo, "Simbolo");
+        Validacion.validarSiEsUnaCadenaVacia(color, "Color");
         this.simbolo = simbolo;
         this.color = color;
     }
@@ -56,6 +51,7 @@ public class Ficha {
             return false;
         if (getClass() != obj.getClass())
             return false;
+
         Ficha other = (Ficha) obj;
         return (this.simbolo == other.getSimbolo()) &&
                 (this.color.equals(other.getColor()));
@@ -99,9 +95,7 @@ public class Ficha {
      * post: cambia el simbolo de la ficha al pasado por parametro
      */
     public void setSimbolo(char simbolo) throws Exception {
-        if (simbolo == ' ') {
-            throw new Exception("El simbolo no puede ser vacio");
-        }
+        Validacion.validarSiEsNulo(simbolo, "Simbolo");
         this.simbolo = simbolo;
     }
 
@@ -112,10 +106,7 @@ public class Ficha {
      * post: cambia el color de la ficha al pasado por parametro
      */
     public void setColor(String color) throws Exception {
-        if ((color == null) ||
-                (color.isEmpty())) {
-            throw new Exception("El color no puede ser vacio");
-        }
+        Validacion.validarSiEsUnaCadenaVacia(color, "Color");
         this.color = color;
     }
 }

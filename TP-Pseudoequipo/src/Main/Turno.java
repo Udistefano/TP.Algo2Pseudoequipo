@@ -18,9 +18,7 @@ public class Turno {
 	 *       restante
 	 */
 	public Turno(Jugador jugador) throws Exception {
-		if (jugador == null) {
-			throw new Exception("El jugador no puede ser nulo");
-		}
+		Validacion.validarSiEsNulo(jugador, "Jugador");
 		this.jugador = jugador;
 	}
 	
@@ -38,7 +36,7 @@ public class Turno {
 //        if (cantidadDeBloqueos < 0) {
 //            throw new Exception("La cantidad de bloqueos no puede ser negativa");
 //        }
-		this.bloqueosRestantes += cantidadDeBloqueos;
+		bloqueosRestantes += cantidadDeBloqueos;
 	}
 
 	/**
@@ -46,8 +44,8 @@ public class Turno {
 	 * post: si al turno le quedan bloqueos restantes, le resta uno
 	 */
 	public void terminarTurno() {
-		if (this.bloqueosRestantes > 0) {
-			this.bloqueosRestantes--;
+		if (bloqueosRestantes > 0) {
+			bloqueosRestantes--;
 		}
 	}
 
@@ -56,7 +54,7 @@ public class Turno {
 	 * post: incrementa en una la cantidad de subturnos del turno
 	 */
 	public void iniciarTurno() {
-		this.agregarSubturno();
+		agregarSubturno();
 	}
 
 	/**
@@ -64,7 +62,7 @@ public class Turno {
 	 * post: incrementa en una la cantidad de subturnos del turno
 	 */
 	public void agregarSubturno() {
-		this.cantidadDeSubturnos++;
+		cantidadDeSubturnos++;
 	}
 
 	/**
@@ -73,7 +71,7 @@ public class Turno {
 	 */
 	public boolean haySubturnos() {
 		// FIXME: el profe cantidadDeSubturnos >= 0, no deberia ser > 0 ?????
-		return this.cantidadDeSubturnos >= 0;
+		return cantidadDeSubturnos >= 0;
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -83,7 +81,7 @@ public class Turno {
 	 * @return el jugador del turno
 	 */
 	public Jugador getJugador() {
-		return this.jugador;
+		return jugador;
 	}
 
 	/**
@@ -91,7 +89,7 @@ public class Turno {
 	 * @return verdadero si al turno le quedan bloqueos restantes, falso si no
 	 */
 	public boolean estaBloqueado() {
-		return this.bloqueosRestantes <= 0;
+		return bloqueosRestantes <= 0;
 	}
 
 	/**
@@ -99,7 +97,7 @@ public class Turno {
 	 * @return la cantidad de subturnos
 	 */
 	public int getCantidadDeSubturnos() {
-		return this.cantidadDeSubturnos;
+		return cantidadDeSubturnos;
 	}
 
 	/**
@@ -107,7 +105,7 @@ public class Turno {
 	 * post: utiliza un subturno
 	 */
 	public void utilizarSubturno() {
-		this.cantidadDeSubturnos--;
+		cantidadDeSubturnos--;
 	}
 
 	//SETTERS SIMPLES -----------------------------------------------------------------------------------------

@@ -1,10 +1,7 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Main.Partida;
-import Main.Jugador;
-import Main.Turno;
-import Main.Teclado;
+import Main.*;
 
 /**
  * El jugador decide a quien le hace perder el turno
@@ -36,6 +33,9 @@ public class JugadaPierdeTurno extends Jugada {
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
+        Validacion.validarSiEsNulo(partida, "Partida");
+        Validacion.validarSiEsNulo(turnoActual, "Turno");
+
         String nombreDelJugador = Teclado.preguntarNombreDelJugadorAEliminar();
         Jugador jugador = partida.getJugadores().obtener(nombreDelJugador);
         Turno turno = partida.getTurnoSiguiente(jugador);

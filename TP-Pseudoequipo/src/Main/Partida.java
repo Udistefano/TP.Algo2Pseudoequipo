@@ -27,9 +27,9 @@ public class Partida {
      *       el teclado
      */
     public Partida(Tablero<Ficha> tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
-        ValidacionUtiles.validarSiEsNulo(tablero);
-        ValidacionUtiles.validarSiEsNulo(jugadores);
-        ValidacionUtiles.validarSiEsNulo(mazo);
+        Validacion.validarSiEsNulo(tablero);
+        Validacion.validarSiEsNulo(jugadores);
+        Validacion.validarSiEsNulo(mazo);
 
         Teclado.inicializar();
         this.tablero = tablero;
@@ -120,12 +120,9 @@ public class Partida {
      *                   o esta ocupado
      */
     public Casillero<Ficha> mover(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
-        if (tablero == null) {
-            throw new Exception("El tablero no puede ser nulo");
-        }
-        if (jugador == null) {
-            throw new Exception("El jugador no puede ser nulo");
-        }
+        Validacion.validarSiEsNulo(tablero, "Tablero");
+        Validacion.validarSiEsNulo(jugador, "Jugador");
+
         Ficha ficha = null; // TODO: preguntar posicion de la ficha al jugador
         int x = 0;          // posicion x
         int y = 0;          // posicion y
@@ -148,9 +145,8 @@ public class Partida {
     }
 
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {
-        if (casillero == null) {
-            throw new Exception("El casillero no puede ser nulo");
-        }
+        Validacion.validarSiEsNulo(casillero, "Casillero");
+
         // FIXME: cantidad de fichas deberia estar fijo en 3, o debe ser dinamico??
         int cantidadDeFichas = 3;
 
@@ -243,12 +239,9 @@ public class Partida {
      * @throws Exception si alguno de los parametros es nulo
      */
     public int contarFichasSeguidasEnDireccion(Casillero<Ficha> casillero, Direccion direccion, Direccion direccionContraria) throws Exception {
-        if (casillero == null) {
-            throw new Exception("El casillero no puede ser nulo");
-        }
-        if ((direccion == null) || (direccionContraria == null)) {
-            throw new Exception("La direccion no puede ser nula");
-        }
+        Validacion.validarSiEsNulo(casillero, "Casillero");
+        Validacion.validarSiEsNulo(direccion, "Direccion");
+        Validacion.validarSiEsNulo(direccionContraria, "Direccion");
 
         return this.contarFichasSeguidas(casillero, direccion, casillero.getDato()) +
                 this.contarFichasSeguidas(casillero, direccionContraria, casillero.getDato());
@@ -265,16 +258,9 @@ public class Partida {
      * @throws Exception si alguno de los parametros es nulo
      */
     public int contarFichasSeguidas(Casillero<Ficha> casillero, Direccion direccion, Ficha ficha) throws Exception {
-        if (casillero == null) {
-            throw new Exception("El casillero no puede ser nulo");
-        }
-        if (direccion == null) {
-            throw new Exception("La direccion no puede ser nula");
-        }
-        // TODO: hacer clase de ValidacionesUtiles que cheque si algo es nulo
-        if (ficha == null) {
-            throw new Exception("La ficha no puede ser nula");
-        }
+        Validacion.validarSiEsNulo(casillero, "Casillero");
+        Validacion.validarSiEsNulo(direccion, "Direccion");
+        Validacion.validarSiEsNulo(ficha, "Ficha");
 
         if (!casillero.getDato().equals(ficha)) {
             return 0;
@@ -289,15 +275,19 @@ public class Partida {
      * @throws Exception si el jugador es nulo
      */
     public Turno getTurnoSiguiente(Jugador jugador) throws Exception {
-        if (jugador == null) {
-            throw new Exception("El jugador no puede ser nulo");
-        }
-        turnos.iniciarCursor();
-        while (turnos.avanzarCursor()) {
-            if (turnos.obtenerCursor().getJugador().equals(jugador)) {
-                return turnos.obtenerCursor();
+        Validacion.validarSiEsNulo(jugador, "Jugador");
+
+        for (int i = 0; i < turnos.getLongitud(); i++) {
+            if (turnos.obtener(i).getJugador().equals(jugador)) {
+                return turnos.obtener(i);
             }
         }
+//        turnos.iniciarCursor();
+//        while (turnos.avanzarCursor()) {
+//            if (turnos.obtenerCursor().getJugador().equals(jugador)) {
+//                return turnos.obtenerCursor();
+//            }
+//        }
         throw new Exception("No se encontro el turno siguiente del jugador " + jugador.getNombre());
     }
 
@@ -317,10 +307,12 @@ public class Partida {
      */
     public Lista<Jugador> getJugadores() throws Exception {
         Lista<Jugador> copiaDeJugadores = new Lista<Jugador>();
-        this.jugadores.iniciarCursor();
-        while (this.jugadores.avanzarCursor()) {
-            copiaDeJugadores.agregar(this.jugadores.obtenerCursor());
+
+        jugadores.iniciarCursor();
+        while (jugadores.avanzarCursor()) {
+            copiaDeJugadores.agregar(jugadores.obtenerCursor());
         }
+
         return copiaDeJugadores;
     }
 

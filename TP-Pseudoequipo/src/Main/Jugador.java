@@ -55,13 +55,14 @@ public class Jugador {
         if (obj == null)
             return false;
         if (obj instanceof String)
-            return this.nombre.equals((String) obj);
+            return nombre.equals((String) obj);
         if (getClass() != obj.getClass())
             return false;
+
         Jugador other = (Jugador) obj;
-        return (this.nombre.equals(other.nombre)) &&
-                (this.simbolo == other.simbolo) &&
-                (this.color.equals(other.color));
+        return (nombre.equals(other.nombre)) &&
+                (simbolo == other.simbolo) &&
+                (color.equals(other.color));
     }
 
     /**
@@ -78,7 +79,7 @@ public class Jugador {
      * @return una cadena mostrando el nombre del jugador y simbolo
      */
     public String toString() {
-        return this.nombre + " " + this.simbolo;
+        return nombre + " " + simbolo;
     }
 
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
@@ -168,10 +169,8 @@ public class Jugador {
      * post: agrega la ficha pasada por parametro, a la lista de fichas del jugador
      */
     public void agregarFicha(Ficha ficha) throws Exception {
-        if (ficha == null) {
-            throw new Exception("La ficha no puede ser null");
-        }
-        this.fichas.agregar(ficha);
+        Validacion.validarSiEsNulo(ficha, "Ficha");
+        fichas.agregar(ficha);
     }
 
 
@@ -182,7 +181,7 @@ public class Jugador {
      * @return el simbolo del jugador
      */
     public char getSimbolo() {
-        return this.simbolo;
+        return simbolo;
     }
 
     /**

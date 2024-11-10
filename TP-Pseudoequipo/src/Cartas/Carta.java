@@ -3,6 +3,7 @@ package Cartas;
 import java.util.Objects;
 
 import Jugadas.Jugada;
+import Main.Validacion;
 
 public abstract class Carta {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -20,7 +21,7 @@ public abstract class Carta {
      * post: inicializa una carta con el titulo por defecto y el id actual
      */
 	protected Carta() {
-		this.titulo = this.getTituloPorDefecto();
+		this.titulo = getTituloPorDefecto();
 		this.id = Carta.getIdActual();
 	}
 
@@ -31,7 +32,7 @@ public abstract class Carta {
      * post: inicializa una carta con el titulo pasado por parametro y el id actual
      */
 	protected Carta(String titulo) throws Exception {
-
+		Validacion.validarSiEsUnaCadenaVacia(titulo, "Titulo");
 		this.titulo = titulo;
 		this.id = Carta.getIdActual();
 	}
@@ -54,7 +55,7 @@ public abstract class Carta {
      */
 	@Override
 	public String toString() {
-		return this.getTitulo() + " (" + this.id + ")";
+		return getTitulo() + " (" + id + ")";
 	}
 
     /**
@@ -79,6 +80,7 @@ public abstract class Carta {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+
 		Carta other = (Carta) obj;
 		return Objects.equals(id, other.id);
 	}
@@ -104,7 +106,7 @@ public abstract class Carta {
      * @return el titulo de la carta
      */
 	public String getTitulo() {
-		return this.titulo;
+		return titulo;
 	}
 
     /**
@@ -112,7 +114,7 @@ public abstract class Carta {
      * @return el id de la carta
      */
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 	
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------	

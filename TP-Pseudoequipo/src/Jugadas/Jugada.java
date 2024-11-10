@@ -18,9 +18,7 @@ public abstract class Jugada {
 	 * post: inicializa la jugada con la carta pasada por parametro
 	 */
 	public Jugada(Carta carta) throws Exception {
-		if (carta == null) {
-			throw new Exception("La carta no puede ser nula");
-		}
+		Validacion.validarSiEsNulo(carta, "Carta");
 		this.carta = carta;
 	}
 	
