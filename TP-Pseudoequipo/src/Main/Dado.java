@@ -20,9 +20,18 @@ public class Dado {
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
     /**
      * pre: -
+     * post: tira el dado, y devuelve su valor
+     */
+    public int jugarDado() {
+        tirarDado();
+        return getValor();
+    }
+
+    /**
+     * pre: -
      * post: le da al dado un valor entre VALOR_MINIMO y VALOR_MAXIMO
      */
-    public void jugarDado() {
+    public void tirarDado() {
         valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
     }
 

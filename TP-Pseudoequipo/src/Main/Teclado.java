@@ -68,6 +68,7 @@ public class Teclado {
         System.out.println("Ingrese el nombre de la carta a jugar: ");
         // TODO: habria que primero saber los nombres de todas las cartas disponibles de la mano del jugador, o quiza
         //     : pasarlas por parametro, o quiza agregarle al enum TipoDeCarta un mostrarCartas
+        //     : seguramente este metodo deba ir en Partida
         return leerCadenaNoVacia();
     }
 

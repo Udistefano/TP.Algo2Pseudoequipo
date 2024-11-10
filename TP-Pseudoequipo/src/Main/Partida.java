@@ -27,9 +27,9 @@ public class Partida {
      *       el teclado
      */
     public Partida(Tablero<Ficha> tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
-        Validacion.validarSiEsNulo(tablero);
-        Validacion.validarSiEsNulo(jugadores);
-        Validacion.validarSiEsNulo(mazo);
+        Validacion.validarSiEsNulo(tablero, "Tablero");
+        Validacion.validarSiEsNulo(jugadores, "Lista de Jugadores");
+        Validacion.validarSiEsNulo(mazo, "Mazo");
 
         Teclado.inicializar();
         this.tablero = tablero;
@@ -54,38 +54,17 @@ public class Partida {
      * @throws Exception
      * post:
      */
-    public void jugar() throws Exception {
+    public void jugarTurnos() throws Exception {
     	boolean hayGanador = false;
         int posicion = 0;
 
         while(!hayGanador) {
-        	dado.jugarDado();                       //tirar dado
-        	int cartasALevantar = dado.getValor();  //Cartas a levantar
-        	// Mostrar lo que sale por pantalla;
-            // Levantar la cartas
             Turno turnoActual = turnos.obtener(posicion);
+            int cartasALevantar = dado.jugarDado();
+
+            // Mostrar lo que sale por pantalla;
             mazo.levantarCartas(cartasALevantar, turnoActual.getJugador());
-
-            Casillero<Ficha> casilleroDestino = null;
-            turnoActual.iniciarTurno();
-            if (turnoActual.estaBloqueado()) {
-                while (turnoActual.haySubturnos()) {
-                    turnoActual.utilizarSubturno();
-                    if (!turnoActual.getJugador().tieneTodasLasFichasEnElTablero()) {
-                        jugadaInicial(this.tablero, turnoActual.getJugador());
-                    } else {
-                        casilleroDestino = mover(this.tablero, turnoActual.getJugador());
-                    }
-
-                    //Si juega una carta
-                    Carta cartaActual = Teclado.preguntarCarta(); //preguntar la carta del jugador
-                    if (cartaActual != null) {
-                        cartaActual.getJugada().jugar(this, turnoActual);
-                    }
-                }
-            }
-
-            turnoActual.terminarTurno();
+            Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
             hayGanador = verificarGanador(casilleroDestino);
 
             posicion++;
@@ -94,19 +73,51 @@ public class Partida {
             }
         }
     }
-    
-    
-    public void jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
 
-        Ficha ficha = null; //crea
-        int x = 0; //pregunta la posicion
-        int y = 0;
-        int z = 0;
-        Casillero<Ficha> casillero = tablero.getCasillero(x, y, z);
+    public Casillero<Ficha> jugarTurno(Turno turno) throws Exception {
+        Casillero<Ficha> casilleroDestino = null;
+
+        turno.iniciarTurno();
+        if (turno.estaBloqueado()) {
+            while (turno.haySubturnos()) {
+                turno.utilizarSubturno();
+                if (!turno.getJugador().tieneTodasLasFichasEnElTablero()) {
+                    casilleroDestino = jugadaInicial(this.tablero, turno.getJugador());
+                } else {
+                    casilleroDestino = mover(this.tablero, turno.getJugador());
+                }
+
+                Carta cartaActual = Teclado.preguntarCarta();
+                if (cartaActual != null) {
+                    cartaActual.getJugada().jugar(this, turno);
+                }
+            }
+        }
+        turno.terminarTurno();
+
+        return casilleroDestino;
+    }
+
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @param jugador no puede ser nulo
+     * @throws Exception si el tablero o jugador son nulos, o el casillero que el jugador eligio esta ocupado
+     * post: juega la jugada inicial, le pregunta un casillero, y mueve una ficha del jugador ahi
+     */
+    public Casillero<Ficha> jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
+        Validacion.validarSiEsNulo(tablero, "Tablero");
+        Validacion.validarSiEsNulo(jugador, "Jugador");
+
+        Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
+        Casillero<Ficha> casillero = preguntarCasillero();
+        // TODO: quitarle al jugador una ficha, luego de una jugada inicial
         if (casillero.estaOcupado()) {
             throw new Exception("El casillero esta ocupado");
         }
         casillero.setDato(ficha);
+
+        return casillero;
     }
 
     /**
@@ -123,12 +134,9 @@ public class Partida {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
 
-        Ficha ficha = null; // TODO: preguntar posicion de la ficha al jugador
-        int x = 0;          // posicion x
-        int y = 0;          // posicion y
-        int z = 0;          // posicion z
-        Movimiento movimiento = null; // TODO: preguntar el movimiento al jugador
-        Casillero<Ficha> casillero = tablero.getCasillero(x, y, z);
+        Ficha ficha = preguntarFicha();
+        Movimiento movimiento = Teclado.preguntarMovimiento();
+        Casillero<Ficha> casillero = preguntarCasillero();
 
         if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("No existe el movimiento");
@@ -144,87 +152,99 @@ public class Partida {
         return casillero.getCasilleroVecino(movimiento);
     }
 
+    public Ficha preguntarFicha() throws Exception {
+        return preguntarCasillero().getDato();
+    }
+
+    public Casillero<Ficha> preguntarCasillero() throws Exception {
+        // TODO: permitir que si el jugador ingresa coordenadas invalidas, pueda volver a ingresar de vuelta
+        int x = Teclado.preguntarCoordenada('x');
+        int y = Teclado.preguntarCoordenada('y');
+        int z = Teclado.preguntarCoordenada('z');
+
+        return tablero.getCasillero(x, y, z);
+    }
+
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {
         Validacion.validarSiEsNulo(casillero, "Casillero");
-
-        // FIXME: cantidad de fichas deberia estar fijo en 3, o debe ser dinamico??
+        // FIXME: agregar atributo cantidadDeFichasNecesariasParaGanar al TDA Partida, siendo inicialmente 3
         int cantidadDeFichas = 3;
 
         // TODO: esto seguramente contar las fichas seguidas en todas las direcciones, seguramente se pueda mejorar
-        // Plano de atras
-        int cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_ARRIBA,
+        int cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_ARRIBA,
                 Direccion.ATRAS_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA,
                 Direccion.ATRAS_DERECHA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ARRIBA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ARRIBA,
                 Direccion.ATRAS_DERECHA_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ABAJO,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ABAJO,
                 Direccion.ATRAS_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
         // Plano del centro
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_ARRIBA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_ARRIBA,
                 Direccion.CENTRO_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA,
                 Direccion.CENTRO_DERECHA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ARRIBA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ARRIBA,
                 Direccion.CENTRO_DERECHA_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ABAJO,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ABAJO,
                 Direccion.CENTRO_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
         // Plano de adelante
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_ARRIBA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_ARRIBA,
                 Direccion.ADELANTE_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA,
                 Direccion.ADELANTE_DERECHA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ARRIBA,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ARRIBA,
                 Direccion.ADELANTE_DERECHA_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
 
-        cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ABAJO,
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ABAJO,
                 Direccion.ADELANTE_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true; // Hay ganador!!!!!
+        	return true;
         }
+
         return false;
     }
 
