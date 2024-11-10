@@ -36,6 +36,7 @@ public class Partida {
         this.jugadores = jugadores;
         this.mazo = mazo;
 //        this.turnos = new Lista<Turno>();
+        // TODO: implementar ListaCircular , y hacer turnos una ListaCircular
         this.turnos = new Vector<Turno>(jugadores.getLongitud(), null);
         for (int i = 0; i < jugadores.getLongitud(); i++) {
             Turno turno = new Turno(jugadores.obtener(i));
