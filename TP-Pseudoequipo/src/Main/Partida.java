@@ -125,9 +125,12 @@ public class Partida {
         if (jugador == null) {
             throw new Exception("El jugador no puede ser nulo");
         }
-        Ficha ficha = null; // TODO: preguntar la ficha al jugador
+        Ficha ficha = null; // TODO: preguntar posicion de la ficha al jugador
+        int x = 0;          // posicion x
+        int y = 0;          // posicion y
+        int z = 0;          // posicion z
         Movimiento movimiento = null; // TODO: preguntar el movimiento al jugador
-        Casillero<Ficha> casillero = tablero.getCasillero(ficha);
+        Casillero<Ficha> casillero = tablero.getCasillero(x, y, z);
 
         if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("No existe el movimiento");
@@ -152,89 +155,75 @@ public class Partida {
         int cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_ARRIBA,
                 Direccion.ATRAS_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // TODO: implementar que hacer cuando hay ganador, en verificarGAnador
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA,
                 Direccion.ATRAS_DERECHA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
-        	
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ARRIBA,
                 Direccion.ATRAS_DERECHA_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ABAJO,
                 Direccion.ATRAS_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         // Plano del centro
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_ARRIBA,
                 Direccion.CENTRO_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA,
                 Direccion.CENTRO_DERECHA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ARRIBA,
                 Direccion.CENTRO_DERECHA_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ABAJO,
                 Direccion.CENTRO_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         // Plano de adelante
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_ARRIBA,
                 Direccion.ADELANTE_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA,
                 Direccion.ADELANTE_DERECHA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ARRIBA,
                 Direccion.ADELANTE_DERECHA_ABAJO);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
 
         cantidadDeFichasSeguidas = this.contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ABAJO,
                 Direccion.ADELANTE_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-            // Hay ganador!!!!!, falta implementar que hacer cuando hay ganador
+        	return true; // Hay ganador!!!!!
         }
         return false;
     }
