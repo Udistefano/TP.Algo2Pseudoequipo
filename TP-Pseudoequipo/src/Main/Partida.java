@@ -135,11 +135,14 @@ public class Partida {
         if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("No existe el movimiento");
         }
+        if(casillero.getDato() == null) {
+        	throw new Exception("No hay ficha en el casillero");
+        }
         if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
             throw new Exception("El casillero al que se quiere mover esta ocupado");
         }
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), ficha);
-
+       
         return casillero.getCasilleroVecino(movimiento);
     }
 

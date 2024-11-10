@@ -162,6 +162,19 @@ public class Tablero<T> {
         Casillero<T> casillero = this.getCasillero(x, y, z);
         casillero.setDato(ficha);
     }
+    
+    /**
+     * pre: El casillero vecino no puede estar ocupado y debe existir el movimiento
+     * @param casillero
+     * @param destino
+     * @param ficha
+     * post: Mueve la ficha al casillero de destino
+     */
+    public void mover(Casillero<Ficha> casillero, Casillero<Ficha> destino, Ficha ficha) {
+        casillero.setDato(null);
+        destino.setDato(ficha);
+    }
+    
 
     /**
      * pre:
@@ -178,6 +191,7 @@ public class Tablero<T> {
         }
         return this.tablero.obtener(x).obtener(y).obtener(z);
     }
+    
 
     /**
      * pre:
@@ -243,6 +257,8 @@ public class Tablero<T> {
     public int getProfundidad() {
         return this.profundidad;
     }
+
+	}
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------	
 }
