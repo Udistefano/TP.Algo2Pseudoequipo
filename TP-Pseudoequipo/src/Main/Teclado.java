@@ -1,6 +1,7 @@
 package Main;
 
 import Cartas.Carta;
+import Estructuras.Lista;
 
 import java.util.Scanner;
 
@@ -63,13 +64,21 @@ public class Teclado {
         System.out.println("Ingrese su nombre: ");
         return leerCadenaNoVacia();
     }
+    /**
+     * pre: --
+     * post: 
+     */
+    public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
+        mano.iniciarCursor();
+        for(int i = 1;i <= mano.getLongitud();i++){
 
-    public static Carta preguntarCarta() throws Exception {
-        System.out.println("Ingrese el nombre de la carta a jugar: ");
-        // TODO: habria que primero saber los nombres de todas las cartas disponibles de la mano del jugador, o quiza
-        //     : pasarlas por parametro, o quiza agregarle al enum TipoDeCarta un mostrarCartas
-        //     : seguramente este metodo deba ir en Partida
-        return leerCadenaNoVacia();
+            System.out.println(i+1+"-"+mano.obtenerCursor().toString());
+            mano.avanzarCursor();
+        }
+        System.out.println("Ingrese el Numero de la posicion de la carta a jugar: ");
+        int posicion =  teclado.nextInt();
+        //     
+        return  mano.obtener(posicion);
     }
 
     /**

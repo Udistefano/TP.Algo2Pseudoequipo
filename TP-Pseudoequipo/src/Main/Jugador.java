@@ -10,7 +10,7 @@ public class Jugador {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private String nombre = null;
-    private int cantidadFichas;
+    private int cantidadFichas = 0;
     private char simbolo = 0;
     private String color = null;
     public Lista<Carta> mano = null;
@@ -32,12 +32,11 @@ public class Jugador {
         this.color = color;
         this.fichas = new Lista<Ficha>();
         this.cantidadFichas = cantidadFichas;
-        Ficha ficha = new Ficha(simbolo, color);
         for (int i= 0; i < cantidadFichas; i++) {
+            Ficha ficha = new Ficha(simbolo, color);
         	this.fichas.agregar(ficha);
-        }
-        	
-        this.mano = new Lista<Carta>(); // FIXME: la mano de cartas del jugador, no tendria que ser una pila?
+        } 
+        this.mano = new Lista<Carta>();  
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -91,62 +90,40 @@ public class Jugador {
     // TODO: el profe agrego este metodo en su TDA Jugador en la clase 20, pero no lo implemento
     //       hay que implementarlo y ver donde usarlo
     public boolean tieneTodasLasFichasEnElTablero() {
+        
         return false;
     }
 
     /**
      * pre:
-     *
-     * @param cacillero casillero
+     * @param cacillero casillero: 
      * @throws post:
      */
     public void jugarFicha(Casillero<Ficha> casillero) throws Exception {
         if (casillero.estaOcupado()) {
             throw new Exception("Casillero ocupado");
         } else {
-            Ficha nuevaFicha = new Ficha(this);
-            casillero.setDato(nuevaFicha);
-
+            //Ficha nuevaFicha = new Ficha();
+            //casillero.setDato(nuevaFicha);
         }
     }
-
-    /**
-     * pre:
-     *
-     * @param tablero:   tablero de juego
-     * @param casillero:
-     * @throws Exception
-     * @throws post:
-     */
-    public void moverFicha(Casillero<Ficha> casillero) throws Exception {
-        if (casillero.getDato().getjugador() == this) {
-            //mover a vecino
-            Movimiento movimiento = null;//solicitar movimiento?
-            if (casillero.existeElVecino(movimiento) && !casillero.getCasilleroVecino(movimiento).estaOcupado()) {
-                casillero.setCasilleroVecino(casillero.setCasilleroVecino(movimiento), simbolo, simbolo, simbolo);
-            }
-
-
-        }
-    }
-
+ 
     /**
      * pre:
      *
      * @param
      * @throws post:
      */
-    public void usarCarta() {
-
+    public Lista<Carta> devolverMano() throws Exception{
+        return mano;
     }
-
     /**
      * pre:
      *
      * @param
      * @throws post:
      */
-    public void tomar_cartas(Carta carta) throws Exception {
+    public void tomarCartas(Carta carta) throws Exception {
         mano.agregar(carta);
     }
 
@@ -154,9 +131,12 @@ public class Jugador {
      * pre: --
      * @return
      */
-    public TipoDeCarta devolveCartas() {
+    public Carta  devolveCartas() throws Exception{
         //implementar seleccionar carta
-        return this.mano.obtenerCursor().getTipo();
+        //Validacion.cartaValida();
+        Carta carta = mano.obtenerCursor();
+        mano.remover(carta);
+        return carta;
 
     }
 
