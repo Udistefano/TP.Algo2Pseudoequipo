@@ -15,6 +15,7 @@ public class Jugador {
     private String color = null;
     public Lista<Carta> mano = null;
     private Lista<Ficha> fichas = null;
+    int cartasMaximasEnMano = 8;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
     /**
@@ -141,12 +142,15 @@ public class Jugador {
     }
 
     /**
-     * pre:
+     * pre: El monto de cartas en mano tiene que ser menor al maximo de cartas en mano
      *
-     * @param
-     * @throws post:
+     * @param carta
+     * @throws post: Se agregan las cartas en mano del jugador que tiro el dado
      */
-    public void tomar_cartas(Carta carta) throws Exception {
+    public void tomarCartas(Carta carta) throws Exception {
+    	if (cartasMaximasEnMano <= mano.getLongitud()){
+    		throw new Exception ("No se pueden agregar mas cartas, tope maximo de cartas en mano");
+    	}
         mano.agregar(carta);
     }
 

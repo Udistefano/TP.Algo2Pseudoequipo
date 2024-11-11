@@ -52,4 +52,10 @@ public class Validacion {
             throw new Exception("El caracter no es un letra");
         }
     }
+    
+    public static void validarSiEsCero (int valor) throws Exception {
+    	if (valor <= 0) {
+    		throw new Exception ("El valor no puede ser igual o menor 0");
+    	}
+    }
 }
