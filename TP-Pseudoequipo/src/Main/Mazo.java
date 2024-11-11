@@ -14,7 +14,7 @@ public class Mazo {
      * pos: crea un mazo de cartas con 50 cartas de todos los tipos. No hay un maximo de cartas por tipo
      */
     public void crearMazo () {
-    	for (int i = 0; i < (maximoDeCartasEnMazo - cartas.contarElementos()) ; i++) {
+    	for(int i = 0; i < (maximoDeCartasEnMazo - cartas.contarElementos()) ; i++) {
     		cartas.acolar(carta);
     	}
     }

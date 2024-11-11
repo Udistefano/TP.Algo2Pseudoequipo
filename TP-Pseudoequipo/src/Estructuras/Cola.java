@@ -83,7 +83,6 @@ public class Cola<T> {
 	 * post: devuelve la cantidad de elementos que tiene la cola.
 	 */
 	public int contarElementos() {
-
 		return this.tamanio;
 	}
 

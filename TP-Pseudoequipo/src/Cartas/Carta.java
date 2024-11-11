@@ -118,4 +118,12 @@ public abstract class Carta {
 	}
 	
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------	
+	/**
+	 * 
+	 */
+	public void setTitulo (String titulo) {
+		this.titulo = titulo;
+	}
+	
+	
 }
