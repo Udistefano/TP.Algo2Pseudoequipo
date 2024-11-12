@@ -165,8 +165,11 @@ public class Tablero<T> {
      * @param destino
      * @param ficha
      * post: Mueve la ficha al casillero de destino
+     * @throws Exception 
      */
-    public void mover(Casillero<Ficha> casillero, Casillero<Ficha> destino, Ficha ficha) {
+    public void mover(Casillero<Ficha> casillero, Casillero<Ficha> destino, Ficha ficha) throws Exception {
+    	Validacion.validarFichaBloqueada(casillero);
+    	Validacion.validarFichaBloqueada(destino);
         casillero.setDato(null);
         destino.setDato(ficha);
     }

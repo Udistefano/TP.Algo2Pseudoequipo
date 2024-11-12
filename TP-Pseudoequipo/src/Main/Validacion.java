@@ -52,4 +52,17 @@ public class Validacion {
             throw new Exception("El caracter no es un letra");
         }
     }
+    
+    /**
+     * pre: debe existir la ficha en casillero
+     * @param casillero
+     * @throws Exception
+     * post: valida si la ficha esta bloqueada, sino, se puede utilizar normalmente
+     */
+    public static void validarFichaBloqueada(Casillero<Ficha> casillero) throws Exception {
+    	Ficha ficha = casillero.getDato();
+        if (ficha.isEstaBloqueada() == true) {
+        	throw new Exception("La ficha "+ ficha +" esta bloqueada");
+        }
+    }
 }

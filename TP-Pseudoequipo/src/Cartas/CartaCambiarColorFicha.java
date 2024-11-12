@@ -20,7 +20,7 @@ public class CartaCambiarColorFicha extends Carta {
 	}
 
 	@Override
-	public Jugada getJugada() {
+	public Jugada getJugada() throws Exception {
 		return new JugadaCambiarColorFicha(this);
 	}
 

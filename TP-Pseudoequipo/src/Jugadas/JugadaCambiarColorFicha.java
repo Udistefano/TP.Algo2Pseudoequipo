@@ -36,6 +36,7 @@ public class JugadaCambiarColorFicha extends Jugada {
 		Validacion.validarSiEsNulo(turnoActual, "Turno");
 
 		Casillero<Ficha> casillero = partida.preguntarCasillero();
+		Validacion.validarFichaBloqueada(casillero);
 		Jugador jugadorActual = turnoActual.getJugador();
 		cambiarColor(jugadorActual, casillero);
 		

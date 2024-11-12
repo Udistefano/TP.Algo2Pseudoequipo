@@ -9,6 +9,7 @@ public class Ficha {
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private char simbolo = ' ';
     private String color = null;
+    private boolean estaBloqueada;
 
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -24,6 +25,7 @@ public class Ficha {
         Validacion.validarSiEsUnaCadenaVacia(color, "Color");
         this.simbolo = simbolo;
         this.color = color;
+        this.estaBloqueada = false;
     }
 
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -84,10 +86,28 @@ public class Ficha {
     public String getColor() {
         return this.color;
     }
+    
+    /**
+     * pre: --
+     * @return si la ficha esta bloqueada
+     */
+    public boolean isEstaBloqueada() {
+		return estaBloqueada;
+	}
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-    // FIXME: los setters de simbolo y color de Ficha deben ser public o protected?
+    
+    /**
+     * pre: --
+     * @param estaBloqueada
+     * post: Cambia el valor de estaBloqueada
+     */
+	public void setEstaBloqueada(boolean estaBloqueada) {
+		this.estaBloqueada = estaBloqueada;
+	}
+
+	// FIXME: los setters de simbolo y color de Ficha deben ser public o protected?
     /**
      * pre:
      * @param simbolo no puede ser vacio
