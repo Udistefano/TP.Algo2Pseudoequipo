@@ -3,20 +3,70 @@ package Main;
 import Estructuras.Cola;
 import java.util.Objects;
 import Cartas.Carta;
+import Cartas.CartaAnularCasillero;
+import Cartas.CartaBloquearTurno;
+import Cartas.CartaCambiarColorFicha;
+import Cartas.CartaDobleTurno;
+import Cartas.CartaEliminarCartasDelJugador;
+import Cartas.CartaPierdeTurno;
+import Cartas.CartaVolverJugadaAnterior;
+
+import java.util.Random;
 
 @SuppressWarnings("rawtypes")
 public class Mazo {
-	Cola <Carta> cartas = null;
-    int maximoDeCartasEnMazo = 50;
+	
+    private static int VALOR_MINIMO = 1;
+    private static int VALOR_MAXIMO = 7;
+	public Cola <Carta> cartas = null;
+    private int maximoDeCartasEnMazo = 50;
+    private int valor = 0;
+    private Random random = null;
     
     /**
      * pre: --
      * pos: crea un mazo de cartas con 50 cartas de todos los tipos. No hay un maximo de cartas por tipo
      */
     public void crearMazo () {
-    	for(int i = 0; i < (maximoDeCartasEnMazo - cartas.contarElementos()) ; i++) {
-    		cartas.acolar(carta);
+    	for (int i = 0; i < (maximoDeCartasEnMazo - cartas.contarElementos()) ; i++) {
+    		Carta cartaASumar = elegirTituloPorId();
+			cartas.acolar(cartaASumar);
     	}
+    }
+    
+    /**
+     * pre: --
+     * pos: le da al  un valor entre VALOR_MINIMO y VALOR_MAXIMO
+     */
+    public void elegirIdParaTitutlo() {
+    	valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
+    }
+    
+    
+    /**
+     * 
+     * @return cartaActual: de tipo carta, elegida aleatoriamente para sumar al mazo
+     */
+    public Carta elegirTituloPorId() {
+    	elegirIdParaTitutlo();
+    	valor = getValor();
+    	switch(valor) {
+    		case 1: 
+    			Carta cartaAltual = new CartaCambiarColorFicha();
+    		case 2:
+    			Carta cartaActual = new CartaAnularCasillero();
+    		case 3:
+    			Carta cartaActual = new CartaBloquearTurno();
+    		case 4:
+    			Carta cartaActual = new CartaDobleTurno();
+    		case 5:
+    			Carta cartaActual = new CartaEliminarCartasDelJugador();
+    		case 6:
+    			Carta cartaActual = new CartaPierdeTurno();
+    		case 7:
+    			Carta cartaActual = new CartaVolverJugadaAnterior(); 		
+    	}
+		return cartaActual;
     }
     
     /**
@@ -36,4 +86,9 @@ public class Mazo {
     		cartas.desacolar();
         }
     }
+    
+    public int getValor() {
+        return valor;
+    }
+    
 }
