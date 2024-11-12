@@ -33,12 +33,15 @@ public class JugadaCambiarColorFicha extends Jugada {
 	 */
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
+		Tablero tablero = partida.getTablero();
 		// pide el casillero a cambiar, con direcciones x, y, z
 		int x = Teclado.preguntarCoordenada('x');
 		int y = Teclado.preguntarCoordenada('y');
 		int z = Teclado.preguntarCoordenada('z');
-		Tablero tablero = partida.getTablero();
 		Casillero casillero = tablero.getCasillero(x, y, z);
+		if (!tablero.existeElCasillero(x, y, z)) {
+            throw new Exception("Coordenadas de casillero invalidas");
+        }
 		Jugador jugadorActual = turnoActual.getJugador();
 		cambiarColor(jugadorActual, casillero);
 		
