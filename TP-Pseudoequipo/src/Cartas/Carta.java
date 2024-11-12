@@ -97,7 +97,7 @@ public abstract class Carta {
      * pre: --
      * @return la jugada de la carta
      */
-	public abstract Jugada getJugada();
+	public abstract Jugada getJugada() throws Exception;
 	
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 

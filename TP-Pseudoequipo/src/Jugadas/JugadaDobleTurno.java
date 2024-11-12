@@ -1,4 +1,45 @@
 package Jugadas;
 
+import Cartas.Carta;
+import Main.Partida;
+import Main.Turno;
+import Main.Validacion;
+
 public class JugadaDobleTurno extends Jugada {
+    //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
+    //ATRIBUTOS -----------------------------------------------------------------------------------------------
+    //CONSTRUCTORES -------------------------------------------------------------------------------------------
+
+    /**
+     * pre:
+     * @param carta no puede ser nulo
+     * @throws Exception si carta es nulo
+     * post: inicializa la jugada, con la carta pasada por parametro
+     */
+    public JugadaDobleTurno(Carta carta) throws Exception {
+        super(carta);
+    }
+
+    //METODOS DE CLASE ----------------------------------------------------------------------------------------
+    //METODOS GENERALES ---------------------------------------------------------------------------------------
+    //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+
+    /**
+     * pre:
+     * @param partida     no puede ser nulo
+     * @param turnoActual no puede ser nulo
+     * @throws Exception si algun parametro es nulo
+     * post: le agrega al jugador del turno actual un subturno
+     */
+    @Override
+    public void jugar(Partida partida, Turno turnoActual) throws Exception {
+        Validacion.validarSiEsNulo(partida, "Partida");
+        Validacion.validarSiEsNulo(turnoActual, "Turno");
+
+        turnoActual.agregarSubturno();
+    }
+
+    //GETTERS SIMPLES -----------------------------------------------------------------------------------------
+    //SETTERS SIMPLES -----------------------------------------------------------------------------------------
+
 }
