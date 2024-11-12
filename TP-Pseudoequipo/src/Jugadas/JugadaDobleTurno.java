@@ -14,7 +14,7 @@ public class JugadaDobleTurno extends Jugada {
      * pre:
      * @param carta no puede ser nulo
      * @throws Exception si carta es nulo
-     * post: inicializa la jugada, con la carta pasada por parametro
+     * post: inicializa la jugada doble turno, con la carta pasada por parametro
      */
     public JugadaDobleTurno(Carta carta) throws Exception {
         super(carta);
@@ -41,5 +41,4 @@ public class JugadaDobleTurno extends Jugada {
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
-
 }

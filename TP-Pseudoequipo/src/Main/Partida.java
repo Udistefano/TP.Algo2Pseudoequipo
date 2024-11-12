@@ -151,15 +151,30 @@ public class Partida {
         return casillero.getCasilleroVecino(movimiento);
     }
 
+    /**
+     * pre: --
+     * @throws Exception si no existe el casillero con las coordenadas ingresadas por el jugador
+     * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y devuelve
+     *       la ficha en ese casillero
+     */
     public Ficha preguntarFicha() throws Exception {
         return preguntarCasillero().getDato();
     }
 
+    /**
+     * pre: --
+     * @throws Exception si no existe el casillero con las coordenadas ingresadas por el jugador
+     * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y lo devuelve
+     */
     public Casillero<Ficha> preguntarCasillero() throws Exception {
-        // TODO: permitir que si el jugador ingresa coordenadas invalidas, pueda volver a ingresar de vuelta
+        // TODO: ?¿?¿?permitir que si el jugador ingresa coordenadas invalidas, pueda volver a ingresar de vuelta
         int x = Teclado.preguntarCoordenada('x');
         int y = Teclado.preguntarCoordenada('y');
         int z = Teclado.preguntarCoordenada('z');
+
+        if (!tablero.existeElCasillero(x, y, z)) {
+            throw new Exception("Coordenadas de casillero invalidas");
+        }
 
         return tablero.getCasillero(x, y, z);
     }
