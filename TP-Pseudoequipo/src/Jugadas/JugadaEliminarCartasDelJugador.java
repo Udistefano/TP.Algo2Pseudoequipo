@@ -7,12 +7,12 @@ import Main.Partida;
 import Main.Teclado;
 import Main.Turno;
 
-public class JugadaEliminarCartaslDelJugador extends Jugada {
+public class JugadaEliminarCartasDelJugador extends Jugada {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
-	public JugadaEliminarCartaslDelJugador(Carta carta) throws Exception {
+	public JugadaEliminarCartasDelJugador(Carta carta) throws Exception {
 		super(carta);
 	}
 	

@@ -1,7 +1,7 @@
 package Cartas;
 
 import Jugadas.Jugada;
-import Jugadas.JugadaEliminarCartaslDelJugador;
+import Jugadas.JugadaEliminarCartasDelJugador;
 
 
 public class CartaEliminarCartasDelJugador extends Carta {
@@ -21,8 +21,8 @@ public class CartaEliminarCartasDelJugador extends Carta {
 		}
 
 		@Override
-		public Jugada getJugada() {
-			return new JugadaEliminarCartaslDelJugador(this);
+		public Jugada getJugada() throws Exception {
+			return new JugadaEliminarCartasDelJugador(this);
 		}
 		
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
