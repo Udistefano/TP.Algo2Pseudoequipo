@@ -4,13 +4,15 @@ import Cartas.Carta;
 import Estructuras.Lista;
 import Main.Jugador;
 import Main.Partida;
+import Main.Teclado;
+import Main.Turno;
 
 public class JugadaEliminarCartaslDelJugador extends Jugada {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
-	public JugadaEliminarCartaslDelJugador(Carta carta) {
+	public JugadaEliminarCartaslDelJugador(Carta carta) throws Exception {
 		super(carta);
 	}
 	
@@ -18,8 +20,6 @@ public class JugadaEliminarCartaslDelJugador extends Jugada {
 //METODOS GENERALES ---------------------------------------------------------------------------------------
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 	
-	// a este codigo despues pasarle la partida y el turno, con esto, pedirle al usuario
-	// el nombre del jugador al que le borrará las cartas, si ese esta ahí, se realiza lo ya hecho
 	/**
      * pre: debe tner una  carta de este estilo
      * @param nombreJugador
@@ -31,7 +31,7 @@ public class JugadaEliminarCartaslDelJugador extends Jugada {
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
 		Jugador jugador = null;
 		Lista<Jugador> jugadores = partida.getJugadores();
-		String nombreJugador = null; // pide jugador por teclado
+		String nombreJugador = Teclado.preguntarNombreDelJugadorAEliminar(); // pide jugador por teclado
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();

@@ -7,13 +7,15 @@ import Main.Ficha;
 import Main.Jugador;
 import Main.Partida;
 import Main.Tablero;
+import Main.Teclado;
+import Main.Turno;
 
 public class JugadaCambiarColorFicha extends Jugada {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 	//CONSTRUCTORES -------------------------------------------------------------------------------------------
 
-	public JugadaCambiarColorFicha(Carta carta) {
+	public JugadaCambiarColorFicha(Carta carta) throws Exception {
 		super(carta);
 	}
 
@@ -32,12 +34,12 @@ public class JugadaCambiarColorFicha extends Jugada {
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
 		// pide el casillero a cambiar, con direcciones x, y, z
-		int x = 0;
-		int y = 0;
-		int z = 0;
+		int x = Teclado.preguntarCoordenada('x');
+		int y = Teclado.preguntarCoordenada('y');
+		int z = Teclado.preguntarCoordenada('z');
 		Tablero tablero = partida.getTablero();
 		Casillero casillero = tablero.getCasillero(x, y, z);
-		Jugador jugadorActual = turnoActual.getJugador;
+		Jugador jugadorActual = turnoActual.getJugador();
 		cambiarColor(jugadorActual, casillero);
 		
 	}
