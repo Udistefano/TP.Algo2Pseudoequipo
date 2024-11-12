@@ -1,6 +1,6 @@
 package Main;
 
-import Cartas.CartaBloquearTurno;
+import Cartas.CartaBloquearFicha;
 import Estructuras.Lista;
 
 public class Main {
