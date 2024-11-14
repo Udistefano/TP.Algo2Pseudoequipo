@@ -133,20 +133,18 @@ public class Partida {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
 
-        Ficha ficha = preguntarFicha();
         Movimiento movimiento = Teclado.preguntarMovimiento();
         Casillero<Ficha> casillero = preguntarCasillero();
 
+        Validacion.validarSiEsNulo(casillero.getDato(), "Ficha");
+        Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
         if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("No existe el movimiento");
-        }
-        if(casillero.getDato() == null) {
-        	throw new Exception("No hay ficha en el casillero");
         }
         if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
             throw new Exception("El casillero al que se quiere mover esta ocupado");
         }
-        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), ficha);
+        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), casillero.getDato());
        
         return casillero.getCasilleroVecino(movimiento);
     }

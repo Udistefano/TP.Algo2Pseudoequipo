@@ -28,7 +28,7 @@ public class TestDeTablero {
         Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
 
         //creo Ficha ficha
-        Ficha ficha = new Ficha('x');
+        Ficha ficha = new Ficha('x', "verde");
 
         // se agrega la ficha en el casillero con coordenadas (3, 2, 1)
         tablero.agregar(3, 1, 2, ficha);

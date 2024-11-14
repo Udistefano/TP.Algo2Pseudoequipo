@@ -13,7 +13,7 @@ public enum TipoDeCarta {
 	PERDER_TURNO,
 	VOLVER_JUGADA_ANTERIOR;
 
-	private static Random random;
+	private static Random random = new Random();
 	private static int CANTIDAD_DE_CARTAS = 7;
 
 	// TODO: quiza hacer una clase de Utiles, y ahi generar numeros aleatorios?

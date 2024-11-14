@@ -161,16 +161,20 @@ public class Tablero<T> {
     
     /**
      * pre: El casillero vecino no puede estar ocupado y debe existir el movimiento
-     * @param casillero
-     * @param destino
-     * @param ficha
+     * @param origen no puede ser nulo
+     * @param destino no puede ser nulo
+     * @param ficha no puede ser nulo, ni estar bloqueado
      * post: Mueve la ficha al casillero de destino
-     * @throws Exception 
+     * @throws Exception asi alguno de los parametros es nulo, o si ficha esta bloqueada
      */
-    public void mover(Casillero<Ficha> casillero, Casillero<Ficha> destino, Ficha ficha) throws Exception {
-    	Validacion.validarFichaBloqueada(casillero);
-    	Validacion.validarFichaBloqueada(destino);
-        casillero.setDato(null);
+    public void mover(Casillero<Ficha> origen, Casillero<Ficha> destino, Ficha ficha) throws Exception {
+        // TODO: quiza no haga falta pasar ficha por parametro, si lo podemos obtener con origen.getDato()
+        Validacion.validarSiEsNulo(origen, "Casillero");
+        Validacion.validarSiEsNulo(destino, "Casillero");
+        Validacion.validarSiEsNulo(ficha, "Ficha");
+        Validacion.validarSiFichaEstaBloqueada(ficha);
+        // TODO: quiza validar aca tambien con un Validacion.validarSiCasilleroEstaLibre(destino)???
+        origen.setDato(null);
         destino.setDato(ficha);
     }
     
