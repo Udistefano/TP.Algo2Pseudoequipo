@@ -22,25 +22,47 @@ public class Mazo {
 	public Cola <Carta> cartas = null;
     private int maximoDeCartasEnMazo = 50;
     private int valor = 0;
-    private Random random = null;
+    private Random random;
     
+    //CONSTRUCTOR
     /**
      * pre: --
      * pos: crea un mazo de cartas con 50 cartas de todos los tipos. No hay un maximo de cartas por tipo
      */
-    public void crearMazo () {
-    	for (int i = 0; i < (maximoDeCartasEnMazo - cartas.contarElementos()) ; i++) {
+    public Mazo(int maximoCartas) {
+    	this.maximoDeCartasEnMazo = maximoCartas;
+    	this.cartas = new Cola<Carta>();
+    	this.random = new Random();
+    	for (int i = 0; i < maximoDeCartasEnMazo ; i++) {
     		Carta cartaASumar = elegirTituloPorId();
 			cartas.acolar(cartaASumar);
     	}
     }
     
+    //METODOS GENERALES
+    
+    @Override
+    public String toString() {
+    	// TODO Auto-generated method stub
+    	return super.toString();
+    }
+    
+    @Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+    
+    
+    // METODOS DE COMPORTAMIENTO
+    
     /**
      * pre: --
      * pos: le da al  un valor entre VALOR_MINIMO y VALOR_MAXIMO
      */
-    public void elegirIdParaTitutlo() {
-    	valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
+    public int elegirIdParaTitulo() {
+    	int numero = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
+    	return numero;
     }
     
     
@@ -49,10 +71,9 @@ public class Mazo {
      * @return cartaActual: de tipo carta, elegida aleatoriamente para sumar al mazo
      */
     public Carta elegirTituloPorId() {
-    	elegirIdParaTitutlo();
-    	valor = getValor();
+    	this.valor = elegirIdParaTitulo();
     	Carta cartaActual = null;
-    	switch(valor) {
+    	switch(this.valor) {
     		case 1: 
     			cartaActual = new CartaCambiarColorFicha();
     		case 2:
@@ -89,8 +110,33 @@ public class Mazo {
         }
     }
     
+    
+    // GETTERS
+    
+    /**
+     * Pre: --
+     * @return el valor
+     */
     public int getValor() {
         return valor;
     }
+
+    /**
+     * pre: --
+     * @return la cola de cartas
+     */
+	public Cola<Carta> getCartas() {
+		return cartas;
+	}
+
+	/**
+	 * pre: --
+	 * @return el maximo de cartas del mazo
+	 */
+	public int getMaximoDeCartasEnMazo() {
+		return maximoDeCartasEnMazo;
+	}
+    
+    
     
 }
