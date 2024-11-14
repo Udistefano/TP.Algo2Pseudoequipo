@@ -1,7 +1,7 @@
 package Cartas;
 
 import Jugadas.Jugada;
-import Jugadas.JugadaPierdeTurno;
+import Jugadas.JugadaPerderTurno;
 
 public class CartaVolverJugadaAnterior extends Carta {
 
@@ -20,7 +20,7 @@ public class CartaVolverJugadaAnterior extends Carta {
 
 	@Override
 	public Jugada getJugada() throws Exception {
-		return new JugadaPierdeTurno(this);
+		return new JugadaPerderTurno(this);
 	}
     
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

@@ -21,7 +21,11 @@ public class Lista<T> {
 	}
 
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
-	
+
+	/**
+	 * pre: --
+	 * @return una cadena con todos los elementos de la lista
+	 */
 	@Override
 	public String toString() {
 	    if (this.estaVacia()) {
@@ -83,7 +87,7 @@ public class Lista<T> {
 		this.longitud++;
 	}
 
-	/*
+	/**
 	 * pre : posición pertenece al intervalo: [1, contarElementos()]
 	 * post: remueve de la Lista el elemento en la posición indicada.
 	 */
@@ -157,7 +161,8 @@ public class Lista<T> {
 		this.getNodo(posicion).setDato(elemento);
 	}
 
-	/*
+	/**
+	 * pre: --
 	 * post: deja el cursor de la Lista preparado para hacer un nuevo
 	 *       recorrido sobre sus elementos.
 	 */
@@ -165,7 +170,7 @@ public class Lista<T> {
 		this.cursor = null;
 	}
 
-	/*
+	/**
 	 * pre : se ha iniciado un recorrido (invocando el método
 	 *       iniciarCursor()) y desde entonces no se han agregado o
 	 *       removido elementos de la Lista.
@@ -186,7 +191,7 @@ public class Lista<T> {
 		return (this.cursor != null);
 	}
 
-	/*
+	/**
 	 * pre : el cursor está posicionado sobre un elemento de la Lista,
 	 *       (fue invocado el método avanzarCursor() y devolvió true)
 	 * post: devuelve el elemento en la posición del cursor.
@@ -235,14 +240,14 @@ public class Lista<T> {
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-	/*
+	/**
 	 * post: devuelve la cantidad de elementos que tiene la Lista.
 	 */
 	public int getLongitud() {
 		return this.longitud;
 	}
 
-	/*
+	/**
 	 * pre : posición pertenece al intervalo: [1, contarElementos()]
 	 * post: devuelve el nodo en la posición indicada.
 	 */
@@ -255,6 +260,10 @@ public class Lista<T> {
 		return actual;
 	}
 
+	/**
+	 * pre: posicion
+	 * post: valida que la posicion este entre 1 y this.longitud + 1
+	 */
 	private void validarPosicion(int posicion) throws Exception {
 		if ((posicion < 1) ||
 				(posicion > this.longitud + 1)) {

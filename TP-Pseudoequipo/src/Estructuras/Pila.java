@@ -20,7 +20,10 @@ public class Pila<T> {
 
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
 	
-	// Método toString para imprimir los elementos de la pila
+	/**
+	 * pre: --
+	 * @return una cadena con todos los elementos de la pila
+	 */
     @Override
     public String toString() {
         if (this.estaVacia()) {
@@ -47,14 +50,15 @@ public class Pila<T> {
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
-	/*
+	/**
+	 * pre: --
 	 * post: indica si la cola tiene algún elemento.
 	 */
 	public boolean estaVacia() {
 		return (this.tamanio == 0);
 	}
 
-	/*
+	/**
 	 * pre: el elemento no es vacio
 	 * post: agrega el elemento a la pila
 	 */
@@ -65,7 +69,7 @@ public class Pila<T> {
 		this.tamanio++;
 	}
 
-	/*
+	/**
 	 * pre: el elemento no es vacio
 	 * post: agrega el elemento a la pila
 	 */
@@ -77,7 +81,7 @@ public class Pila<T> {
 		}
 	}
 
-	/*
+	/**
 	 * pre :
 	 * post: devuelve el elemento en el tope de la pila y achica la pila en 1.
 	 */
@@ -92,7 +96,7 @@ public class Pila<T> {
 	}
 
 	/**
-	 * pre: -
+	 * pre: --
 	 * post: devuelve el elemento en el tope de la pila (solo lectura)
 	 */
 	public T obtener() {
@@ -103,7 +107,8 @@ public class Pila<T> {
 		return elemento;
 	}
 
-	/*
+	/**
+	 * pre: --
 	 * post: devuelve la cantidad de elementos que tiene la cola.
 	 */
 	public int contarElementos() {
@@ -112,6 +117,4 @@ public class Pila<T> {
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 	//SETTERS SIMPLES -----------------------------------------------------------------------------------------	
-
-
 }

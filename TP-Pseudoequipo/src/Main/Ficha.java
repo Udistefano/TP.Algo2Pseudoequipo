@@ -59,7 +59,7 @@ public class Ficha {
 
     /**
      * pre: --
-     * @return el hashCode de la ficha actual
+     * @return el hashCode de la ficha
      */
     @Override
     public int hashCode() {

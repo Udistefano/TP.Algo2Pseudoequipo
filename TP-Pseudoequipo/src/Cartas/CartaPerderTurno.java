@@ -1,29 +1,37 @@
 package Cartas;
 
 import Jugadas.Jugada;
-import Jugadas.JugadaPierdeTurno;
+import Jugadas.JugadaPerderTurno;
 
-public class CartaPierdeTurno extends Carta {
-
+public class CartaPerderTurno extends Carta {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
-    public CartaPierdeTurno() {}
+
+    public CartaPerderTurno() {}
+
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
     //METODOS GENERALES ---------------------------------------------------------------------------------------
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
-    
-    @Override
+
+	/**
+	 * pre: --
+	 * @return el titulo por defecto de la carta
+	 */
+	@Override
 	protected String getTituloPorDefecto() {
 		return "Carta hace perder turno a jugador";
 	}
 
+	/**
+	 * pre: --
+	 * @return la jugada de la carta
+	 */
 	@Override
 	public Jugada getJugada() throws Exception {
-		return new JugadaPierdeTurno(this);
+		return new JugadaPerderTurno(this);
 	}
     
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
-
 }

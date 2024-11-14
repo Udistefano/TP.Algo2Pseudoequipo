@@ -6,7 +6,7 @@ import Main.*;
 /**
  * El jugador decide a quien le hace perder el turno
  */
-public class JugadaPierdeTurno extends Jugada {
+public class JugadaPerderTurno extends Jugada {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ public class JugadaPierdeTurno extends Jugada {
      * @param carta no puede ser nula
      * @throws Exception si la carta es nula
      */
-    public JugadaPierdeTurno(Carta carta) throws Exception {
+    public JugadaPerderTurno(Carta carta) throws Exception {
         super(carta);
     }
 
