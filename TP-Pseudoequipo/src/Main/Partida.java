@@ -46,6 +46,7 @@ public class Partida {
             this.turnos.agregar(i, turno);
         }
         this.dado = new Dado();
+        this.bitmap.escribirArchivo();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
