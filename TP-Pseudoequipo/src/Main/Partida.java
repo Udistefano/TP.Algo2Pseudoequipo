@@ -75,6 +75,8 @@ public class Partida {
 
             posicion++;
         }
+
+        // TODO: podemos retornar el ganador al main ahora
     }
 
     public Casillero<Ficha> jugarTurno(Turno turno) throws Exception {
@@ -115,6 +117,8 @@ public class Partida {
         }
 
         Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
+        System.out.println("Le quedan " + jugador.getCantidadDeFichasRestantes() + " al jugador " + jugador + ": ");
+        System.out.println("Tendra que jugar una ficha en un casillero");
         Casillero<Ficha> casillero = preguntarCasillero();
         if (casillero.estaOcupado()) {
             throw new Exception("El casillero esta ocupado");
@@ -139,8 +143,10 @@ public class Partida {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
 
-        Movimiento movimiento = Teclado.preguntarMovimiento();
+        System.out.println("Al jugador " + jugador + " no le quedan mas fichas para jugar, tendra que mover una ficha del tablero.");
+        System.out.println("Ingrese las coordenadas del casillero del cual mover su ficha");
         Casillero<Ficha> casillero = preguntarCasillero();
+        Movimiento movimiento = Teclado.preguntarMovimiento();
         Ficha fichaAMover = casillero.getDato();
 
         Validacion.validarSiEsNulo(casillero.getDato(), "Ficha");

@@ -69,16 +69,15 @@ public class Teclado {
      * post: 
      */
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
+        System.out.println("Ahora tendra que jugar una carta");
         mano.iniciarCursor();
         for(int i = 1;i <= mano.getLongitud();i++){
-
-            System.out.println(i+1+"-"+mano.obtenerCursor().toString());
             mano.avanzarCursor();
+            System.out.println(i + "-" + mano.obtenerCursor());
         }
         System.out.println("Ingrese el Numero de la posicion de la carta a jugar: ");
-        int posicion =  teclado.nextInt();
-        //     
-        return  mano.obtener(posicion);
+        int posicion = leerNumeroNatural();
+        return mano.obtener(posicion);
     }
 
     /**

@@ -100,6 +100,14 @@ public class Jugador {
         this.cantidadDeFichasJugadas++;
     }
 
+    /**
+     * pre: --
+     * @return la cantidad de fichas que le quedan al jugador
+     */
+    public int getCantidadDeFichasRestantes() {
+        return cantidadDeFichasMaximasPermitidas - cantidadDeFichasJugadas;
+    }
+
     // TODO: limpiar metodos que no se usen en TDA Jugador
     /**
      * pre:
