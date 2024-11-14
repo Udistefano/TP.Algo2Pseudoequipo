@@ -19,8 +19,8 @@ public class CartaAnularCasillero extends Carta {
 	}
 
 	@Override
-	public Jugada getJugada() {
-		return new JugadaAnularCasillero();
+	public Jugada getJugada() throws Exception {
+		return new JugadaAnularCasillero(this);
 	}
     
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
