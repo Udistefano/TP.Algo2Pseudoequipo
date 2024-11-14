@@ -21,31 +21,27 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 	
 	/**
-     * pre: debe tner una  carta de este estilo
-     * @param nombreJugador
-     * @param jugadores
-     * @throws Exception si el jugador no esta dentro de jugadores
+     * pre:
+	 * @param partida no puede ser nulo
+	 * @param turnoActual no puede ser nulo
+	 * @throws Exception si algun parametro es nulo, o si el jugador no esta dentro de jugadores
      * post: Elimina todas las cartas del mazo del contrincante
      */
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
-		Jugador jugador = null;
 		Lista<Jugador> jugadores = partida.getJugadores();
-		String nombreJugador = Teclado.preguntarNombreDelJugadorAEliminar(); // pide jugador por teclado
+		// FIXME: habria que haber otro metodo en teclado como teclado.preguntarNombreContrincante
+		String nombreDelJugadorContricante = Teclado.preguntarNombreDelJugadorAEliminar();
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();
-			if (nombreJugador == jugadorActual.getNombre()) {
-				jugador = jugadorActual;
+			if (nombreDelJugadorContricante.equals(jugadorActual.getNombre())) {
+				jugadorActual.mano = null;
+				return;
 			}
 		}
-		if (jugador == null ) {
-			throw new Exception("El jugador no está dentro de los jugadores");
-		}
-		jugador.mano = null;
+		throw new Exception("El jugador no está dentro de los jugadores");
 	}
-
-
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------

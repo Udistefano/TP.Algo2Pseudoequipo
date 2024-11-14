@@ -50,7 +50,7 @@ public class TestDeCasillero {
         Assertions.assertFalse(casillero.estaOcupado());
 
         // Creamos una ficha
-        Ficha ficha = new Ficha('p');
+        Ficha ficha = new Ficha('p', "marron");
 
         // Comprobamos que el casillero no tenga la ficha como dato todavia
         Assertions.assertNotEquals(casillero.getDato(), ficha);

@@ -36,10 +36,11 @@ public class JugadaCambiarColorFicha extends Jugada {
 		Validacion.validarSiEsNulo(turnoActual, "Turno");
 
 		Casillero<Ficha> casillero = partida.preguntarCasillero();
-		Validacion.validarFichaBloqueada(casillero);
+		if (casillero.estaOcupado()) {
+			Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
+		}
 		Jugador jugadorActual = turnoActual.getJugador();
 		cambiarColor(jugadorActual, casillero);
-		
 	}
 
 	/**
@@ -54,6 +55,7 @@ public class JugadaCambiarColorFicha extends Jugada {
 		Validacion.validarSiEsNulo(casillero, "Casillero");
 
 		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
+		// TODO: si se repite mucho, hacer un Validacion.validarSiCasilleroVacio(casillero)
 		if(casillero.getDato() == null) {
 			throw new Exception("No se puede cambiar de color porque no hay ninguna ficha");
 		}
@@ -61,8 +63,6 @@ public class JugadaCambiarColorFicha extends Jugada {
 		ficha.setColor(jugador.getColor());          // Seteo el jugador de la ficha al nuevo jugador
 		ficha.setSimbolo(jugador.getSimbolo());  // seteo el simbolo de la ficha al del nuevo jugador (Esto sería como el color)
 	}
-
-
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 	//SETTERS SIMPLES -----------------------------------------------------------------------------------------

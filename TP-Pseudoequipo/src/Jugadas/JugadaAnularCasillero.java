@@ -31,7 +31,6 @@ public class JugadaAnularCasillero extends Jugada {
         Validacion.validarSiEsNulo(partida, "Partida");
         Validacion.validarSiEsNulo(turnoActual, "Turno");
         Casillero<Ficha> casillero = partida.preguntarCasillero();
-        Validacion.validarFichaBloqueada(casillero);
         casillero.setDato(null);
     }
 

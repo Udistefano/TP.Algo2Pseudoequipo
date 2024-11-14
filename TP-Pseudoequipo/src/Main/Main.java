@@ -12,7 +12,7 @@ public class Main {
     	Lista<Jugador> jugadores = new Lista<Jugador>();
     	jugadores.agregar(jugador1);
     	jugadores.agregar(jugador2);
-    	Mazo mazo = new Mazo();
+    	Mazo mazo = new Mazo(50);
     	Partida partida = new Partida(tablero, jugadores, mazo);
     	
     	
