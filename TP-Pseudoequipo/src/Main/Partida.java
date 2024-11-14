@@ -11,6 +11,7 @@ public class Partida {
     private Lista<Jugador> jugadores = null;
     private Mazo mazo = null;
     private Dado dado;
+    private Bitmap bitmap;
     // FIXME: en Partida, turnos deberia ser un Vector, una Lista, o una Pila ???????
 //    private Lista<Turno> turnos = null;
     private Vector<Turno> turnos = null;
@@ -33,6 +34,8 @@ public class Partida {
 
         Teclado.inicializar();
         this.tablero = tablero;
+        this.bitmap = new Bitmap(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
+        this.bitmap.crearImagen();
         this.jugadores = jugadores;
         this.mazo = mazo;
 //        this.turnos = new Lista<Turno>();
@@ -65,7 +68,8 @@ public class Partida {
 
             Turno turnoActual = turnos.obtener(posicion);
             int cartasALevantar = dado.jugarDado();
-
+            System.out.println("Tiraste el dado! dio " + cartasALevantar);
+            System.out.println("Levantas " + cartasALevantar + " cartas");
             Jugador jugadorActual = turnoActual.getJugador();
             mazo.levantarCartas(cartasALevantar, jugadorActual);
             System.out.println("Mano de " + jugadorActual + " es: " + jugadorActual.getMano());
@@ -117,7 +121,7 @@ public class Partida {
         }
 
         Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
-        System.out.println("Le quedan " + jugador.getCantidadDeFichasRestantes() + " al jugador " + jugador + ": ");
+        System.out.println("Le quedan " + jugador.getCantidadDeFichasRestantes() + " fichas al jugador " + jugador + ": ");
         System.out.println("Tendra que jugar una ficha en un casillero");
         Casillero<Ficha> casillero = preguntarCasillero();
         if (casillero.estaOcupado()) {
@@ -370,6 +374,13 @@ public class Partida {
     public Mazo getMazo() {
         return mazo;
     }
-
+    
+   /**
+    * pre: --
+    * @return el bitmap de la partida
+    */
+    public Bitmap getBitmap() {
+    	return this.bitmap;
+    }
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }
