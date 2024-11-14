@@ -28,18 +28,19 @@ public class JugadaBloquearFicha extends Jugada {
 
     /**
      * pre: El casillero debe estar en el tablero
+     * @param partida no puede ser nulo
+     * @param turnoActual no puede ser nulo
+     * @throws Exception si alguno de los parametros es nulo, o si la ficha en el casillero a jugar esta bloqueada
      * post: anula el casillero seleccionado
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
         Validacion.validarSiEsNulo(partida, "Partida");
         Validacion.validarSiEsNulo(turnoActual, "Turno");
+
         Casillero<Ficha> casillero = partida.preguntarCasillero();
-        Ficha fichaABloquear = casillero.getDato();
-        if (fichaABloquear.isEstaBloqueada() == true) {
-        	throw new Exception("La ficha ya esta bloqueada");
-        }
-        fichaABloquear.setEstaBloqueada(true);
+        Validacion.validarFichaBloqueada(casillero);
+        casillero.getDato().bloquear();
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

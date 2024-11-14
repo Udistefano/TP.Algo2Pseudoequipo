@@ -55,14 +55,14 @@ public class Validacion {
     
     /**
      * pre: debe existir la ficha en casillero
-     * @param casillero
-     * @throws Exception
+     * @param casillero no debe ser nulo
      * post: valida si la ficha esta bloqueada, sino, se puede utilizar normalmente
      */
     public static void validarFichaBloqueada(Casillero<Ficha> casillero) throws Exception {
+        Validacion.validarSiEsNulo(casillero, "Casillero");
     	Ficha ficha = casillero.getDato();
-        if (ficha.isEstaBloqueada() == true) {
-        	throw new Exception("La ficha "+ ficha +" esta bloqueada");
+        if (ficha.estaBloqueada()) {
+        	throw new Exception("No se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
         }
     }
 }

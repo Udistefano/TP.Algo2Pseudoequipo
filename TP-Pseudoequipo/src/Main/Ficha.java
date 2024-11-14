@@ -1,7 +1,5 @@
 package Main;
 
-import Cartas.Carta;
-
 import java.util.Objects;
 
 public class Ficha {
@@ -9,7 +7,7 @@ public class Ficha {
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private char simbolo = ' ';
     private String color = null;
-    private boolean estaBloqueada;
+    private EstadoDeBloqueo estadoDeBloqueo;
 
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -25,7 +23,7 @@ public class Ficha {
         Validacion.validarSiEsUnaCadenaVacia(color, "Color");
         this.simbolo = simbolo;
         this.color = color;
-        this.estaBloqueada = false;
+        this.estadoDeBloqueo = EstadoDeBloqueo.DESBLOQUEADO;
     }
 
 //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -69,6 +67,23 @@ public class Ficha {
     }
 
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
+
+    /**
+     * pre: --
+     * post: bloquea la ficha
+     */
+    public void bloquear() {
+        this.estadoDeBloqueo = EstadoDeBloqueo.BLOQUEADO;
+    }
+
+    /**
+     * pre: --
+     * post: desbloquea la ficha
+     */
+    public void desbloquear() {
+        this.estadoDeBloqueo = EstadoDeBloqueo.DESBLOQUEADO;
+    }
+
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
     /**
@@ -89,23 +104,29 @@ public class Ficha {
     
     /**
      * pre: --
-     * @return si la ficha esta bloqueada
+     * @return el estado de bloqueo de la ficha
      */
-    public boolean isEstaBloqueada() {
-		return estaBloqueada;
+    public EstadoDeBloqueo getEstadoDeBloqueo() {
+		return estadoDeBloqueo;
 	}
 
-//SETTERS SIMPLES -----------------------------------------------------------------------------------------
-
-    
     /**
      * pre: --
-     * @param estaBloqueada
-     * post: Cambia el valor de estaBloqueada
+     * @return verdadero si la ficha esta bloqueda, falso si no
      */
-	public void setEstaBloqueada(boolean estaBloqueada) {
-		this.estaBloqueada = estaBloqueada;
-	}
+    public boolean estaBloqueada() {
+        return estadoDeBloqueo == EstadoDeBloqueo.BLOQUEADO;
+    }
+
+    /**
+     * pre: --
+     * @return verdadero si la ficha esta desbloqueda, falso si no
+     */
+    public boolean estaDesbloqueada() {
+        return estadoDeBloqueo == EstadoDeBloqueo.DESBLOQUEADO;
+    }
+
+//SETTERS SIMPLES -----------------------------------------------------------------------------------------
 
 	// FIXME: los setters de simbolo y color de Ficha deben ser public o protected?
     /**
