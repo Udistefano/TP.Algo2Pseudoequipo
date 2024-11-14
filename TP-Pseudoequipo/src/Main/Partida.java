@@ -107,14 +107,17 @@ public class Partida {
     public Casillero<Ficha> jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
+        if (jugador.tieneTodasLasFichasEnElTablero()) { // Validacion quiza redundante, pero por si acaso
+            throw new Exception("Al jugador no le quedan mas fichas para jugar");
+        }
 
         Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
         Casillero<Ficha> casillero = preguntarCasillero();
-        // TODO: quitarle al jugador una ficha, luego de una jugada inicial
         if (casillero.estaOcupado()) {
             throw new Exception("El casillero esta ocupado");
         }
         casillero.setDato(ficha);
+        jugador.jugarFicha();
 
         return casillero;
     }
@@ -135,16 +138,17 @@ public class Partida {
 
         Movimiento movimiento = Teclado.preguntarMovimiento();
         Casillero<Ficha> casillero = preguntarCasillero();
+        Ficha fichaAMover = casillero.getDato();
 
         Validacion.validarSiEsNulo(casillero.getDato(), "Ficha");
-        Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
+        Validacion.validarSiFichaEstaBloqueada(fichaAMover);
         if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("No existe el movimiento");
         }
         if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
             throw new Exception("El casillero al que se quiere mover esta ocupado");
         }
-        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), casillero.getDato());
+        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), fichaAMover);
        
         return casillero.getCasilleroVecino(movimiento);
     }
@@ -179,7 +183,9 @@ public class Partida {
 
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {
         Validacion.validarSiEsNulo(casillero, "Casillero");
-        // FIXME: agregar atributo cantidadDeFichasNecesariasParaGanar al TDA Partida, siendo inicialmente 3
+        // FIXME: habria que agregar atributo cantidadDeFichasNecesariasParaGanar a Partida, siendo inicialmente
+        //        3??? o permitirle pasarle por parametro, y validar que haya almenos una dimension alto o ancho o
+        //        profundidad que sea de ese tamaño
         int cantidadDeFichas = 3;
 
         // TODO: esto seguramente contar las fichas seguidas en todas las direcciones, seguramente se pueda mejorar

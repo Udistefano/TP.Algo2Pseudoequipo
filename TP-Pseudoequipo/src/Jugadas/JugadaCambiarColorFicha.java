@@ -40,7 +40,13 @@ public class JugadaCambiarColorFicha extends Jugada {
 			Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
 		}
 		Jugador jugadorActual = turnoActual.getJugador();
+		// TODO: fijarse si hace falta implementar esto de agregarFicha, quitarFicha y obtenerJugadorPorFicha
+		// 		 capaz que no, porque no afecta al final, pero quedaria bien que si un jugador se roba la ficha
+		//       de otro, podamos comprobar que tiene una ficha mas jugada, y el otro una ficha menos
+//		Jugador jugadorOriginal = partida.obtenerJugadorPorFicha(casillero.getDato());
 		cambiarColor(jugadorActual, casillero);
+//		jugadorActual.agregarFicha();
+//		jugadorOriginal.quitarFicha();
 	}
 
 	/**
@@ -54,11 +60,11 @@ public class JugadaCambiarColorFicha extends Jugada {
 		Validacion.validarSiEsNulo(jugador, "Jugador");
 		Validacion.validarSiEsNulo(casillero, "Casillero");
 
-		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
 		// TODO: si se repite mucho, hacer un Validacion.validarSiCasilleroVacio(casillero)
 		if(casillero.getDato() == null) {
 			throw new Exception("No se puede cambiar de color porque no hay ninguna ficha");
 		}
+		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
 		Ficha ficha = casillero.getDato();  // Obtengo la ficha del casillero
 		ficha.setColor(jugador.getColor());          // Seteo el jugador de la ficha al nuevo jugador
 		ficha.setSimbolo(jugador.getSimbolo());  // seteo el simbolo de la ficha al del nuevo jugador (Esto sería como el color)

@@ -9,14 +9,16 @@ import java.util.Objects;
 public class Jugador {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
+
     private String nombre = null;
-    private int cantidadFichas = 0;
+    private int cantidadDeFichasJugadas = 0;
+    private int cantidadDeFichasMaximasPermitidas = 0;
     private char simbolo = 0;
     private String color = null;
     public Lista<Carta> mano = null;
-    private Lista<Ficha> fichas = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
+
     /**
      * pre:
      * @param nombre no puede ser vacio
@@ -26,17 +28,12 @@ public class Jugador {
      * post: inicializa un jugador con el simbolo, nombre y color pasados por parametro, y con fichas y mano
      *       vacias
      */
-    public Jugador(String nombre, char simbolo, String color, int cantidadFichas) throws Exception {
+    public Jugador(String nombre, char simbolo, String color, int cantidadDeFichasMaximasPermitidas) throws Exception {
         this.nombre = nombre;
         this.simbolo = simbolo;
         this.color = color;
-        this.fichas = new Lista<Ficha>();
-        this.cantidadFichas = cantidadFichas;
-        for (int i= 0; i < cantidadFichas; i++) {
-            Ficha ficha = new Ficha(simbolo, color);
-        	this.fichas.agregar(ficha);
-        } 
-        this.mano = new Lista<Carta>();  
+        this.cantidadDeFichasMaximasPermitidas = cantidadDeFichasMaximasPermitidas;
+        this.mano = new Lista<Carta>();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -87,16 +84,26 @@ public class Jugador {
      * pre: --
      * @return verdadero si el jugador tiene todas las fichas en el tablero, falso si no
      */
-    // TODO: el profe agrego este metodo en su TDA Jugador en la clase 20, pero no lo implemento
-    //       hay que implementarlo y ver donde usarlo
     public boolean tieneTodasLasFichasEnElTablero() {
-        
-        return false;
+        return cantidadDeFichasMaximasPermitidas == cantidadDeFichasJugadas;
     }
 
     /**
+     * pre: --
+     * @throws Exception si al jugador no le quedan mas fichas
+     * post: juega una ficha del jugador
+     */
+    public void jugarFicha() throws Exception {
+        if (tieneTodasLasFichasEnElTablero()) {
+            throw new Exception("Al jugador no le quedan mas fichas para jugar");
+        }
+        this.cantidadDeFichasJugadas++;
+    }
+
+    // TODO: limpiar metodos que no se usen en TDA Jugador
+    /**
      * pre:
-     * @param cacillero casillero: 
+     * @param cacillero casillero:
      * @throws post:
      */
     public void jugarFicha(Casillero<Ficha> casillero) throws Exception {
@@ -142,20 +149,19 @@ public class Jugador {
 
     // Soy ulises, creo que esto esta bien implementado, cualquier cosa mandenme
 
-    /**
-     * pre: metodo para agregar a su lista fichas cuando se usa la carta para cambiar color de su ficha
-     * @param ficha no puede ser nulo
-     * @throws Exception si ficha es nulo
-     * post: agrega la ficha pasada por parametro, a la lista de fichas del jugador
-     */
-    public void agregarFicha(Ficha ficha) throws Exception {
-        Validacion.validarSiEsNulo(ficha, "Ficha");
-        fichas.agregar(ficha);
-    }
-
+//    /**
+//     * pre: metodo para agregar a su lista fichas cuando se usa la carta para cambiar color de su ficha
+//     * @param ficha no puede ser nulo
+//     * @throws Exception si ficha es nulo
+//     * post: agrega la ficha pasada por parametro, a la lista de fichas del jugador
+//     */
+//    public void agregarFicha(Ficha ficha) throws Exception {
+//        Validacion.validarSiEsNulo(ficha, "Ficha");
+//        fichas.agregar(ficha);
+//    }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
-    //SETTERS SIMPLES -----------------------------------------------------------------------------------------
+
     /**
      * pre: --
      * @return el simbolo del jugador
@@ -187,6 +193,22 @@ public class Jugador {
 	public Lista<Carta> getMano() {
 		return mano;
 	}
-    
-    
+
+    /**
+     * pre: --
+     * @return la cantidad de fichas jugadas del jugador
+     */
+    public int getCantidadDeFichasJugadas() {
+        return cantidadDeFichasJugadas;
+    }
+
+    /**
+     * pre: --
+     * @return la cantidad de fichas maximas permitidas del jugador
+     */
+    public int getCantidadDeFichasMaximasPermitidas() {
+        return cantidadDeFichasMaximasPermitidas;
+    }
+
+    //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }
