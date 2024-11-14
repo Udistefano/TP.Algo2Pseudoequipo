@@ -14,5 +14,9 @@ public class TestMazo {
 		System.out.println("Mano de cartas de messi: " + messi.getMano());
 		baraja.levantarCartas(2, messi);
 		System.out.println("Mano de cartas de messi: " + messi.getMano());
+		System.out.println(baraja.getCartas());
+		baraja.levantarCartas(3, messi);
+		System.out.println("Mano de cartas de messi: " + messi.getMano());
+		System.out.println(baraja.getCartas());
 	}
 }
