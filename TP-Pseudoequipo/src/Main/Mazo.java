@@ -1,6 +1,8 @@
 package Main;
 
 import Estructuras.Cola;
+import Estructuras.Pila;
+
 import java.util.Objects;
 import Cartas.Carta;
 import Cartas.CartaAnularCasillero;
@@ -19,9 +21,8 @@ public class Mazo {
 	
     private static int VALOR_MINIMO = 1;
     private static int VALOR_MAXIMO = 7;
-	public Cola <Carta> cartas = null;
-    private int maximoDeCartasEnMazo = 50;
-    private int valor = 0;
+	public Pila <Carta> cartas = null;
+    private int maximoDeCartasEnMazo;
     private Random random;
     
     //CONSTRUCTOR
@@ -31,11 +32,12 @@ public class Mazo {
      */
     public Mazo(int maximoCartas) {
     	this.maximoDeCartasEnMazo = maximoCartas;
-    	this.cartas = new Cola<Carta>();
+    	this.cartas = new Pila<Carta>();
     	this.random = new Random();
+    	Carta cartaASumar;
     	for (int i = 0; i < maximoDeCartasEnMazo ; i++) {
-    		Carta cartaASumar = elegirTituloPorId();
-			cartas.acolar(cartaASumar);
+    		cartaASumar = elegirTituloPorId();
+			cartas.apilar(cartaASumar);
     	}
     }
     
@@ -71,23 +73,30 @@ public class Mazo {
      * @return cartaActual: de tipo carta, elegida aleatoriamente para sumar al mazo
      */
     public Carta elegirTituloPorId() {
-    	this.valor = elegirIdParaTitulo();
+    	int numero = elegirIdParaTitulo();
     	Carta cartaActual = null;
-    	switch(this.valor) {
+    	switch(numero) {
     		case 1: 
     			cartaActual = new CartaCambiarColorFicha();
+    			break;
     		case 2:
     			cartaActual = new CartaAnularCasillero();
+    			break;
     		case 3:
     			cartaActual = new CartaBloquearFicha();
+    			break;
     		case 4:
     			cartaActual = new CartaDobleTurno();
+    			break;
     		case 5:
     			cartaActual = new CartaEliminarCartasDelJugador();
+    			break;
     		case 6:
     			cartaActual = new CartaPierdeTurno();
+    			break;
     		case 7:
     			cartaActual = new CartaVolverJugadaAnterior(); 		
+    			break;
     	}
 		return cartaActual;
     }
@@ -106,26 +115,18 @@ public class Mazo {
     	}
     	for (int i = 0; i < cartasALevantar; i++) {
     		jugadorActual.tomarCartas(cartas.obtener());
-    		cartas.desacolar();
+    		cartas.desapilar();
         }
     }
     
     
     // GETTERS
-    
-    /**
-     * Pre: --
-     * @return el valor
-     */
-    public int getValor() {
-        return valor;
-    }
 
     /**
      * pre: --
      * @return la cola de cartas
      */
-	public Cola<Carta> getCartas() {
+	public Pila<Carta> getCartas() {
 		return cartas;
 	}
 
