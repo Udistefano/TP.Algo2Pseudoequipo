@@ -179,4 +179,14 @@ public class Jugador {
     public String getColor() {
         return color;
     }
+
+    /**
+     * pre: --
+     * @return la mano de cartas del jugador
+     */
+	public Lista<Carta> getMano() {
+		return mano;
+	}
+    
+    
 }
