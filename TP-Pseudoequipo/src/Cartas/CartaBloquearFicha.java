@@ -19,8 +19,8 @@ public class CartaBloquearFicha extends Carta {
 	}
 
 	@Override
-	public Jugada getJugada() {
-		return new JugadaBloquearFicha();
+	public Jugada getJugada() throws Exception {
+		return new JugadaBloquearFicha(this);
 	}
     
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
