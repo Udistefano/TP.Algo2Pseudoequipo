@@ -145,7 +145,7 @@ public class Teclado {
      * @return la cadena no vacia ni nula que el usuario ingrese por teclado
      * @throws Exception si hubo un error leyendo el input del usuario
      */
-    private static String leerCadenaNoVacia() throws Exception {
+    public static String leerCadenaNoVacia() throws Exception {
         String cadena = null;
         do {
             cadena = leerCadena();
@@ -160,11 +160,20 @@ public class Teclado {
      * @return la cadena que el usuario ingrese por teclado
      * @throws Exception si hubo un error leyendo el input del usuario
      */
-    private static String leerCadena() throws Exception {
+    public static String leerCadena() throws Exception {
         if (teclado.hasNextLine()) {
             return teclado.nextLine();
         }
         throw new Exception("Error leyendo el input por teclado del usuario");
+    }
+
+    /**
+     * pre: --
+     * @return el caracter que el usuario ingrese por teclado
+     * @throws Exception si hubo un error leyendo el input del usuario
+     */
+    public static Character leerCaracter() throws Exception {
+        return leerCadena().charAt(0);
     }
 
     //METODOS GENERALES ---------------------------------------------------------------------------------------

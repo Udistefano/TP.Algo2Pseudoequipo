@@ -38,7 +38,7 @@ public class Partida {
 //        this.turnos = new Lista<Turno>();
         // TODO: implementar ListaCircular , y hacer turnos una ListaCircular
         this.turnos = new Vector<Turno>(jugadores.getLongitud(), null);
-        for (int i = 0; i < jugadores.getLongitud(); i++) {
+        for (int i = 1; i <= jugadores.getLongitud(); i++) {
             Turno turno = new Turno(jugadores.obtener(i));
             this.turnos.agregar(i, turno);
         }
@@ -54,23 +54,26 @@ public class Partida {
      * @throws Exception
      * post:
      */
-    public void jugarTurnos() throws Exception {
+    public void iniciar() throws Exception {
     	boolean hayGanador = false;
-        int posicion = 0;
+        int posicion = 1;
 
         while(!hayGanador) {
+            if (posicion > turnos.getLongitud()) {
+                posicion = 1;
+            }
+
             Turno turnoActual = turnos.obtener(posicion);
             int cartasALevantar = dado.jugarDado();
 
-            // Mostrar lo que sale por pantalla;
-            mazo.levantarCartas(cartasALevantar, turnoActual.getJugador());
+            Jugador jugadorActual = turnoActual.getJugador();
+            mazo.levantarCartas(cartasALevantar, jugadorActual);
+            System.out.println("Mano de " + jugadorActual + " es: " + jugadorActual.getMano());
+
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
             hayGanador = verificarGanador(casilleroDestino);
 
             posicion++;
-            if (posicion == turnos.getLongitud()) {
-                posicion = 0;
-            }
         }
     }
 
