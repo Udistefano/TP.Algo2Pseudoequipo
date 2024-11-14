@@ -87,10 +87,9 @@ public void escribirImagen() {
 	}
 }
 //----------------------------------------------------------------------
-public void colorearMatrizTablero(   ) {
-    this.matrizTablero = new int[this.dimencionTableroX][this.dimencionTableroX];   
+public void colorearMatrizTablero(   ) { 
     for(int i = 0 ; i <dimencionTableroX; i++) {
-	   	for(int j = 0 ; j < dimencionTableroX ; j++) {     
+	   	for(int j = 0 ; j < dimencionTableroY ; j++) {     
 	   		this.matrizTablero[i][j] = Color.CASILLERO.getRGB() ;   
 	   	} 
     }
@@ -98,13 +97,13 @@ public void colorearMatrizTablero(   ) {
 
 	//----------------------------------------------------------------------
 public void colorearLineasMatrizTablero() {
-    for(int i = 0 ; i <   this.x; i++) { 
-    	for(int j = 0 ; j < dimencionTableroX ; j++) {
+    for(int i = 0 ; i <  this.x ; i++) { 
+    	for(int j = 0 ; j < dimencionTableroY ; j++) {
 			this.matrizTablero[this.dimencionCasilleroX*i][j] = Color.LINEAS.getRGB();
 			} 
     	}
     for(int i = 0 ; i <  this.y ; i++) { 
-    	for(int j = 0 ; j < dimencionTableroX ; j++) {
+    	for(int j = 0 ; j < dimencionTableroX  ; j++) {
 			this.matrizTablero[j][this.dimencionCasilleroY*i] = Color.LINEAS.getRGB();
 			} 
     	}
@@ -125,7 +124,7 @@ public void colocarFicha(int x,int y,int z , int color){
 public void escribirTablero( ) {
 		for(int z = 0 ; z < this.z ;z++){ 
 			for(int i = 0; i < this.dimencionTableroX; i++) {
-				for(int j = 0 ; j < this.dimencionTableroX ; j++) { 
+				for(int j = 0 ; j < this.dimencionTableroY ; j++) { 
 					this.imagen.setRGB(z*(this.dimencionTableroX +10)+i ,  100+j , this.matrizTablero[i][j]  );
 				}  
 			} 
@@ -141,8 +140,7 @@ public void escribirArcrivo() {
 			ImageIO.write(imagen,"bmp",archivo);
 		}catch(Exception e){
 			e.printStackTrace();
-		}
-		
+		} 
 }
 }
 
