@@ -1,6 +1,7 @@
 package Main;
 
 import Estructuras.Cola;
+import Estructuras.Lista;
 import Estructuras.Pila;
 
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class Mazo {
     	Carta cartaASumar;
     	for (int i = 0; i < maximoDeCartasEnMazo ; i++) {
     		cartaASumar = elegirTituloPorId();
-			cartas.apilar(cartaASumar);
+			this.cartas.apilar(cartaASumar);
     	}
     }
     
@@ -117,6 +118,25 @@ public class Mazo {
     		jugadorActual.tomarCartas(cartas.obtener());
     		cartas.desapilar();
         }
+    }
+    
+    /**
+     * pre: --
+     * @param jugador
+     * @throws Exception si el jugador no tiene cartas
+     * post: devuelve todas las cartas de un jugador al mazo
+     */
+    public void devolverTodasLasCartas(Jugador jugador) throws Exception {
+    	if (jugador.getMano() == null) {
+    		throw new Exception("El jugador no tiene cartas");
+    	}
+    	Lista<Carta> cartasJugador = jugador.getMano();
+    	cartasJugador.iniciarCursor();
+    	while(cartasJugador.avanzarCursor()) {
+    		Carta cartaActual = cartasJugador.obtenerCursor();
+    		this.cartas.apilar(cartaActual);
+    	}
+    	jugador.devolveCartas();
     }
     
     
