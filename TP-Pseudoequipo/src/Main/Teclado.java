@@ -71,13 +71,19 @@ public class Teclado {
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
         System.out.println("Ahora tendra que jugar una carta");
         mano.iniciarCursor();
+        System.out.println(0 + "-" + "Si no quiere jugar cartas");
         for(int i = 1;i <= mano.getLongitud();i++){
             mano.avanzarCursor();
             System.out.println(i + "-" + mano.obtenerCursor());
         }
         System.out.println("Ingrese el Numero de la posicion de la carta a jugar: ");
         int posicion = leerNumeroNatural();
-        return mano.obtener(posicion);
+        if(posicion != 0) {
+        	return mano.obtener(posicion);
+        }
+        else {
+        	return null;
+        }
     }
 
     /**

@@ -91,7 +91,7 @@ public class Partida {
                 } else {
                     casilleroDestino = mover(this.tablero, turno.getJugador());
                 }
-
+                
                 Carta cartaActual = Teclado.preguntarCarta(turno.getJugador().devolverMano());
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
