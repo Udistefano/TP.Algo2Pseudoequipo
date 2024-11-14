@@ -19,6 +19,31 @@ public class Pila<T> {
 	}
 
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
+	
+	// Método toString para imprimir los elementos de la pila
+    @Override
+    public String toString() {
+        if (this.estaVacia()) {
+            return "Pila vacía";
+        }
+
+        String resultado = "";
+        Nodo<T> actual = this.tope;
+
+        // Recorremos los nodos de la pila desde el tope hasta el fondo
+        while (actual != null) {
+            resultado += actual.getDato();  // Agregamos el dato del nodo a la cadena
+            if (actual.getSiguiente() != null) {
+                resultado += " , ";  // Si no es el último nodo, agregamos una flecha
+            } else {
+            	resultado += "";
+            }
+            actual = actual.getSiguiente();  // Avanzamos al siguiente nodo
+        }
+
+        return resultado;
+    }
+    
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 

@@ -21,6 +21,30 @@ public class Lista<T> {
 	}
 
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
+	
+	@Override
+	public String toString() {
+	    if (this.estaVacia()) {
+	        return "Lista vacía";  // Si la lista está vacía, devolvemos un mensaje adecuado
+	    }
+	    
+	    String resultado = "[";  // Iniciamos la cadena con un corchete para indicar el inicio de la lista
+	    Nodo<T> actual = this.primero;  // Empezamos desde el primer nodo
+	    
+	    while (actual != null) {
+	        resultado += actual.getDato();  // Añadimos el dato del nodo actual a la cadena
+	        
+	        if (actual.getSiguiente() != null) {
+	            resultado += ", ";  // Si no es el último nodo, añadimos una coma para separar los elementos
+	        }
+	        
+	        actual = actual.getSiguiente();  // Avanzamos al siguiente nodo
+	    }
+	    
+	    resultado += "]";  // Cerramos la representación de la lista con un corchete
+	    return resultado;
+	}
+	
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
