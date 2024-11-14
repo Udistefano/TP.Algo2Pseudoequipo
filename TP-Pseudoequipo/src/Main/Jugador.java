@@ -131,7 +131,7 @@ public class Jugador {
      * pre: --
      * @return
      */
-    public Carta  devolveCartas() throws Exception{
+    public Carta devolverCartas() throws Exception{
         //implementar seleccionar carta
         //Validacion.cartaValida();
         Carta carta = mano.obtenerCursor();

@@ -12,22 +12,14 @@ import Cartas.CartaEliminarCartasDelJugador;
 import Cartas.CartaPerderTurno;
 import Cartas.CartaVolverJugadaAnterior;
 
-import java.util.Random;
-
-
 @SuppressWarnings("rawtypes")
 public class Mazo {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
-
-	private static int VALOR_MINIMO = 1;
-	private static int VALOR_MAXIMO = 7;
-
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 
 	// FIXME: el enunciado del TP, dice que el mazo debe ser una cola de cartas, no una pila de cartas
 	public Pila <Carta> cartas = null;
-    private int maximoDeCartasEnMazo;
-    private Random random;
+    private int maximoDeCartasEnMazo = 0;
 
 	//CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -35,13 +27,12 @@ public class Mazo {
      * pre: --
      * pos: crea un mazo de cartas con 50 cartas de todos los tipos. No hay un maximo de cartas por tipo
      */
-    public Mazo(int maximoCartas) {
+    public Mazo(int maximoCartas) throws Exception {
     	this.maximoDeCartasEnMazo = maximoCartas;
     	this.cartas = new Pila<Carta>();
-    	this.random = new Random();
     	Carta cartaASumar = null;
     	for (int i = 0; i < maximoDeCartasEnMazo; i++) {
-    		cartaASumar = elegirTituloPorId();
+    		cartaASumar = generarCartaAleatoria();
 			this.cartas.apilar(cartaASumar);
     	}
     }
@@ -70,41 +61,35 @@ public class Mazo {
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
     
     /**
-     * pre: --
-     * pos: le da al un valor aleatorio entre VALOR_MINIMO y VALOR_MAXIMO
-     */
-    public int elegirIdParaTitulo() {
-    	return random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
-    }
-    
-    /**
      * 
      * @return cartaActual: de tipo carta, elegida aleatoriamente para sumar al mazo
      */
-    public Carta elegirTituloPorId() {
+    public Carta generarCartaAleatoria() throws Exception {
     	Carta cartaActual = null;
-    	switch(elegirIdParaTitulo()) {
-    		case 1: 
+    	switch(TipoDeCarta.generarTipoDeCartaAleatorio()) {
+			case TipoDeCarta.CAMBIAR_COLOR_FICHA:
     			cartaActual = new CartaCambiarColorFicha();
     			break;
-    		case 2:
+			case TipoDeCarta.ANULAR_CASILLERO:
     			cartaActual = new CartaAnularCasillero();
     			break;
-    		case 3:
+			case TipoDeCarta.BLOQUEAR_FICHA:
     			cartaActual = new CartaBloquearFicha();
     			break;
-    		case 4:
+			case TipoDeCarta.DOBLE_TURNO:
     			cartaActual = new CartaDobleTurno();
     			break;
-    		case 5:
+			case TipoDeCarta.ELIMINAR_CARTAS_DEL_JUGADOR:
     			cartaActual = new CartaEliminarCartasDelJugador();
     			break;
-    		case 6:
+			case TipoDeCarta.PERDER_TURNO:
     			cartaActual = new CartaPerderTurno();
     			break;
-    		case 7:
+			case TipoDeCarta.VOLVER_JUGADA_ANTERIOR:
     			cartaActual = new CartaVolverJugadaAnterior(); 		
     			break;
+			default:
+				throw new Exception("El tipo de carta no esta creada todavia!");
     	}
 		return cartaActual;
     }
@@ -148,7 +133,7 @@ public class Mazo {
     		Carta cartaActual = cartasJugador.obtenerCursor();
     		this.cartas.apilar(cartaActual);
     	}
-    	jugador.devolveCartas();
+    	jugador.devolverCartas();
     }
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
