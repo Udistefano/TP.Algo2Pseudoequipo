@@ -5,7 +5,6 @@ import Estructuras.Lista;
 
 import java.util.Objects;
 
-
 public class Jugador {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
@@ -74,7 +73,7 @@ public class Jugador {
      * @return una cadena mostrando el nombre del jugador y simbolo
      */
     public String toString() {
-        return nombre + " " + color;
+        return nombre + " (" + color + ")";
     }
 
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------

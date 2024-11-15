@@ -55,7 +55,7 @@ public abstract class Carta {
      */
 	@Override
 	public String toString() {
-		return getTitulo() + " (" + id + ")";
+		return getTitulo();
 	}
 
     /**

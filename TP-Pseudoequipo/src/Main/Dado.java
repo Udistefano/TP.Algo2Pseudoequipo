@@ -32,7 +32,7 @@ public class Dado {
      * post: le da al dado un valor entre VALOR_MINIMO y VALOR_MAXIMO
      */
     public void tirarDado() {
-        valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
+        this.valor = random.nextInt(VALOR_MINIMO, VALOR_MAXIMO + 1);
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ public class Dado {
      * @return el valor del dado
      */
     public int getValor() {
-        return valor;
+        return this.valor;
     }
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }

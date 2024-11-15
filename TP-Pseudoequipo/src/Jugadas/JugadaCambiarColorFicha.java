@@ -35,39 +35,26 @@ public class JugadaCambiarColorFicha extends Jugada {
 		Validacion.validarSiEsNulo(partida, "Partida");
 		Validacion.validarSiEsNulo(turnoActual, "Turno");
 
+		System.out.println("\nIngrese las coordenadas del casillero del cual cambiar el color de la ficha:");
 		Casillero<Ficha> casillero = partida.preguntarCasillero();
 		if (casillero.estaOcupado()) {
 			Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
 		}
-		Jugador jugadorActual = turnoActual.getJugador();
+		if(casillero.getDato() == null) {
+			throw new Exception("\nNo se puede cambiar de color porque no hay ninguna ficha");
+		}
+
+		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
+		Color colorActual = turnoActual.getJugador().getColor();
+		casillero.getDato().setColor(colorActual); // Seteo el jugador de la ficha al nuevo jugador
+		Bitmap.escribirFichaAlBitmap(casillero, colorActual);
+
 		// TODO: fijarse si hace falta implementar esto de agregarFicha, quitarFicha y obtenerJugadorPorFicha
 		// 		 capaz que no, porque no afecta al final, pero quedaria bien que si un jugador se roba la ficha
 		//       de otro, podamos comprobar que tiene una ficha mas jugada, y el otro una ficha menos
 //		Jugador jugadorOriginal = partida.obtenerJugadorPorFicha(casillero.getDato());
-		cambiarColor(jugadorActual, casillero);
-		Bitmap.escribirFichaAlBitmap(casillero, jugadorActual.getColor());
 //		jugadorActual.agregarFicha();
 //		jugadorOriginal.quitarFicha();
-	}
-
-	/**
-	 * pre:
-	 * @param jugador no debe ser nulo
-	 * @param casillero no debe ser nulo
-	 * @throws Exception si alguno de los parametros es nulo
-	 * post: le cambia el color del casillero pasado por parametro al color del jugador pasado por parametro
-	 */
-	public void cambiarColor(Jugador jugador, Casillero<Ficha> casillero) throws Exception{
-		Validacion.validarSiEsNulo(jugador, "Jugador");
-		Validacion.validarSiEsNulo(casillero, "Casillero");
-
-		// TODO: si se repite mucho, hacer un Validacion.validarSiCasilleroVacio(casillero)
-		if(casillero.getDato() == null) {
-			throw new Exception("No se puede cambiar de color porque no hay ninguna ficha");
-		}
-		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
-		Ficha ficha = casillero.getDato();  // Obtengo la ficha del casillero
-		ficha.setColor(jugador.getColor());          // Seteo el jugador de la ficha al nuevo jugador
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------

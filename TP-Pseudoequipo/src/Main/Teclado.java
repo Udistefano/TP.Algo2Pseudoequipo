@@ -47,38 +47,17 @@ public class Teclado {
 
     /**
      * pre: --
-     * post: le pregunta al usuario el nombre del usuario a eliminar, y lee el input del usuario
-     * @throws Exception si hubo un error leyendo la cadena no vacia del usuario
-     */
-    public static String preguntarNombreDelJugadorAEliminar() throws Exception {
-        System.out.println("Ingrese el nombre del usuario a eliminar: ");
-        return leerCadenaNoVacia();
-    }
-
-    /**
-     * pre: --
-     * post: le pregunta al usuario su nombre, y lee el input del usuario
-     * @throws Exception si hubo un error leyendo la cadena no vacia del usuario
-     */
-    public static String preguntarNombreDelJugador() throws Exception {
-        System.out.println("Ingrese su nombre: ");
-        return leerCadenaNoVacia();
-    }
-
-    /**
-     * pre: --
      * post: 
      */
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
-        // TODO: preguntarCarta quiza habria que moverlo a Partida, sabe mucho para Teclado?¿¿?¿?
-        System.out.println("\nAhora tendra que jugar una carta");
-        mano.iniciarCursor();
+        System.out.println("\nCartas disponibles:");
         System.out.println(0 + " - " + "Si no quiere jugar cartas");
-        for(int i = 1;i <= mano.getLongitud();i++){
+        mano.iniciarCursor();
+        for(int i = 1; i <= mano.getLongitud(); i++){
             mano.avanzarCursor();
             System.out.println(i + " - " + mano.obtenerCursor());
         }
-        System.out.print("\nIngrese el Numero de la posicion de la carta a jugar: ");
+        System.out.print("\nIngrese el numero de la posicion de la carta a jugar: ");
         int posicion = leerNumeroNatural();
         if(posicion != 0) {
         	return mano.obtener(posicion);
@@ -89,15 +68,12 @@ public class Teclado {
     
     /**
      * pre: --
-     * @return el color que el jugador elija
-     * @throws Exception si hubo un error interno
+     * @return el numero del color que el jugador elija
      */
-    public static int preguntarColor() throws Exception {
-    	Lista<Color> listaDeColores = Color.listaColores();
+    public static int preguntarColor() {
         System.out.println("\nColores disponibles:");
-        for(int i = 1; i <= listaDeColores.getLongitud(); i++){
-            listaDeColores.avanzarCursor();
-            System.out.println(i + " - " + listaDeColores.obtenerCursor());
+        for (int i = 0; i < Color.values().length; i++) {
+            System.out.println((i + 1) + " - " + Color.values()[i]);
         }
 
         System.out.print("\nElija un color (escriba el numero): ");

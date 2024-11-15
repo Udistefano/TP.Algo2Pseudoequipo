@@ -1,14 +1,11 @@
 package Main;
 
-import Cartas.CartaBloquearFicha;
 import Estructuras.Lista;
-
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 		Teclado.inicializar();
-		System.out.println("Bienvenidos al TaTeTi 3D\n");
+		System.out.println("Bienvenidos al TaTeTi 3D!\n");
 
 		System.out.print("Ingrese el ancho del tablero: ");
 		int ancho = Teclado.leerNumeroNatural();
@@ -30,17 +27,24 @@ public class Main {
 		int cantidadDeJugadores = Teclado.leerNumeroNatural();
 
 		for (int i = 1; i <= cantidadDeJugadores; i++) {
-			System.out.print("\nIngrese el nombre del jugador #" + i + ": ");
+			System.out.println("\nJugador #" + i + ":");
+			System.out.print("\nIngrese su nombre: ");
 			String nombre = Teclado.leerCadenaNoVacia();
+			// TODO: validar que no exista un jugador con ese color ya
+			int numeroDeColor = Teclado.preguntarColor();
 
-			int colorJugador = Teclado.preguntarColor();
-
-
-			Jugador jugador = new Jugador(nombre, colorJugador, cantidadDeFichasMaximasPermitidas);
+			Jugador jugador = new Jugador(nombre, numeroDeColor, cantidadDeFichasMaximasPermitidas);
 			jugadores.agregar(jugador);
 		}
 
 		Partida partida = new Partida(tablero, jugadores, mazo);
-		partida.iniciar();
+		Jugador ganador = partida.iniciar();
+
+		if (ganador != null) {
+			System.out.println("\nEl ganador del TaTeTi 3D fue " + ganador + "!!");
+		} else {
+			System.out.println("\nHubo un empate en el TaTeTi 3D!");
+		}
+		Teclado.finalizar();
     }
 }

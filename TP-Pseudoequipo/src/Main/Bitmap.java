@@ -8,6 +8,7 @@ public class Bitmap {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
     private static final String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
+    private static final String NOMBRE_ARCHIVO_SALIDA = "salida.bmp";
     // FIXME: mover colores constante a Color
 	private static int COLOR_FONDO = 7368816;
 	private static int COLOR_CASILLERO = 4730480;
@@ -230,14 +231,14 @@ public class Bitmap {
 
     /**
      * pre: --
-     * post: escribe la imagen del juego al archivo "salida1.bmp"
+     * post: escribe la imagen del juego al archivo NOMBRE_ARCHIVO_SALIDA
      */
     public static void escribirArchivo() {
         try {
-            File archivo = new File(generarRutaRelativa("salida1.bmp"));
+            File archivo = new File(generarRutaRelativa(NOMBRE_ARCHIVO_SALIDA));
             ImageIO.write(imagen, "bmp", archivo);
         } catch (Exception e) {
-            System.out.println("Hubo un error al intentar escribir la imagen del juego al archivo salida1.bmp");
+            System.out.println("Hubo un error al intentar escribir la imagen del juego al archivo " + NOMBRE_ARCHIVO_SALIDA);
             e.printStackTrace();
         }
     }

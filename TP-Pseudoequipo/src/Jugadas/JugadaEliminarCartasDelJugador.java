@@ -29,9 +29,10 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
      */
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
+		System.out.print("Ingrese el nombre del usuario a eliminar: ");
+		String nombreDelJugadorContricante = Teclado.leerCadenaNoVacia();
+
 		Lista<Jugador> jugadores = partida.getJugadores();
-		// FIXME: habria que haber otro metodo en teclado como teclado.preguntarNombreContrincante
-		String nombreDelJugadorContricante = Teclado.preguntarNombreDelJugadorAEliminar();
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();

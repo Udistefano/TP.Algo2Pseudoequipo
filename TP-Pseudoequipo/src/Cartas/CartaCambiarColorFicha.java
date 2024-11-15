@@ -16,7 +16,7 @@ public class CartaCambiarColorFicha extends Carta {
 
 	@Override
 	protected String getTituloPorDefecto() {
-		return "Carta cambia color de ficha";
+		return "Carta cambiar color de ficha";
 	}
 
 	@Override

@@ -12,20 +12,6 @@ public enum Color {
     VERDE;
 	
 	/**
-	 * pre: --
-	 * @return la lista de colores
-	 * @throws Exception si hubo un error interno al agregar a lista
-	 * post: devuelve una lista con todos los enums
-	 */
-	public static Lista<Color> listaColores() throws Exception {
-		Lista<Color> coloresLista = new Lista<Color>();
-		for (Color color : Color.values()) {
-            coloresLista.agregar(color);;
-        }
-		return coloresLista;
-	}
-	
-	/**
 	 * pre:
 	 * @param color no puede ser nulo
 	 * @return devuelve la ruta de la imagen según el enum

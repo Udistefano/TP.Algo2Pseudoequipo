@@ -38,11 +38,13 @@ public class JugadaBloquearFicha extends Jugada {
         Validacion.validarSiEsNulo(partida, "Partida");
         Validacion.validarSiEsNulo(turnoActual, "Turno");
 
+        System.out.println("\nIngrese las coordenadas del casillero del cual se bloqueara a la ficha en el:");
         Casillero<Ficha> casillero = partida.preguntarCasillero();
         if (!casillero.estaOcupado()) {
-            throw new Exception("El casillero " + casillero + " no tiene ninguna ficha para bloquear");
+            throw new Exception("\nEl casillero " + casillero + " no tiene ninguna ficha para bloquear");
         }
         Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
+
         casillero.getDato().bloquear();
     }
 

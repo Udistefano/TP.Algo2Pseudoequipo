@@ -61,7 +61,7 @@ public class Validacion {
     public static void validarSiFichaEstaBloqueada(Ficha ficha) throws Exception {
         Validacion.validarSiEsNulo(ficha, "Ficha");
         if (ficha.estaBloqueada()) {
-        	throw new Exception("No se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
+        	throw new Exception("\nNo se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
         }
     }
 

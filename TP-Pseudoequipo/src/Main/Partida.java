@@ -23,15 +23,13 @@ public class Partida {
      * @param jugadores no puede ser nulo
      * @param mazo no puede ser nulo
      * @throws Exception si alguno de los parametros es nulo
-     * post: inicializa la partida con el tablero, jugadores y mazo pasados por parametro, e inicializa
-     *       el teclado
+     * post: inicializa la partida con el tablero, jugadores y mazo pasados por parametro
      */
     public Partida(Tablero<Ficha> tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugadores, "Lista de Jugadores");
         Validacion.validarSiEsNulo(mazo, "Mazo");
 
-        Teclado.inicializar();
         this.tablero = tablero;
         Bitmap.inicializar(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
         Bitmap.crearImagen();
@@ -55,11 +53,16 @@ public class Partida {
     /**
      * pre: --
      * @throws Exception
-     * post:
+     * post: inicia la partida, y retorna el ganador
      */
-    public void iniciar() throws Exception {
+    public Jugador iniciar() throws Exception {
     	boolean hayGanador = false;
         int posicion = 1;
+        Jugador jugadorActual = null;
+
+        System.out.println("\n--------------------------------------------------------------------------------");
+        System.out.println("Inicio de partida");
+        System.out.println("--------------------------------------------------------------------------------");
 
         while(!hayGanador) {
             if (posicion > turnos.getLongitud()) {
@@ -67,38 +70,56 @@ public class Partida {
             }
 
             Turno turnoActual = turnos.obtener(posicion);
-            int cartasALevantar = dado.jugarDado();
-            System.out.println("\nTiraste el dado! dio " + cartasALevantar);
-            System.out.println("Levantas " + cartasALevantar + " cartas");
+            jugadorActual = turnoActual.getJugador();
+            int numeroDelDado = dado.jugarDado();
 
-            Jugador jugadorActual = turnoActual.getJugador();
-            mazo.levantarCartas(cartasALevantar, jugadorActual);
-            System.out.println("\nMano de " + jugadorActual + " es: " + jugadorActual.getMano());
+            System.out.println("\n--------------------------------------------------------------------------------");
+            System.out.println("Turno del jugador " + jugadorActual);
+            System.out.println("--------------------------------------------------------------------------------");
 
+            System.out.println("\n" + jugadorActual + " tira el dado! Dio el numero " + numeroDelDado);
+            System.out.println(jugadorActual + " levanta " + numeroDelDado + " cartas del mazo");
+
+            mazo.levantarCartas(numeroDelDado, jugadorActual);
+//            System.out.println("\nMano de " + jugadorActual + " es: " + jugadorActual.getMano());
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
             hayGanador = verificarGanador(casilleroDestino);
-
             posicion++;
         }
 
-        // TODO: ahora tenemos que retornar el ganador al main
+        // TODO: quiza crear clase UtilesVarios y agregar esto de imprimir asi con 2 lineas
+        System.out.println("\n--------------------------------------------------------------------------------");
+        System.out.println("Fin de partida");
+        System.out.println("--------------------------------------------------------------------------------");
+
+        return jugadorActual;
     }
 
+
+    /**
+     * pre:
+     * @param turno no puede ser nulo
+     * post: juega el turno (si no tiene bloqueos), y retorna el casillero al que se movio o jugo una ficha
+     * @throws Exception si turno es nulo
+     */
     public Casillero<Ficha> jugarTurno(Turno turno) throws Exception {
+        Validacion.validarSiEsNulo(turno, "Turno");
         Casillero<Ficha> casilleroDestino = null;
 
         turno.iniciarTurno();
         if (!turno.estaBloqueado()) {
             while (turno.haySubturnos()) {
                 turno.utilizarSubturno();
-                if (!turno.getJugador().tieneTodasLasFichasEnElTablero()) {
-                    casilleroDestino = jugadaInicial(this.tablero, turno.getJugador());
-                } else {
-                    casilleroDestino = mover(this.tablero, turno.getJugador());
-                }
-                Bitmap.escribirFichaAlBitmap(casilleroDestino, turno.getJugador().getColor());
+                Jugador jugador = turno.getJugador();
 
-                Carta cartaActual = Teclado.preguntarCarta(turno.getJugador().devolverMano());
+                if (!jugador.tieneTodasLasFichasEnElTablero()) {
+                    casilleroDestino = jugadaInicial(this.tablero, jugador);
+                } else {
+                    casilleroDestino = mover(this.tablero, jugador);
+                }
+                Bitmap.escribirFichaAlBitmap(casilleroDestino, jugador.getColor());
+
+                Carta cartaActual = Teclado.preguntarCarta(jugador.devolverMano());
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
                 }
@@ -121,15 +142,15 @@ public class Partida {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
         if (jugador.tieneTodasLasFichasEnElTablero()) { // Validacion quiza redundante, pero por si acaso
-            throw new Exception("Al jugador no le quedan mas fichas para jugar");
+            throw new Exception("\nAl jugador no le quedan mas fichas para jugar");
         }
 
         Ficha ficha = new Ficha(jugador.getColor());
-        System.out.println("\nLe quedan " + jugador.getCantidadDeFichasRestantes() + " fichas al jugador " + jugador + ": ");
-        System.out.println("\nTendra que jugar una ficha en un casillero");
+        System.out.println("\n" + jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
+        System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:\n");
         Casillero<Ficha> casillero = preguntarCasillero();
         if (casillero.estaOcupado()) {
-            throw new Exception("El casillero esta ocupado");
+            throw new Exception("\nEl casillero esta ocupado");
         }
         casillero.setDato(ficha);
         jugador.jugarFicha();
@@ -139,7 +160,6 @@ public class Partida {
 
     /**
      * pre:
-     *
      * @param tablero no puede ser nulo
      * @param jugador no puede ser nulo
      * @return mueve la ficha hacia el casillero en la direccion 'movimiento' ingresados por el jugador en el tablero,
@@ -151,7 +171,8 @@ public class Partida {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
 
-        System.out.println("\nAl jugador " + jugador + " no le quedan mas fichas para jugar, tendra que mover una ficha del tablero.");
+        System.out.println("\n" + jugador + " no le quedan mas fichas para jugar");
+        System.out.println("Tendra que mover una ficha del tablero.");
         System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
         Casillero<Ficha> casillero = preguntarCasillero();
         Movimiento movimiento = Teclado.preguntarMovimiento();
@@ -160,10 +181,10 @@ public class Partida {
         Validacion.validarSiEsNulo(casillero.getDato(), "Ficha");
         Validacion.validarSiFichaEstaBloqueada(fichaAMover);
         if (!casillero.existeElVecino(movimiento)) {
-            throw new Exception("No existe el movimiento");
+            throw new Exception("\nNo existe el movimiento " + movimiento);
         }
         if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
-            throw new Exception("El casillero al que se quiere mover esta ocupado");
+            throw new Exception("\nEl casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
         }
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), fichaAMover);
        
@@ -285,7 +306,6 @@ public class Partida {
 
     /**
      * pre:
-     *
      * @param casillero          no puede ser nulo
      * @param direccion          no puede ser nulo
      * @param direccionContraria no puede ser nulo
