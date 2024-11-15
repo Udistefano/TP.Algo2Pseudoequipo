@@ -7,7 +7,6 @@ import java.io.File;
 public class Bitmap {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
-    public static final String RUTA_CARPETA_IMAGENES = "./TP-Pseudoequipo/src/Imagenes/";
 
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
@@ -231,7 +230,7 @@ public class Bitmap {
      */
     public void escribirArchivo() {
         try {
-            File archivo = new File(RUTA_CARPETA_IMAGENES + "salida1.bmp");
+            File archivo = new File("salida1.bmp");
             ImageIO.write(imagen, "bmp", archivo);
         } catch (Exception e) {
             System.out.println("Hubo un error al intentar escribir la imagen del juego al archivo salida1.bmp");
