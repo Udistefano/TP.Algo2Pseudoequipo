@@ -42,9 +42,9 @@ public class Bitmap {
      * post: inicializa el bitmap, con el alto, ancho, x, y, z, y las dimensiones
      */
     public static void inicializar(int coordenadaX, int coordenadaY, int coordenadaZ) throws Exception {
-        Validacion.validarSiNumeroEsMenorAUno(coordenadaX, "X");
-        Validacion.validarSiNumeroEsMenorAUno(coordenadaY, "Y");
-        Validacion.validarSiNumeroEsMenorAUno(coordenadaZ, "Z");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(coordenadaX, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(coordenadaY, "Y");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(coordenadaZ, "Z");
 
         alto = 500;
         ancho = 1000;
@@ -144,10 +144,10 @@ public class Bitmap {
      * post: coloca en las coordenadas x, y, z del tablero del juego, la ficha que se lee de la imagen rutaImagen
      */
     public static void colocarFicha(int x, int y, int z, String rutaImagen) throws Exception {
-        Validacion.validarSiNumeroEsMenorAUno(x, "X");
-        Validacion.validarSiNumeroEsMenorAUno(x, "Y");
-        Validacion.validarSiNumeroEsMenorAUno(x, "Z");
-        Validacion.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Y");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Z");
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
 
         // Cargar la imagen desde el archivo
         BufferedImage imagenFicha = cargarImagen(rutaImagen);
@@ -201,7 +201,7 @@ public class Bitmap {
      * post: lee la imagen en rutaImagen
      */
     private static BufferedImage cargarImagen(String rutaImagen) throws Exception {
-        Validacion.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
 
         try {
             return ImageIO.read(new File(generarRutaRelativa(rutaImagen)));  // Cargar la imagen desde el archivo
@@ -251,9 +251,10 @@ public class Bitmap {
      * post: escribe al casillero la ficha con el color del jugador en la imagen salida
      */
     public static void escribirFichaAlBitmap(Casillero<Ficha> casillero, Color color) throws Exception {
-        Validacion.validarSiEsNulo(casillero, "Casillero");
-        Validacion.validarSiEsNulo(color, "Color");
+        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(color, "Color");
         Bitmap.colocarFicha(casillero.getX(), casillero.getY(), casillero.getZ(), Color.getRutaDeImagen(color));
+        Bitmap.escribirArchivo();
     }
 
     /**
@@ -263,10 +264,11 @@ public class Bitmap {
      * post: quita al casillero la ficha en la imagen salida
      */
     public static void quitarFichaAlBitmap(Casillero<Ficha> casillero) throws Exception {
-        Validacion.validarSiEsNulo(casillero, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         // FIXME: pongo el rosado, pero habria que volver a pintarlo al color original
         Bitmap.colocarFicha(casillero.getX(), casillero.getY(), casillero.getZ(),
                 Color.getRutaDeImagen(Color.getColorJugador(6)));
+        Bitmap.escribirArchivo();
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -278,7 +280,7 @@ public class Bitmap {
      * @throws Exception si nombreDeArchivo es invalido
      */
     private static String generarRutaRelativa(String nombreDeArchivo) throws Exception {
-        Validacion.validarSiEsUnaCadenaVacia(nombreDeArchivo, "Nombre de archivo");
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(nombreDeArchivo, "Nombre de archivo");
         return RUTA_RELATIVA_IMAGENES + nombreDeArchivo;
     }
 

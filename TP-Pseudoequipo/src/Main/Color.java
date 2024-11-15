@@ -1,7 +1,5 @@
 package Main;
 
-import Estructuras.Lista;
-
 public enum Color {
     ROJO,
     AZUL,
@@ -18,7 +16,7 @@ public enum Color {
 	 * @throws Exception si color es nulo
 	 */
 	public static String getRutaDeImagen(Color color) throws Exception {
-		Validacion.validarSiEsNulo(color, "Color");
+		ValidacionesUtiles.validarSiEsNulo(color, "Color");
 		String imagen = null;
 		switch(color) {
 		case ROJO:

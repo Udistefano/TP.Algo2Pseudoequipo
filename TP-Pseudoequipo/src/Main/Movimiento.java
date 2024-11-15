@@ -17,7 +17,7 @@ public enum Movimiento {
      * @throws Exception si nombre es nulo
      */
     public static boolean existe(String nombre) throws Exception {
-        Validacion.validarSiEsUnaCadenaVacia(nombre, "Nombre");
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(nombre, "Nombre");
         try {
             Movimiento.obtener(nombre);
             return true;

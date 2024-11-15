@@ -131,8 +131,8 @@ public class Tablero<T> {
      */
     public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) throws Exception {
         Casillero.validarCoordenadasDeVecino(x, y, z);
-        Validacion.validarSiEsNulo(casillero1, "Casillero");
-        Validacion.validarSiEsNulo(casillero2, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(casillero1, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(casillero2, "Casillero");
 
         casillero2.setCasilleroVecino(casillero1, x, y, z);
         casillero1.setCasilleroVecino(casillero2, Casillero.invertirCoordenadaDeVecino(x),
@@ -153,7 +153,7 @@ public class Tablero<T> {
         if (!existeElCasillero(x, y, z)) {
             throw new Exception("Coordenadas de casillero invalidas");
         }
-        Validacion.validarSiEsNulo(ficha, "Ficha");
+        ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
 
         Casillero<T> casillero = getCasillero(x, y, z);
         casillero.setDato(ficha);
@@ -169,10 +169,10 @@ public class Tablero<T> {
      */
     public void mover(Casillero<Ficha> origen, Casillero<Ficha> destino, Ficha ficha) throws Exception {
         // TODO: quiza no haga falta pasar ficha por parametro, si lo podemos obtener con origen.getDato()
-        Validacion.validarSiEsNulo(origen, "Casillero");
-        Validacion.validarSiEsNulo(destino, "Casillero");
-        Validacion.validarSiEsNulo(ficha, "Ficha");
-        Validacion.validarSiFichaEstaBloqueada(ficha);
+        ValidacionesUtiles.validarSiEsNulo(origen, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(destino, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
+        ValidacionesUtiles.validarSiFichaEstaBloqueada(ficha);
         // TODO: quiza validar aca tambien con un Validacion.validarSiCasilleroEstaLibre(destino)???
         origen.setDato(null);
         destino.setDato(ficha);

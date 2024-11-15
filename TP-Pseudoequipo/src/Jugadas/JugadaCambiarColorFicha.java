@@ -32,13 +32,13 @@ public class JugadaCambiarColorFicha extends Jugada {
 	 */
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
-		Validacion.validarSiEsNulo(partida, "Partida");
-		Validacion.validarSiEsNulo(turnoActual, "Turno");
+		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
+		ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
 		System.out.println("\nIngrese las coordenadas del casillero del cual cambiar el color de la ficha:");
 		Casillero<Ficha> casillero = partida.preguntarCasillero();
 		if (casillero.estaOcupado()) {
-			Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
+			ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
 		}
 		if(casillero.getDato() == null) {
 			throw new Exception("\nNo se puede cambiar de color porque no hay ninguna ficha");

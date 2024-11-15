@@ -143,7 +143,7 @@ public class Casillero<T> {
      * @throws Exception si el dato es nulo
      */
     public boolean tiene(T dato) throws Exception {
-        Validacion.validarSiEsNulo(dato, "Dato");
+        ValidacionesUtiles.validarSiEsNulo(dato, "Dato");
         if (this.dato == null) {
             return false;
         }

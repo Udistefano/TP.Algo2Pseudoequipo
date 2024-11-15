@@ -18,7 +18,7 @@ public abstract class Jugada {
 	 * post: inicializa la jugada con la carta pasada por parametro
 	 */
 	public Jugada(Carta carta) throws Exception {
-		Validacion.validarSiEsNulo(carta, "Carta");
+		ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
 		this.carta = carta;
 	}
 	

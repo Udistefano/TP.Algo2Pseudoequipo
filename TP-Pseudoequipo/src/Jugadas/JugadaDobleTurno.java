@@ -4,7 +4,7 @@ import Cartas.Carta;
 import Main.Jugador;
 import Main.Partida;
 import Main.Turno;
-import Main.Validacion;
+import Main.ValidacionesUtiles;
 
 public class JugadaDobleTurno extends Jugada {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -34,8 +34,8 @@ public class JugadaDobleTurno extends Jugada {
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
-        Validacion.validarSiEsNulo(partida, "Partida");
-        Validacion.validarSiEsNulo(turnoActual, "Turno");
+        ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
+        ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
         Jugador jugador = turnoActual.getJugador();
         jugador.sumarFicha();

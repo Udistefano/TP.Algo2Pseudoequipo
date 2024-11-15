@@ -18,7 +18,7 @@ public class Turno {
 	 *       restante
 	 */
 	public Turno(Jugador jugador) throws Exception {
-		Validacion.validarSiEsNulo(jugador, "Jugador");
+		ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 		this.jugador = jugador;
 	}
 	

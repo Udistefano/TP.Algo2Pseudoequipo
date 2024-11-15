@@ -5,7 +5,7 @@ import Main.Casillero;
 import Main.Ficha;
 import Main.Partida;
 import Main.Turno;
-import Main.Validacion;
+import Main.ValidacionesUtiles;
 
 public class JugadaBloquearFicha extends Jugada {
 	 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -35,15 +35,15 @@ public class JugadaBloquearFicha extends Jugada {
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
-        Validacion.validarSiEsNulo(partida, "Partida");
-        Validacion.validarSiEsNulo(turnoActual, "Turno");
+        ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
+        ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
         System.out.println("\nIngrese las coordenadas del casillero del cual se bloqueara a la ficha en el:");
         Casillero<Ficha> casillero = partida.preguntarCasillero();
         if (!casillero.estaOcupado()) {
             throw new Exception("\nEl casillero " + casillero + " no tiene ninguna ficha para bloquear");
         }
-        Validacion.validarSiFichaEstaBloqueada(casillero.getDato());
+        ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
 
         casillero.getDato().bloquear();
     }

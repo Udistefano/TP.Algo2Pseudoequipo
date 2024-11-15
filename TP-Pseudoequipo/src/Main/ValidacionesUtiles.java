@@ -1,6 +1,6 @@
 package Main;
 
-public class Validacion {
+public class ValidacionesUtiles {
     /**
      * pre:
      * @param objeto no debe ser nulo
@@ -59,7 +59,7 @@ public class Validacion {
      * post: valida si la ficha esta bloqueada, sino, se puede utilizar normalmente
      */
     public static void validarSiFichaEstaBloqueada(Ficha ficha) throws Exception {
-        Validacion.validarSiEsNulo(ficha, "Ficha");
+        ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
         if (ficha.estaBloqueada()) {
         	throw new Exception("\nNo se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
         }

@@ -12,7 +12,6 @@ import Cartas.CartaEliminarCartasDelJugador;
 import Cartas.CartaPerderTurno;
 import Cartas.CartaVolverJugadaAnterior;
 
-@SuppressWarnings("rawtypes")
 public class Mazo {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
@@ -96,20 +95,23 @@ public class Mazo {
     
     /**
      * pre:
-     * @param cartasALevantar: numero entero de cartas a levantar por el jugador y el dado. No puede ser nulo
-     * @param jugadorActual: jugador que levanta las cartas. No puede ser nulo
+     * @param cantidadDeCartasALevantar: numero entero de cartas a levantar por el jugador y el dado. No puede ser nulo
+     * @param jugador: jugador que levanta las cartas. No puede ser nulo
      * @throws Exception: si no hay suficientes cartas en el mazo, crear un nuevo mazo
-     * pos: a la mano del jugador se agregan las cratas solicitadas
+     * pos: a la mano del jugador se agregan las cartas solicitadas
      */
-    public void levantarCartas(int cartasALevantar, Jugador jugadorActual) throws Exception {
-    	Validacion.validarSiEsNulo(jugadorActual, "Jugador");
-		Validacion.validarSiNumeroEsMenorAUno(cartasALevantar, "Cartas a levantar");
+    public void levantarCartas(int cantidadDeCartasALevantar, Jugador jugador) throws Exception {
+    	ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+		ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeCartasALevantar, "Cartas a levantar");
 
-    	if (cartasALevantar > cartas.contarElementos()) {
+		if (!jugador.getMano().estaVacia()) {
+			agregarManoDelJugador(jugador);
+		}
+    	if (cantidadDeCartasALevantar > cartas.contarElementos()) {
     		throw new Exception("No hay suficientes cartas para levantar");
     	}
-    	for (int i = 0; i < cartasALevantar; i++) {
-    		jugadorActual.tomarCartas(cartas.obtener());
+    	for (int i = 0; i < cantidadDeCartasALevantar; i++) {
+    		jugador.agregarCartaALaMano(cartas.obtener());
     		cartas.desapilar();
         }
     }
@@ -120,19 +122,30 @@ public class Mazo {
      * @throws Exception si el jugador no tiene cartas
      * post: devuelve todas las cartas de un jugador al mazo
      */
-    public void devolverTodasLasCartas(Jugador jugador) throws Exception {
-		Validacion.validarSiEsNulo(jugador, "Jugador");
-    	if (jugador.getMano() == null) {
-    		throw new Exception("El jugador no tiene cartas");
+    public void agregarManoDelJugador(Jugador jugador) throws Exception {
+		ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+		Lista<Carta> manoDelJugador = jugador.getMano();
+		if (manoDelJugador.estaVacia()) {
+			throw new Exception("\nEl jugador " + jugador + " no tiene mas cartas en el mazo!");
+		}
+
+    	manoDelJugador.iniciarCursor();
+    	while(manoDelJugador.avanzarCursor()) {
+			agregarCarta(manoDelJugador.obtenerCursor());
+			jugador.quitarCartaDeLaMano(manoDelJugador.obtenerCursor());
     	}
-    	Lista<Carta> cartasJugador = jugador.getMano();
-    	cartasJugador.iniciarCursor();
-    	while(cartasJugador.avanzarCursor()) {
-    		Carta cartaActual = cartasJugador.obtenerCursor();
-    		this.cartas.apilar(cartaActual);
-    	}
-    	jugador.devolverCartas();
     }
+
+	/**
+	 * pre:
+	 * @param carta no puede ser nula
+	 * @throws Exception si la carta es nula
+	 * post: agrega la carta al mazo
+	 */
+	public void agregarCarta(Carta carta) throws Exception {
+		ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
+		this.cartas.apilar(carta);
+	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
@@ -141,6 +154,7 @@ public class Mazo {
      * @return la pila de cartas
      */
 	public Pila<Carta> getCartas() {
+		// FIXME: esto viola el encapsulamiento, devolver una pila asi, hay que devolver una copia
 		return cartas;
 	}
 

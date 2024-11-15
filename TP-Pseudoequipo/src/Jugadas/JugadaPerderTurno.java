@@ -1,7 +1,6 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Estructuras.Lista;
 import Main.*;
 
 /**
@@ -34,8 +33,8 @@ public class JugadaPerderTurno extends Jugada {
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
-        Validacion.validarSiEsNulo(partida, "Partida");
-        Validacion.validarSiEsNulo(turnoActual, "Turno");
+        ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
+        ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
         System.out.print("Ingrese el nombre del jugador al que hacerle perder un turno: ");
         String nombreDelJugador = Teclado.leerCadenaNoVacia();
         Jugador jugadorAPerder = partida.getJugadores().obtener(nombreDelJugador);

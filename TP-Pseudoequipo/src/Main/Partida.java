@@ -26,9 +26,9 @@ public class Partida {
      * post: inicializa la partida con el tablero, jugadores y mazo pasados por parametro
      */
     public Partida(Tablero<Ficha> tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
-        Validacion.validarSiEsNulo(tablero, "Tablero");
-        Validacion.validarSiEsNulo(jugadores, "Lista de Jugadores");
-        Validacion.validarSiEsNulo(mazo, "Mazo");
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugadores, "Lista de Jugadores");
+        ValidacionesUtiles.validarSiEsNulo(mazo, "Mazo");
 
         this.tablero = tablero;
         Bitmap.inicializar(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
@@ -60,10 +60,7 @@ public class Partida {
         int posicion = 1;
         Jugador jugadorActual = null;
 
-        System.out.println("\n--------------------------------------------------------------------------------");
-        System.out.println("Inicio de partida");
-        System.out.println("--------------------------------------------------------------------------------");
-
+        UtilesVarios.mostrarTextoAlrededorDeLineas("Inicio de partida");
         while(!hayGanador) {
             if (posicion > turnos.getLongitud()) {
                 posicion = 1;
@@ -71,26 +68,18 @@ public class Partida {
 
             Turno turnoActual = turnos.obtener(posicion);
             jugadorActual = turnoActual.getJugador();
-            int numeroDelDado = dado.jugarDado();
 
-            System.out.println("\n--------------------------------------------------------------------------------");
-            System.out.println("Turno del jugador " + jugadorActual);
-            System.out.println("--------------------------------------------------------------------------------");
+            dado.tirarDado();
+            System.out.println("\n" + jugadorActual + " tira el dado! Dio el numero " + dado.getValor());
+            System.out.println(jugadorActual + " levanta " + dado.getValor() + " cartas del mazo");
+            mazo.levantarCartas(dado.getValor(), jugadorActual);
 
-            System.out.println("\n" + jugadorActual + " tira el dado! Dio el numero " + numeroDelDado);
-            System.out.println(jugadorActual + " levanta " + numeroDelDado + " cartas del mazo");
-
-            mazo.levantarCartas(numeroDelDado, jugadorActual);
 //            System.out.println("\nMano de " + jugadorActual + " es: " + jugadorActual.getMano());
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
             hayGanador = verificarGanador(casilleroDestino);
             posicion++;
         }
-
-        // TODO: quiza crear clase UtilesVarios y agregar esto de imprimir asi con 2 lineas
-        System.out.println("\n--------------------------------------------------------------------------------");
-        System.out.println("Fin de partida");
-        System.out.println("--------------------------------------------------------------------------------");
+        UtilesVarios.mostrarTextoAlrededorDeLineas("Fin de partida");
 
         return jugadorActual;
     }
@@ -103,7 +92,7 @@ public class Partida {
      * @throws Exception si turno es nulo
      */
     public Casillero<Ficha> jugarTurno(Turno turno) throws Exception {
-        Validacion.validarSiEsNulo(turno, "Turno");
+        ValidacionesUtiles.validarSiEsNulo(turno, "Turno");
         Casillero<Ficha> casilleroDestino = null;
 
         turno.iniciarTurno();
@@ -111,6 +100,7 @@ public class Partida {
             while (turno.haySubturnos()) {
                 turno.utilizarSubturno();
                 Jugador jugador = turno.getJugador();
+                UtilesVarios.mostrarTextoAlrededorDeLineas("Turno del jugador");
 
                 if (!jugador.tieneTodasLasFichasEnElTablero()) {
                     casilleroDestino = jugadaInicial(this.tablero, jugador);
@@ -119,11 +109,12 @@ public class Partida {
                 }
                 Bitmap.escribirFichaAlBitmap(casilleroDestino, jugador.getColor());
 
-                Carta cartaActual = Teclado.preguntarCarta(jugador.devolverMano());
+                Carta cartaActual = Teclado.preguntarCarta(jugador.getMano());
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
+                    jugador.quitarCartaDeLaMano(cartaActual);
+                    this.mazo.agregarCarta(cartaActual);
                 }
-                Bitmap.escribirArchivo();
             }
         }
         turno.terminarTurno();
@@ -139,8 +130,8 @@ public class Partida {
      * post: juega la jugada inicial, le pregunta un casillero, y mueve una ficha del jugador ahi
      */
     public Casillero<Ficha> jugadaInicial(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
-        Validacion.validarSiEsNulo(tablero, "Tablero");
-        Validacion.validarSiEsNulo(jugador, "Jugador");
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
         if (jugador.tieneTodasLasFichasEnElTablero()) { // Validacion quiza redundante, pero por si acaso
             throw new Exception("\nAl jugador no le quedan mas fichas para jugar");
         }
@@ -168,8 +159,8 @@ public class Partida {
      *                   o esta ocupado
      */
     public Casillero<Ficha> mover(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
-        Validacion.validarSiEsNulo(tablero, "Tablero");
-        Validacion.validarSiEsNulo(jugador, "Jugador");
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
         System.out.println("\n" + jugador + " no le quedan mas fichas para jugar");
         System.out.println("Tendra que mover una ficha del tablero.");
@@ -178,8 +169,8 @@ public class Partida {
         Movimiento movimiento = Teclado.preguntarMovimiento();
         Ficha fichaAMover = casillero.getDato();
 
-        Validacion.validarSiEsNulo(casillero.getDato(), "Ficha");
-        Validacion.validarSiFichaEstaBloqueada(fichaAMover);
+        ValidacionesUtiles.validarSiEsNulo(casillero.getDato(), "Ficha");
+        ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaAMover);
         if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("\nNo existe el movimiento " + movimiento);
         }
@@ -208,9 +199,9 @@ public class Partida {
      */
     public Casillero<Ficha> preguntarCasillero() throws Exception {
         // TODO: ?¿?¿?permitir que si el jugador ingresa coordenadas invalidas, pueda volver a ingresar de vuelta
-        int x = Teclado.preguntarCoordenada('x');
-        int y = Teclado.preguntarCoordenada('y');
-        int z = Teclado.preguntarCoordenada('z');
+        int x = Teclado.preguntarCoordenada('X');
+        int y = Teclado.preguntarCoordenada('Y');
+        int z = Teclado.preguntarCoordenada('Z');
 
         if (!tablero.existeElCasillero(x, y, z)) {
             throw new Exception("Coordenadas de casillero invalidas");
@@ -220,7 +211,7 @@ public class Partida {
     }
 
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {
-        Validacion.validarSiEsNulo(casillero, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         // FIXME: habria que agregar atributo cantidadDeFichasNecesariasParaGanar a Partida, siendo inicialmente
         //        3??? o permitirle pasarle por parametro, y validar que haya almenos una dimension alto o ancho o
         //        profundidad que sea de ese tamaño
@@ -314,9 +305,9 @@ public class Partida {
      * @throws Exception si alguno de los parametros es nulo
      */
     public int contarFichasSeguidasEnDireccion(Casillero<Ficha> casillero, Direccion direccion, Direccion direccionContraria) throws Exception {
-        Validacion.validarSiEsNulo(casillero, "Casillero");
-        Validacion.validarSiEsNulo(direccion, "Direccion");
-        Validacion.validarSiEsNulo(direccionContraria, "Direccion");
+        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(direccion, "Direccion");
+        ValidacionesUtiles.validarSiEsNulo(direccionContraria, "Direccion");
 
         // FIXME: esto no anda, porque siempre es 2 como minimo, porque sumamos adentro de contarFichasSEguidasd
         //        es un poco hardcode pero si le restamos 1 anda
@@ -339,8 +330,8 @@ public class Partida {
                 (casillero.getDato() == null)) {
             return 0;
         }
-        Validacion.validarSiEsNulo(direccion, "Direccion");
-        Validacion.validarSiEsNulo(ficha, "Ficha");
+        ValidacionesUtiles.validarSiEsNulo(direccion, "Direccion");
+        ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
 
         if (!casillero.getDato().equals(ficha)) {
             return 0;
@@ -355,7 +346,7 @@ public class Partida {
      * @throws Exception si el jugador es nulo
      */
     public Turno getTurnoSiguiente(Jugador jugador) throws Exception {
-        Validacion.validarSiEsNulo(jugador, "Jugador");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
         for (int i = 0; i < turnos.getLongitud(); i++) {
             if (turnos.obtener(i).getJugador().equals(jugador)) {

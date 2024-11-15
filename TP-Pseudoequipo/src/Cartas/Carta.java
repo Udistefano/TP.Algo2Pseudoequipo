@@ -3,7 +3,7 @@ package Cartas;
 import java.util.Objects;
 
 import Jugadas.Jugada;
-import Main.Validacion;
+import Main.ValidacionesUtiles;
 
 public abstract class Carta {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ public abstract class Carta {
      * post: inicializa una carta con el titulo pasado por parametro y el id actual
      */
 	protected Carta(String titulo) throws Exception {
-		Validacion.validarSiEsUnaCadenaVacia(titulo, "Titulo");
+		ValidacionesUtiles.validarSiEsUnaCadenaVacia(titulo, "Titulo");
 		this.titulo = titulo;
 		this.id = Carta.getIdActual();
 	}

@@ -13,7 +13,7 @@ public class Jugador {
     private int cantidadDeFichasJugadas = 0;
     private int cantidadDeFichasMaximasPermitidas = 0;
     private Color color = null;
-    public Lista<Carta> mano = null;
+    private Lista<Carta> mano = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -26,9 +26,9 @@ public class Jugador {
      *       vacias
      */
     public Jugador(String nombre, int numeroDeColor, int cantidadDeFichasMaximasPermitidas) throws Exception {
-        Validacion.validarSiEsNulo(nombre, "Nombres");
-        Validacion.validarSiNumeroEsMenorAUno(numeroDeColor, "Numero de color");
-        Validacion.validarSiNumeroEsMenorAUno(cantidadDeFichasMaximasPermitidas, "Cantidad de fichas maximas permitidas");
+        ValidacionesUtiles.validarSiEsNulo(nombre, "Nombres");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(numeroDeColor, "Numero de color");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeFichasMaximasPermitidas, "Cantidad de fichas maximas permitidas");
         this.nombre = nombre;
         this.color = Color.getColorJugador(numeroDeColor);
         this.cantidadDeFichasMaximasPermitidas = cantidadDeFichasMaximasPermitidas;
@@ -98,53 +98,15 @@ public class Jugador {
         this.cantidadDeFichasJugadas++;
     }
 
-
-
-    // TODO: limpiar metodos que no se usen en TDA Jugador
     /**
      * pre:
-     * @param cacillero casillero:
-     * @throws post:
+     * @param carta no puede ser nula
+     * @throws Exception si carta es nula
+     * post: agrega la carta a la mano del jugador
      */
-    public void jugarFicha(Casillero<Ficha> casillero) throws Exception {
-        if (casillero.estaOcupado()) {
-            throw new Exception("Casillero ocupado");
-        } else {
-            //Ficha nuevaFicha = new Ficha();
-            //casillero.setDato(nuevaFicha);
-        }
-    }
- 
-    /**
-     * pre:
-     *
-     * @param
-     * @throws post:
-     */
-    public Lista<Carta> devolverMano() throws Exception{
-        return mano;
-    }
-    /**
-     * pre:
-     *
-     * @param
-     * @throws post:
-     */
-    public void tomarCartas(Carta carta) throws Exception {
+    public void agregarCartaALaMano(Carta carta) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
         mano.agregar(carta);
-    }
-
-    /**
-     * pre: --
-     * @return
-     */
-    public Carta devolverCartas() throws Exception{
-        //implementar seleccionar carta
-        //Validacion.cartaValida();
-        Carta carta = mano.obtenerCursor();
-        mano.remover(carta);
-        return carta;
-
     }
 
     /**
@@ -153,6 +115,17 @@ public class Jugador {
      */
     public void sumarFicha() {
     	this.cantidadDeFichasMaximasPermitidas++;
+    }
+
+    /**
+     * pre:
+     * @param carta no puede ser nula
+     * @throws Exception si la carta es nula
+     * post: quita la carta de la mano del jugador
+     */
+    public void quitarCartaDeLaMano(Carta carta) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
+        this.mano.remover(carta);
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -206,4 +179,12 @@ public class Jugador {
     }
 
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
+
+    /**
+     * pre: --
+     * post: vacia la mano del jugador
+     */
+    public void vaciarMano() {
+        this.mano = new Lista<Carta>();
+    }
 }

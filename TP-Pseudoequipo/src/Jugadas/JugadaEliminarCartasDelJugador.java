@@ -29,7 +29,7 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
      */
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
-		System.out.print("Ingrese el nombre del usuario a eliminar: ");
+		System.out.print("\nIngrese el nombre del usuario a eliminar: ");
 		String nombreDelJugadorContricante = Teclado.leerCadenaNoVacia();
 
 		Lista<Jugador> jugadores = partida.getJugadores();
@@ -37,7 +37,7 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();
 			if (nombreDelJugadorContricante.equals(jugadorActual.getNombre())) {
-				jugadorActual.mano = null;
+				jugadorActual.vaciarMano();
 				return;
 			}
 		}
