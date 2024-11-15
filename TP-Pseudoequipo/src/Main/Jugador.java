@@ -99,13 +99,7 @@ public class Jugador {
         this.cantidadDeFichasJugadas++;
     }
 
-    /**
-     * pre: --
-     * @return la cantidad de fichas que le quedan al jugador
-     */
-    public int getCantidadDeFichasRestantes() {
-        return cantidadDeFichasMaximasPermitidas - cantidadDeFichasJugadas;
-    }
+
 
     // TODO: limpiar metodos que no se usen en TDA Jugador
     /**
@@ -154,18 +148,13 @@ public class Jugador {
 
     }
 
-    // Soy ulises, creo que esto esta bien implementado, cualquier cosa mandenme
-
-//    /**
-//     * pre: metodo para agregar a su lista fichas cuando se usa la carta para cambiar color de su ficha
-//     * @param ficha no puede ser nulo
-//     * @throws Exception si ficha es nulo
-//     * post: agrega la ficha pasada por parametro, a la lista de fichas del jugador
-//     */
-//    public void agregarFicha(Ficha ficha) throws Exception {
-//        Validacion.validarSiEsNulo(ficha, "Ficha");
-//        fichas.agregar(ficha);
-//    }
+    /**
+     * pre: --
+     * post: Metodo que suma una ficha cuando el jugador utiliza la carta de doble turno
+     */
+    public void sumarFicha() {
+    	this.cantidadDeFichasMaximasPermitidas++;
+    }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
@@ -207,6 +196,14 @@ public class Jugador {
      */
     public int getCantidadDeFichasMaximasPermitidas() {
         return cantidadDeFichasMaximasPermitidas;
+    }
+    
+    /**
+     * pre: --
+     * @return la cantidad de fichas que le quedan al jugador
+     */
+    public int getCantidadDeFichasRestantes() {
+        return cantidadDeFichasMaximasPermitidas - cantidadDeFichasJugadas;
     }
 
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
