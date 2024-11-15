@@ -13,8 +13,7 @@ public class Jugador {
     private String nombre = null;
     private int cantidadDeFichasJugadas = 0;
     private int cantidadDeFichasMaximasPermitidas = 0;
-    private char simbolo = 0;
-    private String color = null;
+    private Color color = null;
     public Lista<Carta> mano = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -28,10 +27,9 @@ public class Jugador {
      * post: inicializa un jugador con el simbolo, nombre y color pasados por parametro, y con fichas y mano
      *       vacias
      */
-    public Jugador(String nombre, char simbolo, String color, int cantidadDeFichasMaximasPermitidas) throws Exception {
+    public Jugador(String nombre, int numeroColor, int cantidadDeFichasMaximasPermitidas) throws Exception {
         this.nombre = nombre;
-        this.simbolo = simbolo;
-        this.color = color;
+        this.color = Color.getColorJugador(numeroColor);
         this.cantidadDeFichasMaximasPermitidas = cantidadDeFichasMaximasPermitidas;
         this.mano = new Lista<Carta>();
     }
@@ -57,7 +55,6 @@ public class Jugador {
 
         Jugador other = (Jugador) obj;
         return (nombre.equals(other.nombre)) &&
-                (simbolo == other.simbolo) &&
                 (color.equals(other.color));
     }
 
@@ -67,7 +64,7 @@ public class Jugador {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(simbolo, color);
+        return Objects.hash(color);
     }
 
     /**
@@ -75,7 +72,7 @@ public class Jugador {
      * @return una cadena mostrando el nombre del jugador y simbolo
      */
     public String toString() {
-        return nombre + " " + simbolo;
+        return nombre + " " + color;
     }
 
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
@@ -172,14 +169,6 @@ public class Jugador {
 
     /**
      * pre: --
-     * @return el simbolo del jugador
-     */
-    public char getSimbolo() {
-        return simbolo;
-    }
-
-    /**
-     * pre: --
      * @return el nombre del jugador
      */
     public String getNombre() {
@@ -190,7 +179,7 @@ public class Jugador {
      * pre: --
      * @return el color del jugador
      */
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 

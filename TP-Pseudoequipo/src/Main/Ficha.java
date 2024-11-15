@@ -6,7 +6,7 @@ public class Ficha {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private char simbolo = ' ';
-    private String color = null;
+    private Color color = null;
     private EstadoDeBloqueo estadoDeBloqueo;
 
 //CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -18,10 +18,7 @@ public class Ficha {
      * @throws Exception si alguno de los parametros es nulo
      * post: inicializa la ficha con el simbolo y color dados
      */
-    public Ficha(char simbolo, String color) throws Exception {
-        Validacion.validarSiEsNulo(simbolo, "Simbolo");
-        Validacion.validarSiEsUnaCadenaVacia(color, "Color");
-        this.simbolo = simbolo;
+    public Ficha(Color color) throws Exception {
         this.color = color;
         this.estadoDeBloqueo = EstadoDeBloqueo.DESBLOQUEADO;
     }
@@ -53,8 +50,7 @@ public class Ficha {
             return false;
 
         Ficha other = (Ficha) obj;
-        return (this.simbolo == other.getSimbolo()) &&
-                (this.color.equals(other.getColor()));
+        return (this.color.equals(other.getColor()));
     }
 
     /**
@@ -86,19 +82,12 @@ public class Ficha {
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-    /**
-     * pre: --
-     * @return el simbolo de la ficha
-     */
-    public char getSimbolo() {
-        return this.simbolo;
-    }
 
     /**
      * pre: --
      * @return el color de la ficha
      */
-    public String getColor() {
+    public Color getColor() {
         return this.color;
     }
     
@@ -146,8 +135,7 @@ public class Ficha {
      * @throws Exception si color es vacio o nulo
      * post: cambia el color de la ficha al pasado por parametro
      */
-    public void setColor(String color) throws Exception {
-        Validacion.validarSiEsUnaCadenaVacia(color, "Color");
+    public void setColor(Color color) throws Exception {
         this.color = color;
     }
 }

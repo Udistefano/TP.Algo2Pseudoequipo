@@ -42,14 +42,10 @@ public class Main {
 			System.out.print("\nIngrese el nombre del jugador #" + i + ": ");
 			String nombre = Teclado.leerCadenaNoVacia();
 
-			System.out.print("Ingrese el simbolo del jugador #" + i + ": ");
-			Character simbolo = Teclado.leerCaracter();
+			int colorJugador = Teclado.preguntarColor();
 
-			System.out.print("Ingrese el color del jugador #" + i + ": ");
-			String color = Teclado.leerCadenaNoVacia();
-			// FIXME: esto de color hay que hacerlo funcionar!
 
-			Jugador jugador = new Jugador(nombre, simbolo, color, cantidadDeFichasMaximasPermitidas);
+			Jugador jugador = new Jugador(nombre, colorJugador, cantidadDeFichasMaximasPermitidas);
 			jugadores.agregar(jugador);
 		}
 

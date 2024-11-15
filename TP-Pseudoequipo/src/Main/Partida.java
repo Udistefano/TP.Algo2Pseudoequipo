@@ -122,7 +122,7 @@ public class Partida {
             throw new Exception("Al jugador no le quedan mas fichas para jugar");
         }
 
-        Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
+        Ficha ficha = new Ficha(jugador.getColor());
         System.out.println("\nLe quedan " + jugador.getCantidadDeFichasRestantes() + " fichas al jugador " + jugador + ": ");
         System.out.println("\nTendra que jugar una ficha en un casillero");
         Casillero<Ficha> casillero = preguntarCasillero();
