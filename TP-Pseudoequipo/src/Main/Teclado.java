@@ -71,21 +71,19 @@ public class Teclado {
      */
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
         // TODO: preguntarCarta quiza habria que moverlo a Partida, sabe mucho para Teclado?¿¿?¿?
-        System.out.println("Ahora tendra que jugar una carta");
+        System.out.println("\nAhora tendra que jugar una carta");
         mano.iniciarCursor();
-        System.out.println(0 + "-" + "Si no quiere jugar cartas");
+        System.out.println(0 + " - " + "Si no quiere jugar cartas");
         for(int i = 1;i <= mano.getLongitud();i++){
             mano.avanzarCursor();
-            System.out.println(i + "-" + mano.obtenerCursor());
+            System.out.println(i + " - " + mano.obtenerCursor());
         }
-        System.out.println("Ingrese el Numero de la posicion de la carta a jugar: ");
+        System.out.print("\nIngrese el Numero de la posicion de la carta a jugar: ");
         int posicion = leerNumeroNatural();
         if(posicion != 0) {
         	return mano.obtener(posicion);
         }
-        else {
-        	return null;
-        }
+        return null;
     }
 
     /**
@@ -113,7 +111,7 @@ public class Teclado {
      */
     public static int preguntarCoordenada(char nombreDeCoordenada) throws Exception {
         // TODO: Validacion.validarLetra(coordenada)
-        System.out.println("Ingrese la coordenada " + nombreDeCoordenada + ": ");
+        System.out.print("Ingrese la coordenada " + nombreDeCoordenada + ": ");
         return leerNumeroNatural();
     }
 

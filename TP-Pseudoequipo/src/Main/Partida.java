@@ -68,11 +68,12 @@ public class Partida {
 
             Turno turnoActual = turnos.obtener(posicion);
             int cartasALevantar = dado.jugarDado();
-            System.out.println("Tiraste el dado! dio " + cartasALevantar);
+            System.out.println("\nTiraste el dado! dio " + cartasALevantar);
             System.out.println("Levantas " + cartasALevantar + " cartas");
+
             Jugador jugadorActual = turnoActual.getJugador();
             mazo.levantarCartas(cartasALevantar, jugadorActual);
-            System.out.println("Mano de " + jugadorActual + " es: " + jugadorActual.getMano());
+            System.out.println("\nMano de " + jugadorActual + " es: " + jugadorActual.getMano());
 
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
             hayGanador = verificarGanador(casilleroDestino);
@@ -87,7 +88,7 @@ public class Partida {
         Casillero<Ficha> casilleroDestino = null;
 
         turno.iniciarTurno();
-        if (turno.estaBloqueado()) {
+        if (!turno.estaBloqueado()) {
             while (turno.haySubturnos()) {
                 turno.utilizarSubturno();
                 if (!turno.getJugador().tieneTodasLasFichasEnElTablero()) {
@@ -103,6 +104,7 @@ public class Partida {
             }
         }
         turno.terminarTurno();
+
         return casilleroDestino;
     }
 
@@ -121,8 +123,8 @@ public class Partida {
         }
 
         Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
-        System.out.println("Le quedan " + jugador.getCantidadDeFichasRestantes() + " fichas al jugador " + jugador + ": ");
-        System.out.println("Tendra que jugar una ficha en un casillero");
+        System.out.println("\nLe quedan " + jugador.getCantidadDeFichasRestantes() + " fichas al jugador " + jugador + ": ");
+        System.out.println("\nTendra que jugar una ficha en un casillero");
         Casillero<Ficha> casillero = preguntarCasillero();
         if (casillero.estaOcupado()) {
             throw new Exception("El casillero esta ocupado");
@@ -147,8 +149,8 @@ public class Partida {
         Validacion.validarSiEsNulo(tablero, "Tablero");
         Validacion.validarSiEsNulo(jugador, "Jugador");
 
-        System.out.println("Al jugador " + jugador + " no le quedan mas fichas para jugar, tendra que mover una ficha del tablero.");
-        System.out.println("Ingrese las coordenadas del casillero del cual mover su ficha");
+        System.out.println("\nAl jugador " + jugador + " no le quedan mas fichas para jugar, tendra que mover una ficha del tablero.");
+        System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
         Casillero<Ficha> casillero = preguntarCasillero();
         Movimiento movimiento = Teclado.preguntarMovimiento();
         Ficha fichaAMover = casillero.getDato();
@@ -309,7 +311,10 @@ public class Partida {
      * @throws Exception si alguno de los parametros es nulo
      */
     public int contarFichasSeguidas(Casillero<Ficha> casillero, Direccion direccion, Ficha ficha) throws Exception {
-        Validacion.validarSiEsNulo(casillero, "Casillero");
+        if ((casillero == null) ||
+                (casillero.getDato() == null)) {
+            return 0;
+        }
         Validacion.validarSiEsNulo(direccion, "Direccion");
         Validacion.validarSiEsNulo(ficha, "Ficha");
 

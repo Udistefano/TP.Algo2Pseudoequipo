@@ -4,7 +4,7 @@ public class Turno {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 	
-	private int cantidadDeSubturnos = 1;
+	private int cantidadDeSubturnos = 0;
 	private int bloqueosRestantes = 0;
 	private Jugador jugador = null;
 
@@ -71,7 +71,7 @@ public class Turno {
 	 */
 	public boolean haySubturnos() {
 		// FIXME: el profe cantidadDeSubturnos >= 0, no deberia ser > 0 ?????
-		return cantidadDeSubturnos >= 0;
+		return cantidadDeSubturnos > 0;
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ public class Turno {
 	 * @return verdadero si al turno le quedan bloqueos restantes, falso si no
 	 */
 	public boolean estaBloqueado() {
-		return bloqueosRestantes <= 0;
+		return bloqueosRestantes > 0;
 	}
 
 	/**

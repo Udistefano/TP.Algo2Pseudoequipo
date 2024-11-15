@@ -17,15 +17,15 @@ public class Main {
 //    	Partida partida = new Partida(tablero, jugadores, mazo);
 
 		Teclado.inicializar();
-		System.out.println("Bienvenidos al TaTeTi 3D");
+		System.out.println("Bienvenidos al TaTeTi 3D\n");
 
-		System.out.print("Ingrese el ancho del tablero:");
+		System.out.print("Ingrese el ancho del tablero: ");
 		int ancho = Teclado.leerNumeroNatural();
 
-		System.out.print("Ingrese el alto del tablero:");
+		System.out.print("Ingrese el alto del tablero: ");
 		int alto = Teclado.leerNumeroNatural();
 
-		System.out.print("Ingrese la profundidad del tablero:");
+		System.out.print("Ingrese la profundidad del tablero: ");
 		int profundidad = Teclado.leerNumeroNatural();
 
 		// TODO: habria que preguntarle al usuario estas cantidades o hardcodearlo?
@@ -35,17 +35,17 @@ public class Main {
 		Lista<Jugador> jugadores = new Lista<Jugador>();
 		Mazo mazo = new Mazo(cantidadDeCartas);
 
-		System.out.print("Cuantos jugadores seran en este juego?: ");
+		System.out.print("\nCuantos jugadores seran en este juego?: ");
 		int cantidadDeJugadores = Teclado.leerNumeroNatural();
 
 		for (int i = 1; i <= cantidadDeJugadores; i++) {
-			System.out.println("Ingrese el nombre del jugador #" + i + ": ");
+			System.out.print("\nIngrese el nombre del jugador #" + i + ": ");
 			String nombre = Teclado.leerCadenaNoVacia();
 
-			System.out.println("Ingrese el simbolo del jugador #" + i + ": ");
+			System.out.print("Ingrese el simbolo del jugador #" + i + ": ");
 			Character simbolo = Teclado.leerCaracter();
 
-			System.out.println("Ingrese el color del jugador #" + i + ": ");
+			System.out.print("Ingrese el color del jugador #" + i + ": ");
 			String color = Teclado.leerCadenaNoVacia();
 			// FIXME: esto de color hay que hacerlo funcionar!
 
