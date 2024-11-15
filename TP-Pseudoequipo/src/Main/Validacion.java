@@ -64,4 +64,14 @@ public class Validacion {
         	throw new Exception("No se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
         }
     }
+
+    /**
+     * pre: numero
+     * post: valida que numero no sea menor a 1
+     */
+    public static void validarSiNumeroEsMenorAUno(int numero, String nombre) throws Exception {
+        if (numero < 1) {
+            throw new Exception("El numero " + nombre + " no puede ser menor a uno");
+        }
+    }
 }

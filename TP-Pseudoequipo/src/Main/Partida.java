@@ -10,10 +10,9 @@ public class Partida {
     private Tablero<Ficha> tablero = null;
     private Lista<Jugador> jugadores = null;
     private Mazo mazo = null;
-    private Dado dado;
-    private Bitmap bitmap;
+    private Dado dado = null;
+    private Bitmap bitmap = null;
     // FIXME: en Partida, turnos deberia ser un Vector, una Lista, o una Pila ???????
-//    private Lista<Turno> turnos = null;
     private Vector<Turno> turnos = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------

@@ -39,6 +39,7 @@ public class JugadaPerderTurno extends Jugada {
         Jugador jugadorAPerder = null;
         String nombreDelJugador = Teclado.preguntarNombreDelJugadorAEliminar();
         Lista<Jugador> jugadores = partida.getJugadores();
+        // FIXME: esto deberia poder hacerse como estaba hecho antes, intentarlo
         jugadores.iniciarCursor();
         while(jugadores.avanzarCursor()) {
         	Jugador jugadorActual = jugadores.obtenerCursor();

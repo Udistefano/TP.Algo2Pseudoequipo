@@ -64,11 +64,13 @@ public class Teclado {
         System.out.println("Ingrese su nombre: ");
         return leerCadenaNoVacia();
     }
+
     /**
      * pre: --
      * post: 
      */
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
+        // TODO: preguntarCarta quiza habria que moverlo a Partida, sabe mucho para Teclado?¿¿?¿?
         System.out.println("Ahora tendra que jugar una carta");
         mano.iniciarCursor();
         System.out.println(0 + "-" + "Si no quiere jugar cartas");

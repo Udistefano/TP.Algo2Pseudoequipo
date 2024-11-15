@@ -103,10 +103,8 @@ public class Mazo {
      */
     public void levantarCartas(int cartasALevantar, Jugador jugadorActual) throws Exception {
     	Validacion.validarSiEsNulo(jugadorActual, "Jugador");
-		// TODO: si se repite mucho en el tp, chequear si un numero es menor a 1, agregarlo a Validacion
-		if (cartasALevantar < 1) {
-			throw new Exception("Las cartas a levantar no pueden ser menor a 1");
-		}
+		Validacion.validarSiNumeroEsMenorAUno(cartasALevantar, "Cartas a levantar");
+
     	if (cartasALevantar > cartas.contarElementos()) {
     		throw new Exception("No hay suficientes cartas para levantar");
     	}

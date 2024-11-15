@@ -1,22 +1,22 @@
 package Tests;
 import Main.Bitmap;
 import Main.Color;
-import Main.ColorFichasRojo;
+//import Main.ColorFichasRojo;
 
 import java.io.File;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
 public class TestBitmap {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         // Crear un objeto de la clase Bitmap con dimensiones de 5x5 casilleros y 3 tableros
         Bitmap bitmap = new Bitmap(3, 3, 3);
         // Crear la imagen
         bitmap.crearImagen();
-        bitmap.colocarFicha(2, 2, 2, "calavera.bmp");
-        bitmap.colocarFicha(2, 1, 2, "corona.bmp");
-        bitmap.colocarFicha(1, 3, 2, "bomba.bmp");
-        bitmap.colocarFicha(2, 3, 2, "calavera.bmp");
+        bitmap.colocarFicha(2, 2, 2, Bitmap.RUTA_CARPETA_IMAGENES + "calavera.bmp");
+        bitmap.colocarFicha(2, 1, 2, Bitmap.RUTA_CARPETA_IMAGENES + "corona.bmp");
+        bitmap.colocarFicha(1, 3, 2, Bitmap.RUTA_CARPETA_IMAGENES + "bomba.bmp");
+        bitmap.colocarFicha(2, 3, 2, Bitmap.RUTA_CARPETA_IMAGENES + "calavera.bmp");
         
         
         bitmap.escribirArchivo();
