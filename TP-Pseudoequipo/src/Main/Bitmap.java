@@ -193,7 +193,43 @@ public class Bitmap {
             }
         }
     }
+    
+    public static void quitarFicha(int x, int y, int z) throws Exception {
+        // Validación (si quieres hacer alguna validación de las coordenadas antes)
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(y, "Y");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(z, "Z");
 
+        // Calcular las coordenadas y dimensiones de la ficha
+        int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
+        int posY = 100 + (dimensionCasilleroY) * (y - 1);
+
+        // Las dimensiones de la ficha colocada (aquí usamos la misma lógica de colocar la ficha)
+        int anchoImagen = dimensionCasilleroX; // Esto es un supuesto: si la ficha cubre toda la casilla, su tamaño es el de la casilla
+        int altoImagen = dimensionCasilleroY;  // Lo mismo para la altura
+
+        int desplazamientoX = (dimensionCasilleroX - anchoImagen) / 2;
+        int desplazamientoY = (dimensionCasilleroY - altoImagen) / 2;
+
+        posX += desplazamientoX;
+        posY += desplazamientoY;
+
+        // Restaurar las casillas en la región afectada por la ficha
+        for (int i = 0; i < anchoImagen; i++) {
+            for (int j = 0; j < altoImagen; j++) {
+                int pixelX = posX + i;
+                int pixelY = posY + j;
+
+                // Restaurar el color original de la casilla (color de fondo)
+                if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
+                    imagen.setRGB(pixelX, pixelY, COLOR_CASILLERO);  // Asumimos que el color original es el color de fondo
+                }
+            }
+        }
+
+
+    }
+    
     /**
      * pre:
      * @param rutaImagen no puede ser nulo ni vacio
