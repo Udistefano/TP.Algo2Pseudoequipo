@@ -66,15 +66,12 @@ public enum Color {
 	
 	
 	/**
-	 * 
-	 * @param numero
-	 * @return
-	 * @throws Exception
+	 * pre:
+	 * @param numero debe estar entre 1 y 7
+	 * @return el color que corresponde al numero
+	 * @throws Exception si el numero no esta entre 1 y 7
 	 */
 	public static Color getColorJugador(int numero) throws Exception {
-		if((numero < 1) || (numero > 7)) {
-			throw new Exception("El numero debe estar entre 1 y 7");
-		}
 		Color colorJugador = null;
 		switch(numero) {
 		case 1:
@@ -99,7 +96,7 @@ public enum Color {
     		colorJugador = VERDE;
     		break;
     	default:
-    		throw new Exception("El color no se encuentra disponible");
+    		throw new Exception("El numero debe estar entre 1 y 7, el color no se encuentra disponible");
     	}
     	return colorJugador;
 	}

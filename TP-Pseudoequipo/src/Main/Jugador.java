@@ -21,15 +21,17 @@ public class Jugador {
     /**
      * pre:
      * @param nombre no puede ser vacio
-     * @param simbolo no puede ser vacio
-     * @param color no puede ser vacio
+     * @param numeroDeColor no puede ser menor a 1
      * @throws Exception si alguno de los parametros es vacio
      * post: inicializa un jugador con el simbolo, nombre y color pasados por parametro, y con fichas y mano
      *       vacias
      */
-    public Jugador(String nombre, int numeroColor, int cantidadDeFichasMaximasPermitidas) throws Exception {
+    public Jugador(String nombre, int numeroDeColor, int cantidadDeFichasMaximasPermitidas) throws Exception {
+        Validacion.validarSiEsNulo(nombre, "Nombres");
+        Validacion.validarSiNumeroEsMenorAUno(numeroDeColor, "Numero de color");
+        Validacion.validarSiNumeroEsMenorAUno(cantidadDeFichasMaximasPermitidas, "Cantidad de fichas maximas permitidas");
         this.nombre = nombre;
-        this.color = Color.getColorJugador(numeroColor);
+        this.color = Color.getColorJugador(numeroDeColor);
         this.cantidadDeFichasMaximasPermitidas = cantidadDeFichasMaximasPermitidas;
         this.mano = new Lista<Carta>();
     }

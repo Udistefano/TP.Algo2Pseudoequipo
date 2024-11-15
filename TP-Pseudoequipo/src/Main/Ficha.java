@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Ficha {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
-    private char simbolo = ' ';
     private Color color = null;
     private EstadoDeBloqueo estadoDeBloqueo;
 
@@ -13,7 +12,6 @@ public class Ficha {
 
     /**
      * pre:
-     * @param simbolo no puede ser vacio
      * @param color no puede ser vacio ni nulo
      * @throws Exception si alguno de los parametros es nulo
      * post: inicializa la ficha con el simbolo y color dados
@@ -32,7 +30,7 @@ public class Ficha {
      */
     @Override
     public String toString() {
-        return "" + this.simbolo;
+        return "" + this.color; // FIXME: seguramente un toString de this.color no quede bien en Ficha
     }
 
     /**
@@ -59,7 +57,7 @@ public class Ficha {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(simbolo, color);
+        return Objects.hash(color);
     }
 
 //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
@@ -116,18 +114,6 @@ public class Ficha {
     }
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------
-
-	// FIXME: los setters de simbolo y color de Ficha deben ser public o protected?
-    /**
-     * pre:
-     * @param simbolo no puede ser vacio
-     * @throws Exception si simbolo es vacio
-     * post: cambia el simbolo de la ficha al pasado por parametro
-     */
-    public void setSimbolo(char simbolo) throws Exception {
-        Validacion.validarSiEsNulo(simbolo, "Simbolo");
-        this.simbolo = simbolo;
-    }
 
     /**
      * pre:

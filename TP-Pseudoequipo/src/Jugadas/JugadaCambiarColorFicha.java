@@ -68,7 +68,6 @@ public class JugadaCambiarColorFicha extends Jugada {
 		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
 		Ficha ficha = casillero.getDato();  // Obtengo la ficha del casillero
 		ficha.setColor(jugador.getColor());          // Seteo el jugador de la ficha al nuevo jugador
-		ficha.setSimbolo(jugador.getSimbolo());  // seteo el simbolo de la ficha al del nuevo jugador (Esto sería como el color)
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------

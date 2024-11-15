@@ -1,6 +1,7 @@
 package Tests;
 
 import Main.Casillero;
+import Main.Color;
 import Main.Ficha;
 import Main.Tablero;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class TestDeTablero {
         Tablero<Ficha> tablero = new Tablero<Ficha>(3, 3, 3);
 
         //creo Ficha ficha
-        Ficha ficha = new Ficha('x', "verde");
+        Ficha ficha = new Ficha(Color.CELESTE);
 
         // se agrega la ficha en el casillero con coordenadas (3, 2, 1)
         tablero.agregar(3, 1, 2, ficha);

@@ -1,5 +1,6 @@
 package Tests;
 
+import Main.Color;
 import Main.Ficha;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -50,7 +51,7 @@ public class TestDeCasillero {
         Assertions.assertFalse(casillero.estaOcupado());
 
         // Creamos una ficha
-        Ficha ficha = new Ficha('p', "marron");
+        Ficha ficha = new Ficha(Color.AZUL);
 
         // Comprobamos que el casillero no tenga la ficha como dato todavia
         Assertions.assertNotEquals(casillero.getDato(), ficha);
