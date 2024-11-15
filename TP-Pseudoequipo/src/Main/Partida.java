@@ -11,8 +11,6 @@ public class Partida {
     private Lista<Jugador> jugadores = null;
     private Mazo mazo = null;
     private Dado dado = null;
-    private Bitmap bitmap = null;
-    // FIXME: en Partida, turnos deberia ser un Vector, una Lista, o una Pila ???????
     private Vector<Turno> turnos = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -395,12 +393,5 @@ public class Partida {
         return mazo;
     }
     
-   /**
-    * pre: --
-    * @return el bitmap de la partida
-    */
-    public Bitmap getBitmap() {
-    	return this.bitmap;
-    }
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }

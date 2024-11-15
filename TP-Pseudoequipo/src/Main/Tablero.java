@@ -21,12 +21,11 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param ancho       debe ser mayor o igual a 1
      * @param alto        debe ser mayor o igual a 1
      * @param profundidad debe ser mayor o igual a 1
      * @throws Exception si alguna de las coordenadas es menor a 1
-     *                   <p>post: crea un tablero de ancho 'ancho' contando de 1 a ancho inclusive
+     * post: crea un tablero de ancho 'ancho' contando de 1 a ancho inclusive
      */
     public Tablero(int ancho, int alto, int profundidad) throws Exception {
         Casillero.validarCoordenadas(ancho, alto, profundidad);
@@ -46,9 +45,8 @@ public class Tablero<T> {
 
     /**
      * pre: --
-     *
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   <p>post: crea un tablero de 3 dimensiones
+     * post: crea un tablero de 3 dimensiones
      */
     public void crearTablero() throws Exception {
         for (int x = 1; x <= getAncho(); x++) {
@@ -69,9 +67,8 @@ public class Tablero<T> {
 
     /**
      * pre: --
-     *
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   <p>post: relaciona todos los casilleros vecinos, de todos los casilleros del tablero
+     * post: relaciona todos los casilleros vecinos, de todos los casilleros del tablero
      */
     public void relacionarTodosLosCasillerosVecinosDelTablero() throws Exception {
         for (int x = 1; x <= getAncho(); x++) {
@@ -85,15 +82,14 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param x no puede ser menor a 1 ni mayor a getAncho()
      * @param y no puede ser menor a 1 ni mayor a getAlto()
      * @param z no puede ser menor a 1 ni mayor a getProfundidad()
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   <p>post: Relaciona todos los vecinos del casillero actual
-     *                   <p>En 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros: (x-1, y-1),
+     * post: Relaciona todos los vecinos del casillero actual
+     * En 2D si estamos en las coordenadas (x, y) debemos asignar los casilleros: (x-1, y-1),
      *                   (x-1, y), (x-1, y+1), (x, y-1)
-     *                   <p>En 3D es similar, pero le agregamos de coordenada z variando desde -1 a +1, y tambien asignando
+     * En 3D es similar, pero le agregamos de coordenada z variando desde -1 a +1, y tambien asignando
      *                   (x, y, z-1), (x, y, z+1)
      */
     public void relacionarTodosLosCasillerosVecinosDelCasilleroActual(int x, int y, int z) throws Exception {
@@ -120,13 +116,12 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param casillero1: no puede ser nulo
      * @param casillero2: no puede ser nulo
      * @param x:          rango entre -1, 0 y 1
      * @param y:          rango entre -1, 0 y 1
      * @param z:          rango entre -1, 0 y 1
-     *                    <p>post: relaciona los dos vecinos en sus matrices de vecinos, en el casillero1 como x, y, z, y en casillero2
+     * post: relaciona los dos vecinos en sus matrices de vecinos, en el casillero1 como x, y, z, y en casillero2
      *                    como el opuesto
      */
     public void relacionarCasillerosVecinos(Casillero<T> casillero1, Casillero<T> casillero2, int x, int y, int z) throws Exception {
@@ -142,7 +137,6 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param x     no puede ser menor a 1 ni mayor a getAncho()
      * @param y     no puede ser menor a 1 ni mayor a getAlto()
      * @param z     no puede ser menor a 1 ni mayor a getProfundidad()
@@ -181,7 +175,6 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param x no puede ser menor a 1 ni mayor a getAncho()
      * @param y no puede ser menor a 1 ni mayor a getAlto()
      * @param z no puede ser menor a 1 ni mayor a getProfundidad()
@@ -198,7 +191,6 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param x no puede ser menor a 1 ni mayor a getAncho()
      * @param y no puede ser menor a 1 ni mayor a getAlto()
      * @param z no puede ser menor a 1 ni mayor a getProfundidad()
@@ -214,7 +206,6 @@ public class Tablero<T> {
 
     /**
      * pre:
-     *
      * @param x no puede ser menor a 1 ni mayor a getAncho()
      * @param y no puede ser menor a 1 ni mayor a getAlto()
      * @param z no puede ser menor a 1 ni mayor a getProfundidad()
@@ -236,7 +227,6 @@ public class Tablero<T> {
 
     /**
      * pre: --
-     *
      * @return el ancho del tablero
      */
     public int getAncho() {
@@ -245,7 +235,6 @@ public class Tablero<T> {
 
     /**
      * pre: --
-     *
      * @return el alto del tablero
      */
     public int getAlto() {
@@ -254,7 +243,6 @@ public class Tablero<T> {
 
     /**
      * pre: --
-     *
      * @return la profundidad del tablero
      */
     public int getProfundidad() {
