@@ -7,6 +7,7 @@ import java.io.File;
 public class Bitmap {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
+    private static final String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
 
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
@@ -199,7 +200,7 @@ public class Bitmap {
         Validacion.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
 
         try {
-            return ImageIO.read(new File(rutaImagen));  // Cargar la imagen desde el archivo
+            return ImageIO.read(new File(generarRutaRelativa(rutaImagen)));  // Cargar la imagen desde el archivo
         } catch (Exception e) {
             System.out.println("Hubo un error al intentar leer la imagen " + rutaImagen);
             e.printStackTrace();
@@ -230,7 +231,7 @@ public class Bitmap {
      */
     public void escribirArchivo() {
         try {
-            File archivo = new File("salida1.bmp");
+            File archivo = new File(generarRutaRelativa("salida1.bmp"));
             ImageIO.write(imagen, "bmp", archivo);
         } catch (Exception e) {
             System.out.println("Hubo un error al intentar escribir la imagen del juego al archivo salida1.bmp");
@@ -239,6 +240,18 @@ public class Bitmap {
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
+
+    /**
+     * pre:
+     * @param nombreDeArchivo no puede ser nulo ni vacio
+     * @return una cadena del formato RUTA_RELATIVA_IMAGENES/nombreDeArchivo
+     * @throws Exception si nombreDeArchivo es invalido
+     */
+    public String generarRutaRelativa(String nombreDeArchivo) throws Exception {
+        Validacion.validarSiEsUnaCadenaVacia(nombreDeArchivo, "Nombre de archivo");
+        return RUTA_RELATIVA_IMAGENES + nombreDeArchivo;
+    }
+
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }
 
