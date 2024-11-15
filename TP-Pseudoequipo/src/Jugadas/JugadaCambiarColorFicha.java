@@ -45,6 +45,7 @@ public class JugadaCambiarColorFicha extends Jugada {
 		//       de otro, podamos comprobar que tiene una ficha mas jugada, y el otro una ficha menos
 //		Jugador jugadorOriginal = partida.obtenerJugadorPorFicha(casillero.getDato());
 		cambiarColor(jugadorActual, casillero);
+		Bitmap.escribirFichaAlBitmap(casillero, jugadorActual.getColor());
 //		jugadorActual.agregarFicha();
 //		jugadorOriginal.quitarFicha();
 	}

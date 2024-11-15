@@ -33,8 +33,8 @@ public class Partida {
 
         Teclado.inicializar();
         this.tablero = tablero;
-        this.bitmap = new Bitmap(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
-        this.bitmap.crearImagen();
+        Bitmap.inicializar(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
+        Bitmap.crearImagen();
         this.jugadores = jugadores;
         this.mazo = mazo;
 //        this.turnos = new Lista<Turno>();
@@ -45,7 +45,7 @@ public class Partida {
             this.turnos.agregar(i, turno);
         }
         this.dado = new Dado();
-        this.bitmap.escribirArchivo();
+        Bitmap.escribirArchivo();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -96,13 +96,15 @@ public class Partida {
                 } else {
                     casilleroDestino = mover(this.tablero, turno.getJugador());
                 }
-                
+                Bitmap.escribirFichaAlBitmap(casilleroDestino, turno.getJugador().getColor());
+
                 Carta cartaActual = Teclado.preguntarCarta(turno.getJugador().devolverMano());
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
                 }
             }
         }
+        Bitmap.escribirArchivo();
         turno.terminarTurno();
 
         return casilleroDestino;
@@ -122,7 +124,7 @@ public class Partida {
             throw new Exception("Al jugador no le quedan mas fichas para jugar");
         }
 
-        Ficha ficha = new Ficha(jugador.getSimbolo(), jugador.getColor());
+        Ficha ficha = new Ficha(jugador.getColor());
         System.out.println("\nLe quedan " + jugador.getCantidadDeFichasRestantes() + " fichas al jugador " + jugador + ": ");
         System.out.println("\nTendra que jugar una ficha en un casillero");
         Casillero<Ficha> casillero = preguntarCasillero();

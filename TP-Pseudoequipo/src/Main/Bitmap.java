@@ -8,58 +8,59 @@ public class Bitmap {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
     private static final String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
-	private int COLOR_FONDO = 7368816;
-	private int COLOR_CASILLERO = 4730480;
-	private int COLOR_LINEAS = 16777215;
+    // FIXME: mover colores constante a Color
+	private static int COLOR_FONDO = 7368816;
+	private static int COLOR_CASILLERO = 4730480;
+	private static int COLOR_LINEAS = 16777215;
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
-    private int ancho = 0;
-    private int x = 0;
-    private int alto = 0;
-    private int y = 0;
-    private int z = 0;
+    private static int ancho = 0;
+    private static int x = 0;
+    private static int alto = 0;
+    private static int y = 0;
+    private static int z = 0;
 
-    private int dimensionCasilleroX = 0;
-    private int dimensionTableroX = 0;
-    private int dimensionCasilleroY = 0;
-    private int dimensionTableroY = 0;
+    private static int dimensionCasilleroX = 0;
+    private static int dimensionTableroX = 0;
+    private static int dimensionCasilleroY = 0;
+    private static int dimensionTableroY = 0;
 
-    private int[][] matrizCentral = null;
-    private int[][] matrizTablero = null;
+    private static int[][] matrizCentral = null;
+    private static int[][] matrizTablero = null;
 
-    private BufferedImage imagen = null;
+    private static BufferedImage imagen = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
     /**
      * pre:
-     * @param x no puede ser menor a 1
-     * @param y no puede ser menor a 1
-     * @param z no puede ser menor a 1
+     * @param coordenadaX no puede ser menor a 1
+     * @param coordenadaY no puede ser menor a 1
+     * @param coordenadaZ no puede ser menor a 1
      * @throws Exception cuando alguno de los parametros es menor a 1
      * post: inicializa el bitmap, con el alto, ancho, x, y, z, y las dimensiones
      */
-    public Bitmap(int x, int y, int z) throws Exception {
-        Validacion.validarSiNumeroEsMenorAUno(x, "X");
-        Validacion.validarSiNumeroEsMenorAUno(x, "Y");
-        Validacion.validarSiNumeroEsMenorAUno(x, "Z");
+    public static void inicializar(int coordenadaX, int coordenadaY, int coordenadaZ) throws Exception {
+        Validacion.validarSiNumeroEsMenorAUno(coordenadaX, "X");
+        Validacion.validarSiNumeroEsMenorAUno(coordenadaY, "Y");
+        Validacion.validarSiNumeroEsMenorAUno(coordenadaZ, "Z");
 
-        this.alto = 500;
-        this.ancho = 1000;
+        alto = 500;
+        ancho = 1000;
 
-        this.x = x;
-        this.y = y;
-        this.z = z;
-        this.dimensionTableroX = (this.ancho / this.z) - 10;
-        this.dimensionCasilleroX = this.dimensionTableroX / this.x;
+        x = coordenadaX;
+        y = coordenadaY;
+        z = coordenadaZ;
+        dimensionTableroX = (ancho / z) - 10;
+        dimensionCasilleroX = dimensionTableroX / x;
 
-        this.dimensionTableroY = ((this.alto - 100) / 2);
-        this.dimensionCasilleroY = this.dimensionTableroY / this.y;
+        dimensionTableroY = ((alto - 100) / 2);
+        dimensionCasilleroY = dimensionTableroY / y;
 
-        this.matrizCentral = new int[ancho][alto];
-        this.matrizTablero = new int[dimensionTableroX][dimensionTableroY];
+        matrizCentral = new int[ancho][alto];
+        matrizTablero = new int[dimensionTableroX][dimensionTableroY];
 
-        this.imagen = new BufferedImage(this.ancho, this.alto, BufferedImage.TYPE_INT_RGB);
+        imagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -70,7 +71,7 @@ public class Bitmap {
      * pre: --
      * post: crea la imagen de los tableros del juego, y la exporta al archivo salida
      */
-    public void crearImagen() {
+    public static void crearImagen() {
         colorMatrizCentral();
         escribirImagen();
 
@@ -83,10 +84,10 @@ public class Bitmap {
      * pre: --
      * post: colorea la matriz central
      */
-    public void colorMatrizCentral() {
-        for (int i = 0; i < this.ancho; i++) {
-            for (int j = 0; j < this.alto; j++) {
-                this.matrizCentral[i][j] = COLOR_FONDO;
+    private static void colorMatrizCentral() {
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                matrizCentral[i][j] = COLOR_FONDO;
             }
         }
     }
@@ -95,10 +96,10 @@ public class Bitmap {
      * pre: --
      * post: escribe la matriz central a la imagen
      */
-    public void escribirImagen() {
-        for (int i = 0; i < this.ancho; i++) {
-            for (int j = 0; j < this.alto; j++) {
-                this.imagen.setRGB(i, j, this.matrizCentral[i][j]);
+    private static void escribirImagen() {
+        for (int i = 0; i < ancho; i++) {
+            for (int j = 0; j < alto; j++) {
+                imagen.setRGB(i, j, matrizCentral[i][j]);
             }
         }
     }
@@ -107,10 +108,10 @@ public class Bitmap {
      * pre: --
      * post: colorea los casilleros de los tableros del juego
      */
-    public void colorearMatrizTablero() {
+    private static void colorearMatrizTablero() {
         for (int i = 0; i < dimensionTableroX; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
-                this.matrizTablero[i][j] = COLOR_CASILLERO;
+                matrizTablero[i][j] = COLOR_CASILLERO;
             }
         }
     }
@@ -119,15 +120,15 @@ public class Bitmap {
      * pre: --
      * post: colorea las lineas de los tableros del juego
      */
-    public void colorearLineasMatrizTablero() {
-        for (int i = 0; i < this.x; i++) {
+    private static void colorearLineasMatrizTablero() {
+        for (int i = 0; i < x; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
-                this.matrizTablero[this.dimensionCasilleroX * i][j] = COLOR_LINEAS;
+                matrizTablero[dimensionCasilleroX * i][j] = COLOR_LINEAS;
             }
         }
-        for (int i = 0; i < this.y; i++) {
+        for (int i = 0; i < y; i++) {
             for (int j = 0; j < dimensionTableroX; j++) {
-                this.matrizTablero[j][this.dimensionCasilleroY * i] = COLOR_LINEAS;
+                matrizTablero[j][dimensionCasilleroY * i] = COLOR_LINEAS;
             }
         }
     }
@@ -141,7 +142,7 @@ public class Bitmap {
      * @throws Exception si alguno de los parametros es invalido
      * post: coloca en las coordenadas x, y, z del tablero del juego, la ficha que se lee de la imagen rutaImagen
      */
-    public void colocarFicha(int x, int y, int z, String rutaImagen) throws Exception {
+    public static void colocarFicha(int x, int y, int z, String rutaImagen) throws Exception {
         Validacion.validarSiNumeroEsMenorAUno(x, "X");
         Validacion.validarSiNumeroEsMenorAUno(x, "Y");
         Validacion.validarSiNumeroEsMenorAUno(x, "Z");
@@ -161,7 +162,7 @@ public class Bitmap {
         int altoImagen = imagenFicha.getHeight();
 
         // Posición del casillero (izquierda superior) en el tablero
-        int posX = (z - 1) * (this.dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
+        int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
         int posY = 100 + (dimensionCasilleroY) * (y - 1);
 
         // Calcular el desplazamiento para centrar la imagen
@@ -173,7 +174,7 @@ public class Bitmap {
         posY += desplazamientoY;
 
         // Asegurarse de que la imagen no se salga de los límites del tablero
-        if (posX + anchoImagen > this.ancho || posY + altoImagen > this.alto) {
+        if (posX + anchoImagen > ancho || posY + altoImagen > alto) {
             throw new Exception("La imagen no cabe en el tablero.");
         }
 
@@ -185,8 +186,8 @@ public class Bitmap {
                 int pixelY = posY + j;
 
                 // Asegurarse de que los píxeles estén dentro de los límites del tablero
-                if (pixelX >= 0 && pixelX < this.ancho && pixelY >= 0 && pixelY < this.alto) {
-                    this.imagen.setRGB(pixelX, pixelY, colorPixel);  // Colocar el píxel de la imagen en el tablero
+                if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
+                    imagen.setRGB(pixelX, pixelY, colorPixel);  // Colocar el píxel de la imagen en el tablero
                 }
             }
         }
@@ -198,7 +199,7 @@ public class Bitmap {
      * @throws Exception si rutaImagen es nulo o vacio
      * post: lee la imagen en rutaImagen
      */
-    public BufferedImage cargarImagen(String rutaImagen) throws Exception {
+    private static BufferedImage cargarImagen(String rutaImagen) throws Exception {
         Validacion.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
 
         try {
@@ -217,11 +218,11 @@ public class Bitmap {
      * pre: --
      * post: escribe en la imagen los tableros del juego
      */
-    public void escribirTablero() {
-        for (int z = 0; z < this.z; z++) {
-            for (int i = 0; i < this.dimensionTableroX; i++) {
-                for (int j = 0; j < this.dimensionTableroY; j++) {
-                    this.imagen.setRGB(z * (this.dimensionTableroX + 10) + i, 100 + j, this.matrizTablero[i][j]);
+    private static void escribirTablero() {
+        for (int k = 0; k < z; k++) {
+            for (int i = 0; i < dimensionTableroX; i++) {
+                for (int j = 0; j < dimensionTableroY; j++) {
+                    imagen.setRGB(k * (dimensionTableroX + 10) + i, 100 + j, matrizTablero[i][j]);
                 }
             }
         }
@@ -231,7 +232,7 @@ public class Bitmap {
      * pre: --
      * post: escribe la imagen del juego al archivo "salida1.bmp"
      */
-    public void escribirArchivo() {
+    public static void escribirArchivo() {
         try {
             File archivo = new File(generarRutaRelativa("salida1.bmp"));
             ImageIO.write(imagen, "bmp", archivo);
@@ -239,6 +240,30 @@ public class Bitmap {
             System.out.println("Hubo un error al intentar escribir la imagen del juego al archivo salida1.bmp");
             e.printStackTrace();
         }
+    }
+
+    /**
+     * pre:
+     * @param casillero no puede ser nulo
+     * @param color no puede ser nulo
+     * @throws Exception si alguno de los parametros es nulo
+     * post: escribe al casillero la ficha con el color del jugador en la imagen salida
+     */
+    public static void escribirFichaAlBitmap(Casillero<Ficha> casillero, Color color) throws Exception {
+        Validacion.validarSiEsNulo(casillero, "Casillero");
+        Validacion.validarSiEsNulo(color, "Color");
+        Bitmap.colocarFicha(casillero.getX(), casillero.getY(), casillero.getZ(), Color.getImagen(color));
+    }
+
+    /**
+     * pre:
+     * @param casillero no puede ser nulo
+     * @throws Exception si casillero es nulo
+     * post: quita al casillero la ficha en la imagen salida
+     */
+    public static void quitarFichaAlBitmap(Casillero<Ficha> casillero) throws Exception {
+        Validacion.validarSiEsNulo(casillero, "Casillero");
+        Bitmap.colocarFicha(casillero.getX(), casillero.getY(), casillero.getZ(), Color.getImagen(color));
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -249,7 +274,7 @@ public class Bitmap {
      * @return una cadena del formato RUTA_RELATIVA_IMAGENES/nombreDeArchivo
      * @throws Exception si nombreDeArchivo es invalido
      */
-    public String generarRutaRelativa(String nombreDeArchivo) throws Exception {
+    private static String generarRutaRelativa(String nombreDeArchivo) throws Exception {
         Validacion.validarSiEsUnaCadenaVacia(nombreDeArchivo, "Nombre de archivo");
         return RUTA_RELATIVA_IMAGENES + nombreDeArchivo;
     }
