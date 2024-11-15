@@ -1,22 +1,49 @@
 package Main;
 
 public enum Color {
-    LINEAS(16777215),
-    CASILLERO(4730480),
-    ROJO(16711680),
-    //JUGADOR1( ),
-    //JUGADOR2( ), 
-    //JUGADOR3( ), 
-    GRIS(7368816),
-    NEGRO(0);
+    ROJO,
+    AZUL,
+    BLANCO,
+    CELESTE,
+    NARANJA, 
+    ROSA,
+    VERDE;
 
-    private final int valorRGB;
 
-    Color(int valorRGB) {
-        this.valorRGB = valorRGB;
-    }
 
-    public int getRGB() {
-        return valorRGB;
+	/**
+	 * pre: --
+	 * @param color
+	 * @return devuelve la ruta de la imagen según el enum
+	 * @throws Exception
+	 */
+	public String getImagen(Color color) throws Exception {
+		String imagen = null;
+		switch(color) {
+		case ROJO:
+			imagen = "colorRojo.bmp";
+			break;
+		case AZUL:
+			imagen = "colorAzul.bmp";
+    		break;
+    	case BLANCO:
+    		imagen = "colorBlanco.bmp";
+    		return imagen;
+    	case CELESTE:
+    		imagen = "colorCeleste.bmp";
+    		return imagen;
+    	case NARANJA:
+    		imagen = "colorNaranja.bmp";
+    		return imagen;
+    	case ROSA:
+    		imagen = "colorRosa.bmp";
+    		return imagen;
+    	case VERDE:
+    		imagen = "colorVerde.bmp";
+    		return imagen;
+    	default:
+    		throw new Exception("El color no se encuentra disponible");
+    	}
+    	return imagen;
     }
 }
