@@ -8,7 +8,9 @@ public class Bitmap {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
     private static final String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
-
+	private int COLOR_FONDO = 7368816;
+	private int COLOR_CASILLERO = 4730480;
+	private int COLOR_LINEAS = 16777215;
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
     private int ancho = 0;
@@ -84,7 +86,7 @@ public class Bitmap {
     public void colorMatrizCentral() {
         for (int i = 0; i < this.ancho; i++) {
             for (int j = 0; j < this.alto; j++) {
-                this.matrizCentral[i][j] = 7368816;
+                this.matrizCentral[i][j] = COLOR_FONDO;
             }
         }
     }
@@ -108,7 +110,7 @@ public class Bitmap {
     public void colorearMatrizTablero() {
         for (int i = 0; i < dimensionTableroX; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
-                this.matrizTablero[i][j] = 4730480;
+                this.matrizTablero[i][j] = COLOR_CASILLERO;
             }
         }
     }
@@ -120,12 +122,12 @@ public class Bitmap {
     public void colorearLineasMatrizTablero() {
         for (int i = 0; i < this.x; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
-                this.matrizTablero[this.dimensionCasilleroX * i][j] = 16777215;
+                this.matrizTablero[this.dimensionCasilleroX * i][j] = COLOR_LINEAS;
             }
         }
         for (int i = 0; i < this.y; i++) {
             for (int j = 0; j < dimensionTableroX; j++) {
-                this.matrizTablero[j][this.dimensionCasilleroY * i] = 16777215;
+                this.matrizTablero[j][this.dimensionCasilleroY * i] = COLOR_LINEAS;
             }
         }
     }
