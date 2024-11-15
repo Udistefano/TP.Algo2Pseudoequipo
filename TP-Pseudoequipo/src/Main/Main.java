@@ -22,9 +22,12 @@ public class Main {
 		Tablero<Ficha> tablero = new Tablero<Ficha>(ancho, alto, profundidad);
 		Lista<Jugador> jugadores = new Lista<Jugador>();
 		Mazo mazo = new Mazo(cantidadDeCartas);
-
+		
 		System.out.print("\nCuantos jugadores seran en este juego?: ");
 		int cantidadDeJugadores = Teclado.leerNumeroNatural();
+		if ((cantidadDeJugadores > 7) || (cantidadDeJugadores <= 1)) {
+			throw new Exception("El juego es de a 2 hasta 7 jugadores");
+		}
 
 		for (int i = 1; i <= cantidadDeJugadores; i++) {
 			System.out.println("\nJugador #" + i + ":");

@@ -1,6 +1,7 @@
 package Jugadas;
 
 import Cartas.Carta;
+import Estructuras.Lista;
 import Main.*;
 
 /**
@@ -35,23 +36,19 @@ public class JugadaPerderTurno extends Jugada {
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
+        Jugador jugadorAPerder = null;
         System.out.print("Ingrese el nombre del jugador al que hacerle perder un turno: ");
         String nombreDelJugador = Teclado.leerCadenaNoVacia();
-        Jugador jugadorAPerder = partida.getJugadores().obtener(nombreDelJugador);
-        // FIXME: esto deberia poder hacerse como estaba hecho antes, intentarlo
+        Lista<Jugador> jugadores = partida.getJugadores();
+        jugadores.iniciarCursor();
+        while(jugadores.avanzarCursor()) {
+        	Jugador jugadorActual = jugadores.obtenerCursor();
+        	if (jugadorActual.getNombre() == nombreDelJugador) {
+        		jugadorAPerder = jugadorActual;
+        	}
+        }
         Turno turno = partida.getTurnoSiguiente(jugadorAPerder);
         turno.incrementarBloqueosRestantes(1);
-//        Lista<Jugador> jugadores = partida.getJugadores();
-//        jugadores.iniciarCursor();
-//        while(jugadores.avanzarCursor()) {
-//        	Jugador jugadorActual = jugadores.obtenerCursor();
-//        	if(jugadorActual.getNombre() == nombreDelJugador) {
-//        		jugadorAPerder = jugadorActual;
-//        	}
-//        }
-//        if (jugadorAPerder == null) {
-//        	throw new Exception("No se encontró el jugador");
-//        }
     }
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------
