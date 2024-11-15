@@ -15,12 +15,11 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param x debe ser mayor o igual a 1
      * @param y debe ser mayor o igual a 1
      * @param z debe ser mayor o igual a 1
      * @throws Exception si alguno de los parametros es menor a 1
-     *                   <p>post: crea un casillero con las coordenadas pasadas por parametros y sus vecinos
+     * post: crea un casillero con las coordenadas pasadas por parametros y sus vecinos
      */
     @SuppressWarnings("unchecked")
     public Casillero(int x, int y, int z) throws Exception {
@@ -44,12 +43,11 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param x debe ser mayor o igual a 1
      * @param y debe ser mayor o igual a 1
      * @param z debe ser mayor o igual a 1
      * @throws Exception si alguna de las coordenadas es menor a 1
-     *                   <p>post: valida que las coordenadas sean mayores o igual a 1
+     * post: valida que las coordenadas sean mayores o igual a 1
      */
     public static void validarCoordenadas(int x, int y, int z) throws Exception {
         validarCoordenada(x);
@@ -59,10 +57,9 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param coordenada debe ser mayor o igual a 1
      * @throws Exception si la coordenada es menor a 1
-     *                   <p>post: Se valida que las coordenada sea mayor o igual a 1
+     * post: Se valida que las coordenada sea mayor o igual a 1
      */
     public static void validarCoordenada(int coordenada) throws Exception {
         if (coordenada < 1) {
@@ -72,12 +69,11 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param x debe ser una de las siguientes: -1, 0, 1
      * @param y debe ser una de las siguientes: -1, 0, 1
      * @param z debe ser una de las siguientes: -1, 0, 1
      * @throws Exception si alguna de las coordenadas es invalida
-     *                   <p>post: valida que (x, y, z) sean coordenadas validas, si alguna es invalida tira Exception
+     * post: valida que (x, y, z) sean coordenadas validas, si alguna es invalida tira Exception
      */
     public static void validarCoordenadasDeVecino(int x, int y, int z) throws Exception {
         validarCoordenadaDeVecino(x);
@@ -87,10 +83,9 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param coordenada debe ser una de las siguientes: -1, 0, 1
      * @throws Exception si es una coordenada invalida
-     *                   <p>post: valida que sea una coordenada valida, si es invalida tira Exception
+     * post: valida que sea una coordenada valida, si es invalida tira Exception
      */
     public static void validarCoordenadaDeVecino(int coordenada) throws Exception {
         if ((coordenada < -1)
@@ -108,7 +103,6 @@ public class Casillero<T> {
 
     /**
      * pre: -
-     *
      * @return una cadena mostrando las coordenadas del casillero
      */
     @Override
@@ -120,7 +114,7 @@ public class Casillero<T> {
 
     /**
      * pre: --
-     * <p>post: elimina el dato del casillero
+     * post: elimina el dato del casillero
      */
     public void vaciar() {
         setDato(null);
@@ -128,7 +122,6 @@ public class Casillero<T> {
 
     /**
      * pre: --
-     *
      * @return verdadero si hay un dato en casillero, falso si el casillero esta vacio
      */
     public boolean estaOcupado() {
@@ -137,7 +130,6 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param dato no puede ser nulo
      * @return verdadero si el dato del casillero equivale al dato pasado por parametro, falso no si equivale
      * @throws Exception si el dato es nulo
@@ -152,7 +144,6 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param movimiento un movimiento en 3D, no puede ser nulo
      * @return verdadero si existe el casillero vecino que este en la direccion 'movimiento', falso si no existe
      * @throws Exception si no es un movimiento valido o si es nulo
@@ -180,7 +171,6 @@ public class Casillero<T> {
 
     /**
      * pre: -
-     *
      * @return la coordenada x
      */
     public int getX() {
@@ -189,7 +179,6 @@ public class Casillero<T> {
 
     /**
      * pre: -
-     *
      * @return la coordenada y
      */
     public int getY() {
@@ -198,7 +187,6 @@ public class Casillero<T> {
 
     /**
      * pre: -
-     *
      * @return la coordenada z
      */
     public int getZ() {
@@ -207,7 +195,6 @@ public class Casillero<T> {
 
     /**
      * pre: -
-     *
      * @return el dato de tipo T
      */
     public T getDato() {
@@ -216,7 +203,6 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param dato <p>post: setea el dato del casillero al dato pasado por parametro
      */
     public void setDato(T dato) {
@@ -225,7 +211,6 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param movimiento un movimiento en 3D, no puede ser nulo
      * @return el casillero vecino que este en la movimiento pasada por parametro
      * @throws Exception si no es un movimiento valido o si es nulo
@@ -237,7 +222,6 @@ public class Casillero<T> {
     // TODO: crear enum Plano, que pueda ser ADELANTE, ATRAS, CENTRO, asi no escribimos tanto codigo repetido
     /**
      * pre:
-     *
      * @param direccion un direccion en 3D, no puede ser nulo
      * @return el casillero vecino que este en la direccion pasada por parametro
      * @throws Exception si no es un direccion valido o si es nulo
@@ -248,6 +232,8 @@ public class Casillero<T> {
                 return vecinos[2][1][0];
             case ATRAS_ARRIBA:
                 return vecinos[0][1][0];
+            case ATRAS_CENTRO:
+                return vecinos[1][1][0];
             case ATRAS_DERECHA:
                 return vecinos[1][2][0];
             case ATRAS_IZQUIERDA:
@@ -280,6 +266,8 @@ public class Casillero<T> {
                 return vecinos[2][1][2];
             case ADELANTE_ARRIBA:
                 return vecinos[0][1][2];
+            case ADELANTE_CENTRO:
+                return vecinos[1][1][2];
             case ADELANTE_DERECHA:
                 return vecinos[1][2][2];
             case ADELANTE_IZQUIERDA:
@@ -301,7 +289,6 @@ public class Casillero<T> {
 
     /**
      * pre: --
-     *
      * @return Devuelve una matriz 3D con los vecinos, y el casillero actual en el centro
      */
     @SuppressWarnings("unchecked")
@@ -319,7 +306,6 @@ public class Casillero<T> {
 
     /**
      * pre:
-     *
      * @param casillero: el casillero vecino
      * @param x:         -1, 0 o 1 para indicar izquierda, centro o derecha respectivamente
      * @param y:         -1, 0 o 1 para indicar arriba, centro o abajo respectivamente

@@ -259,6 +259,12 @@ public class Partida {
         	return true;
         }
 
+        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_CENTRO,
+                Direccion.ADELANTE_CENTRO);
+        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
+        	return true;
+        }
+
         cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ABAJO,
                 Direccion.CENTRO_DERECHA_ARRIBA);
         if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
