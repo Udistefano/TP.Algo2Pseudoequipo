@@ -83,7 +83,7 @@ public class Bitmap {
     public void colorMatrizCentral() {
         for (int i = 0; i < this.ancho; i++) {
             for (int j = 0; j < this.alto; j++) {
-                this.matrizCentral[i][j] = Color.GRIS.getRGB();
+                this.matrizCentral[i][j] = 7368816;
             }
         }
     }
@@ -107,7 +107,7 @@ public class Bitmap {
     public void colorearMatrizTablero() {
         for (int i = 0; i < dimensionTableroX; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
-                this.matrizTablero[i][j] = Color.CASILLERO.getRGB();
+                this.matrizTablero[i][j] = 4730480;
             }
         }
     }
@@ -119,12 +119,12 @@ public class Bitmap {
     public void colorearLineasMatrizTablero() {
         for (int i = 0; i < this.x; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
-                this.matrizTablero[this.dimensionCasilleroX * i][j] = Color.LINEAS.getRGB();
+                this.matrizTablero[this.dimensionCasilleroX * i][j] = 16777215;
             }
         }
         for (int i = 0; i < this.y; i++) {
             for (int j = 0; j < dimensionTableroX; j++) {
-                this.matrizTablero[j][this.dimensionCasilleroY * i] = Color.LINEAS.getRGB();
+                this.matrizTablero[j][this.dimensionCasilleroY * i] = 16777215;
             }
         }
     }

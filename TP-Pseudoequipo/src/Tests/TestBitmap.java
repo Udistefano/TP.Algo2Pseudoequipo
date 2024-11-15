@@ -17,7 +17,7 @@ public class TestBitmap {
         bitmap.colocarFicha(2, 1, 2, "colorAzul.bmp");
         bitmap.colocarFicha(1, 3, 2, "colorAzul.bmp");
         bitmap.colocarFicha(2, 3, 2, "colorRojo.bmp");
-        bitmap.colocarFicha(1, 3, 1, "colorNaranja.bmp");
+        bitmap.colocarFicha(1, 3, 3, "colorNaranja.bmp");
         
         bitmap.escribirArchivo();
     }
