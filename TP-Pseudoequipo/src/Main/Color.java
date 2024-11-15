@@ -10,7 +10,6 @@ public enum Color {
     VERDE;
 
 
-
 	/**
 	 * pre: --
 	 * @param color
