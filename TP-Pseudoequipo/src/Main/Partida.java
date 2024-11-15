@@ -81,7 +81,7 @@ public class Partida {
             posicion++;
         }
 
-        // TODO: podemos retornar el ganador al main ahora
+        // TODO: ahora tenemos que retornar el ganador al main
     }
 
     public Casillero<Ficha> jugarTurno(Turno turno) throws Exception {
@@ -102,9 +102,9 @@ public class Partida {
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
                 }
+                Bitmap.escribirArchivo();
             }
         }
-        Bitmap.escribirArchivo();
         turno.terminarTurno();
 
         return casilleroDestino;
@@ -298,8 +298,10 @@ public class Partida {
         Validacion.validarSiEsNulo(direccion, "Direccion");
         Validacion.validarSiEsNulo(direccionContraria, "Direccion");
 
+        // FIXME: esto no anda, porque siempre es 2 como minimo, porque sumamos adentro de contarFichasSEguidasd
+        //        es un poco hardcode pero si le restamos 1 anda
         return this.contarFichasSeguidas(casillero, direccion, casillero.getDato()) +
-                this.contarFichasSeguidas(casillero, direccionContraria, casillero.getDato());
+                this.contarFichasSeguidas(casillero, direccionContraria, casillero.getDato()) - 1;
     }
 
     /**

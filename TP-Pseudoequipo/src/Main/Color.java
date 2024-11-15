@@ -1,9 +1,6 @@
 package Main;
 
-import org.junit.jupiter.params.shadow.com.univocity.parsers.common.processor.ObjectRowListProcessor;
-
 import Estructuras.Lista;
-import Estructuras.Vector;
 
 public enum Color {
     ROJO,
@@ -16,11 +13,11 @@ public enum Color {
 	
 	/**
 	 * pre: --
-	 * @return
-	 * @throws Exception
+	 * @return la lista de colores
+	 * @throws Exception si hubo un error interno al agregar a lista
 	 * post: devuelve una lista con todos los enums
 	 */
-	public static Lista<Color> listaColores() throws Exception{
+	public static Lista<Color> listaColores() throws Exception {
 		Lista<Color> coloresLista = new Lista<Color>();
 		for (Color color : Color.values()) {
             coloresLista.agregar(color);;
@@ -29,12 +26,13 @@ public enum Color {
 	}
 	
 	/**
-	 * pre: --
-	 * @param color
+	 * pre:
+	 * @param color no puede ser nulo
 	 * @return devuelve la ruta de la imagen según el enum
-	 * @throws Exception
+	 * @throws Exception si color es nulo
 	 */
 	public static String getRutaDeImagen(Color color) throws Exception {
+		Validacion.validarSiEsNulo(color, "Color");
 		String imagen = null;
 		switch(color) {
 		case ROJO:

@@ -89,20 +89,19 @@ public class Teclado {
     
     /**
      * pre: --
-     * @return
-     * @throws Exception
-     * post: retorna un color para un jugador dependiendo cual elija
+     * @return el color que el jugador elija
+     * @throws Exception si hubo un error interno
      */
     public static int preguntarColor() throws Exception {
-    	System.out.println("\nElija un color (escriba el numero) : ");
-    	Lista<Color> listaDeColores = Color.listaColores(); 
-    	int posicion;
-    	for(int i = 1; i <= listaDeColores.getLongitud(); i++){
+    	Lista<Color> listaDeColores = Color.listaColores();
+        System.out.println("\nColores disponibles:");
+        for(int i = 1; i <= listaDeColores.getLongitud(); i++){
             listaDeColores.avanzarCursor();
             System.out.println(i + " - " + listaDeColores.obtenerCursor());
         }
-    	posicion = leerNumeroNatural();
-		return posicion;
+
+        System.out.print("\nElija un color (escriba el numero): ");
+        return leerNumeroNatural();
     }
 
     /**
