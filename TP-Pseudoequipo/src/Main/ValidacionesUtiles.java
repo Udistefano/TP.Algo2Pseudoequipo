@@ -74,4 +74,14 @@ public class ValidacionesUtiles {
             throw new Exception("El numero " + nombre + " no puede ser menor a uno");
         }
     }
+    public static void validarSiEsUnico(int color, lista jugadores) {
+        if (!jugadores.estaVacia()) {
+    		jugadores.iniciarCursor();
+    		while(jugadores.avanzarCursor()) {
+    			if (jugadores.obtenerCursor().getColor == color) {
+    				throw new Exception ("El color " + color + "ya esta asociado a otro jugador")
+    			}
+    		}
+    	}
+    }
 }
