@@ -151,17 +151,17 @@ public class Casillero<T> {
     public boolean existeElVecino(Movimiento movimiento) throws Exception {
         switch (movimiento) {
             case ABAJO:
-                return vecinos[2][1][1] != null;
-            case ARRIBA:
-                return vecinos[0][1][1] != null;
-            case DERECHA:
                 return vecinos[1][2][1] != null;
-            case IZQUIERDA:
+            case ARRIBA:
                 return vecinos[1][0][1] != null;
+            case DERECHA:
+                return vecinos[2][1][1] != null;
+            case IZQUIERDA:
+                return vecinos[0][1][1] != null;
             case ADELANTE:
-                return vecinos[1][1][0] != null;
-            case ATRAS:
                 return vecinos[1][1][2] != null;
+            case ATRAS:
+                return vecinos[1][1][0] != null;
             default:
                 throw new Exception("No se encontro el casillero vecino para chequear su existencia");
         }
@@ -253,57 +253,57 @@ public class Casillero<T> {
     public Casillero<T> getCasilleroVecino(Direccion direccion) throws Exception {
         switch (direccion) {
             case ATRAS_ABAJO:
-                return vecinos[2][1][0];
+                return vecinos[1][2][0];
             case ATRAS_ARRIBA:
-                return vecinos[0][1][0];
+                return vecinos[1][0][0];
             case ATRAS_CENTRO:
                 return vecinos[1][1][0];
             case ATRAS_DERECHA:
-                return vecinos[1][2][0];
+                return vecinos[2][1][0];
             case ATRAS_IZQUIERDA:
-                return vecinos[1][0][0];
+                return vecinos[0][1][0];
             case ATRAS_DERECHA_ARRIBA:
-                return vecinos[0][2][0];
+                return vecinos[2][0][0];
             case ATRAS_DERECHA_ABAJO:
                 return vecinos[2][2][0];
             case ATRAS_IZQUIERDA_ARRIBA:
                 return vecinos[0][0][0];
             case ATRAS_IZQUIERDA_ABAJO:
-                return vecinos[2][0][0];
+                return vecinos[0][2][0];
             case CENTRO_ABAJO:
-                return vecinos[2][1][1];
-            case CENTRO_ARRIBA:
-                return vecinos[0][1][1];
-            case CENTRO_DERECHA:
                 return vecinos[1][2][1];
-            case CENTRO_IZQUIERDA:
+            case CENTRO_ARRIBA:
                 return vecinos[1][0][1];
+            case CENTRO_DERECHA:
+                return vecinos[2][1][1];
+            case CENTRO_IZQUIERDA:
+                return vecinos[0][1][1];
             case CENTRO_DERECHA_ARRIBA:
-                return vecinos[0][2][1];
+                return vecinos[2][0][1];
             case CENTRO_DERECHA_ABAJO:
                 return vecinos[2][2][1];
             case CENTRO_IZQUIERDA_ARRIBA:
                 return vecinos[0][0][1];
             case CENTRO_IZQUIERDA_ABAJO:
-                return vecinos[2][0][1];
+                return vecinos[0][2][1];
             case ADELANTE_ABAJO:
-                return vecinos[2][1][2];
+                return vecinos[1][2][2];
             case ADELANTE_ARRIBA:
-                return vecinos[0][1][2];
+                return vecinos[1][0][2];
             case ADELANTE_CENTRO:
                 return vecinos[1][1][2];
             case ADELANTE_DERECHA:
-                return vecinos[1][2][2];
+                return vecinos[2][1][2];
             case ADELANTE_IZQUIERDA:
-                return vecinos[1][0][2];
+                return vecinos[0][1][2];
             case ADELANTE_DERECHA_ARRIBA:
-                return vecinos[0][2][2];
+                return vecinos[2][0][2];
             case ADELANTE_DERECHA_ABAJO:
                 return vecinos[2][2][2];
             case ADELANTE_IZQUIERDA_ARRIBA:
                 return vecinos[0][0][2];
             case ADELANTE_IZQUIERDA_ABAJO:
-                return vecinos[2][0][2];
+                return vecinos[0][2][2];
             default:
                 throw new Exception("No se encontro el casillero vecino");
         }

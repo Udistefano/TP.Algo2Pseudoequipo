@@ -67,10 +67,7 @@ public class Partida {
             Turno turnoActual = turnos.obtener(posicion);
             jugadorActual = turnoActual.getJugador();
 
-            dado.tirarDado();
-            System.out.println("\n" + jugadorActual + " tira el dado! Dio el numero " + dado.getValor());
-            System.out.println(jugadorActual + " levanta " + dado.getValor() + " cartas del mazo");
-            mazo.levantarCartas(dado.getValor(), jugadorActual);
+            
 
 //            System.out.println("\nMano de " + jugadorActual + " es: " + jugadorActual.getMano());
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
@@ -98,7 +95,14 @@ public class Partida {
             while (turno.haySubturnos()) {
                 turno.utilizarSubturno();
                 Jugador jugador = turno.getJugador();
+                
+
                 UtilesVarios.mostrarTextoAlrededorDeLineas("Turno del jugador");
+                
+                dado.tirarDado();
+                System.out.println("\n" + jugador + " tira el dado! Dio el numero " + dado.getValor());
+                System.out.println(jugador + " levanta " + dado.getValor() + " cartas del mazo");
+                mazo.levantarCartas(dado.getValor(), jugador);
 
                 if (!jugador.tieneTodasLasFichasEnElTablero()) {
                     casilleroDestino = jugadaInicial(this.tablero, jugador);
@@ -177,7 +181,8 @@ public class Partida {
             throw new Exception("\nEl casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
         }
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), fichaAMover);
-       
+        Bitmap.escribirFichaAlBitmap(casillero.getCasilleroVecino(movimiento), jugador.getColor());
+        Bitmap.quitarFichaAlBitmap(casillero);
         return casillero.getCasilleroVecino(movimiento);
     }
 
