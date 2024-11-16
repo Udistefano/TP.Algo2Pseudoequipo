@@ -205,8 +205,8 @@ public class Bitmap {
         int posY = 100 + (dimensionCasilleroY) * (y - 1);
 
         // Las dimensiones de la ficha colocada (aquí usamos la misma lógica de colocar la ficha)
-        int anchoImagen = dimensionCasilleroX; // Esto es un supuesto: si la ficha cubre toda la casilla, su tamaño es el de la casilla
-        int altoImagen = dimensionCasilleroY;  // Lo mismo para la altura
+        int anchoImagen = dimensionCasilleroX - 10; // Esto es un supuesto: si la ficha cubre toda la casilla, su tamaño es el de la casilla
+        int altoImagen = dimensionCasilleroY - 10;  // Lo mismo para la altura
 
         int desplazamientoX = (dimensionCasilleroX - anchoImagen) / 2;
         int desplazamientoY = (dimensionCasilleroY - altoImagen) / 2;
@@ -226,6 +226,8 @@ public class Bitmap {
                 }
             }
         }
+        colorearLineasMatrizTablero();
+        escribirArchivo();
 
 
     }
