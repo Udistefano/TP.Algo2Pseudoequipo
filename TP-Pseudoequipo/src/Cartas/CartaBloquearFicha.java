@@ -15,7 +15,7 @@ public class CartaBloquearFicha extends Carta {
     
     @Override
 	protected String getTituloPorDefecto() {
-		return "Carta eliminar cartas de jugador";
+		return "Carta bloquear ficha de jugador";
 	}
 
 	@Override
