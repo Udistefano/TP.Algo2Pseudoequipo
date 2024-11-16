@@ -303,9 +303,7 @@ public class Bitmap {
      */
     public static void quitarFichaAlBitmap(Casillero<Ficha> casillero) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
-        // FIXME: pongo el rosado, pero habria que volver a pintarlo al color original
-        Bitmap.colocarFicha(casillero.getX(), casillero.getY(), casillero.getZ(),
-                Color.getRutaDeImagen(Color.getColorJugador(6)));
+        Bitmap.quitarFicha(casillero.getX(), casillero.getY(), casillero.getZ());
         Bitmap.escribirArchivo();
     }
 

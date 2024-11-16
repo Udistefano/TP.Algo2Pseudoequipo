@@ -35,7 +35,7 @@ public class Main {
 			String nombre = Teclado.leerCadenaNoVacia();
 			// TODO: validar que no exista un jugador con ese color ya
 			int numeroDeColor = Teclado.preguntarColor();
-			validacionesUtiles.validarSiEsUnico(numeroDeColor, jugadores);
+			ValidacionesUtiles.validarSiEsUnico(numeroDeColor, jugadores);
 
 			Jugador jugador = new Jugador(nombre, numeroDeColor, cantidadDeFichasMaximasPermitidas);
 			jugadores.agregar(jugador);

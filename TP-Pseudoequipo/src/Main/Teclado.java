@@ -85,16 +85,16 @@ public class Teclado {
      * @return un movimiento valido ingresado por el usuario
      * @throws Exception si hay un error interno leyendo la cadena ingresada por el usuario
      */
-    public static Movimiento preguntarMovimiento() throws Exception {
+    public static int preguntarMovimiento() throws Exception {
         System.out.println("Ingrese un movimiento: ");
-        System.out.println("Movimientos disponibles: arriba, abajo, derecha, izquierda, atras, adelante");
+        System.out.println("Movimientos disponibles:");
         String movimiento;
+        for (int i = 0; i < Movimiento.values().length; i++) {
+        	System.out.println((i + 1) + " - " + Movimiento.values()[i]);
+        }
+        System.out.print("\nElija un color (escriba el numero): ");
+        return leerNumeroNatural();
 
-        do {
-            movimiento = leerCadenaNoVacia();
-        } while (!Movimiento.existe(movimiento));
-
-        return Movimiento.obtener(movimiento);
     }
 
     /**

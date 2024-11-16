@@ -35,4 +35,37 @@ public enum Movimiento {
     public static Movimiento obtener(String nombre) throws Exception {
         return Movimiento.valueOf(nombre.toUpperCase());
     }
+    
+    /**
+	 * pre:
+	 * @param numero debe estar entre 1 y 6
+	 * @return el movimiento de la ficha
+	 * @throws Exception si el numero no esta entre 1 y 6
+	 */
+	public static Movimiento getMovimientoFicha(int numero) throws Exception {
+		Movimiento movimientoFicha = null;
+		switch(numero) {
+		case 1:
+			movimientoFicha = ARRIBA;
+			break;
+		case 2:
+			movimientoFicha = ABAJO;
+    		break;
+    	case 3:
+    		movimientoFicha = IZQUIERDA;
+    		break;
+    	case 4:
+    		movimientoFicha = DERECHA;
+    		break;
+    	case 5:
+    		movimientoFicha = ADELANTE;
+    		break;
+    	case 6:
+    		movimientoFicha = ATRAS;
+    		break;
+    	default:
+    		throw new Exception("El numero debe estar entre 1 y 7, el color no se encuentra disponible");
+    	}
+    	return movimientoFicha;
+	}
 }

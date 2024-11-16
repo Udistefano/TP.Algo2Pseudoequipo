@@ -164,7 +164,8 @@ public class Partida {
         System.out.println("Tendra que mover una ficha del tablero.");
         System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
         Casillero<Ficha> casillero = preguntarCasillero();
-        Movimiento movimiento = Teclado.preguntarMovimiento();
+        int nroMovimiento = Teclado.preguntarMovimiento();
+        Movimiento movimiento = Movimiento.getMovimientoFicha(nroMovimiento); 
         Ficha fichaAMover = casillero.getDato();
 
         ValidacionesUtiles.validarSiEsNulo(casillero.getDato(), "Ficha");

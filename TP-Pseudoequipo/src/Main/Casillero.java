@@ -216,8 +216,32 @@ public class Casillero<T> {
      * @throws Exception si no es un movimiento valido o si es nulo
      */
     public Casillero<T> getCasilleroVecino(Movimiento movimiento) throws Exception {
-        return getCasilleroVecino(Direccion.valueOf(movimiento.toString()));
+    	Direccion direccion = null;
+    	switch(movimiento) {
+    	case ARRIBA:
+    		direccion = Direccion.CENTRO_ARRIBA;
+    		break;
+    	case ABAJO:
+    		direccion = Direccion.CENTRO_ABAJO;
+    		break;
+    	case IZQUIERDA:
+    		direccion = Direccion.CENTRO_IZQUIERDA;
+    		break;
+    	case DERECHA:
+    		direccion = Direccion.CENTRO_DERECHA;
+    		break;
+    	case ADELANTE:
+    		direccion = Direccion.ADELANTE_CENTRO;
+    		break;
+    	case ATRAS:
+    		direccion = Direccion.ATRAS_CENTRO;
+    		break;
+    	default:
+    		throw new Exception("No se encontro el casillero vecino");
+    	}
+    	return getCasilleroVecino(direccion);
     }
+
 
     // TODO: crear enum Plano, que pueda ser ADELANTE, ATRAS, CENTRO, asi no escribimos tanto codigo repetido
     /**
