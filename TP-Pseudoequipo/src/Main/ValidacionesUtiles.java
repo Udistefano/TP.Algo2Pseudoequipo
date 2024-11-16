@@ -1,5 +1,7 @@
 package Main;
 
+import Estructuras.Lista;
+
 public class ValidacionesUtiles {
     /**
      * pre:
@@ -74,12 +76,21 @@ public class ValidacionesUtiles {
             throw new Exception("El numero " + nombre + " no puede ser menor a uno");
         }
     }
-    public static void validarSiEsUnico(int color, lista jugadores) {
+    
+    /**
+     * pre: --
+     * @param color
+     * @param jugadores
+     * @throws Exception si el color ya estaba elegido por otro jugador
+     */
+    public static void validarSiEsUnico(int color, Lista<Jugador> jugadores) throws Exception {
+    	Color colorObtenido = Color.getColorJugador(color);
         if (!jugadores.estaVacia()) {
     		jugadores.iniciarCursor();
     		while(jugadores.avanzarCursor()) {
-    			if (jugadores.obtenerCursor().getColor == color) {
-    				throw new Exception ("El color " + color + "ya esta asociado a otro jugador")
+    			Jugador jugadorActual = jugadores.obtenerCursor();
+    			if (jugadorActual.getColor() == colorObtenido) {
+    				throw new Exception ("El color " + color + "ya esta asociado a otro jugador");
     			}
     		}
     	}

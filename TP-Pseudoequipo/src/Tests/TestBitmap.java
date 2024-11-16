@@ -1,5 +1,6 @@
 package Tests;
 import Main.Bitmap;
+import Main.Casillero;
 import Main.Color;
 //import Main.ColorFichasRojo;
 
@@ -18,7 +19,8 @@ public class TestBitmap {
         Bitmap.colocarFicha(1, 3, 2, "colorAzul.bmp");
         Bitmap.colocarFicha(2, 3, 2, "colorRojo.bmp");
         Bitmap.colocarFicha(1, 3, 3, "colorNaranja.bmp");
-        
+        //Casillero casillero = new Casillero(1 , 3, 3);
+        Bitmap.quitarFicha(1, 3, 3);
         Bitmap.escribirArchivo();
     }
 }
