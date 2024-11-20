@@ -9,12 +9,15 @@ public class Main {
 
 		System.out.print("Ingrese el ancho del tablero: ");
 		int ancho = Teclado.leerNumeroNatural();
+		ValidacionesUtiles.validarTamañoTablero(ancho);
 
 		System.out.print("Ingrese el alto del tablero: ");
 		int alto = Teclado.leerNumeroNatural();
+		ValidacionesUtiles.validarTamañoTablero(alto);
 
 		System.out.print("Ingrese la profundidad del tablero: ");
 		int profundidad = Teclado.leerNumeroNatural();
+		ValidacionesUtiles.validarTamañoTablero(profundidad);
 
 		// TODO: habria que preguntarle al usuario estas cantidades o hardcodearlo?
 		int cantidadDeCartas = 50;

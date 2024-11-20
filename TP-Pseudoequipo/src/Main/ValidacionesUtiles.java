@@ -95,4 +95,19 @@ public class ValidacionesUtiles {
     		}
     	}
     }
+    
+    /**
+     * pre: --
+     * @param tamaño
+     * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5
+     */
+    public static void validarTamañoTablero(int tamaño) throws Exception {
+    	if(tamaño > 5) {
+    		throw new Exception("El tamaño maximo del tablero debe ser de 5 x 5 x 5");
+    	}
+    	if(tamaño <= 0) {
+    		throw new Exception("El tamaño debe ser mayor a 0");
+    	}
+    }
 }
+	
