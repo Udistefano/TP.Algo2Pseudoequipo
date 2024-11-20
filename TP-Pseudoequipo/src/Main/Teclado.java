@@ -174,6 +174,29 @@ public class Teclado {
     public static Character leerCaracter() throws Exception {
         return leerCadena().charAt(0);
     }
+    
+    /**
+     * pre: debe colocarse en una tipo int en el main
+     * @param mensaje
+     * @return
+     * post: pregunta la coordenada del tablero a los jugadores yvalida mediante un try catch
+     */
+    public static int PreguntarCoordenadaTablero(String mensaje) {
+    	int coordenada = 0;
+    	boolean numeroValido = false;
+    	while(!numeroValido) {
+    		try {
+    			System.out.print(mensaje);
+        		coordenada = Teclado.leerNumeroNatural();
+        		ValidacionesUtiles.validarTamañoTablero(coordenada);
+        		numeroValido = true;
+        		
+    		} catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+    	}
+    	return coordenada;
+    }
 
     //METODOS GENERALES ---------------------------------------------------------------------------------------
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
