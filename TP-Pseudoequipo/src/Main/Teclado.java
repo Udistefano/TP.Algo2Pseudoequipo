@@ -181,7 +181,7 @@ public class Teclado {
      * @return
      * post: pregunta la coordenada del tablero a los jugadores yvalida mediante un try catch
      */
-    public static int PreguntarCoordenadaTablero(String mensaje) {
+    public static int preguntarCoordenadaTablero(String mensaje) {
     	int coordenada = 0;
     	boolean numeroValido = false;
     	while(!numeroValido) {

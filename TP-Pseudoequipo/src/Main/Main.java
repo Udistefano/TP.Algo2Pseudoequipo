@@ -7,17 +7,11 @@ public class Main {
 		Teclado.inicializar();
 		System.out.println("Bienvenidos al TaTeTi 3D!\n");
 
-		System.out.print("Ingrese el ancho del tablero: ");
-		int ancho = Teclado.leerNumeroNatural();
-		ValidacionesUtiles.validarTamañoTablero(ancho);
+		int ancho = Teclado.preguntarCoordenadaTablero("Ingrese el ancho del tablero: ");
 
-		System.out.print("Ingrese el alto del tablero: ");
-		int alto = Teclado.leerNumeroNatural();
-		ValidacionesUtiles.validarTamañoTablero(alto);
+		int alto = Teclado.preguntarCoordenadaTablero("Ingrese el alto del tablero: ");
 
-		System.out.print("Ingrese la profundidad del tablero: ");
-		int profundidad = Teclado.leerNumeroNatural();
-		ValidacionesUtiles.validarTamañoTablero(profundidad);
+		int profundidad = Teclado.preguntarCoordenadaTablero("Ingrese la profundidad del tablero: ");
 
 		// TODO: habria que preguntarle al usuario estas cantidades o hardcodearlo?
 		int cantidadDeCartas = 50;
