@@ -1,5 +1,6 @@
 package Main;
 
+import Cartas.Carta;
 import Estructuras.Lista;
 
 public class ValidacionesUtiles {
@@ -173,6 +174,12 @@ public class ValidacionesUtiles {
         if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
             throw new Exception("\nEl casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
         }
+    }
+    
+    public static void validarCarta(int posicionCarta, Lista<Carta> mano) throws Exception {
+    	if(posicionCarta <0 || posicionCarta > mano.getLongitud()) {
+    		throw new Exception("Elija una carta entre el 0 y " + mano.getLongitud());
+    	}
     }
 }
 	

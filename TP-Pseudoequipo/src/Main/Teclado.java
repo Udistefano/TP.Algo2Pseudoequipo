@@ -52,19 +52,30 @@ public class Teclado {
      * post: 
      */
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
-        System.out.println("\nCartas disponibles:");
-        System.out.println(0 + " - " + "Si no quiere jugar cartas");
-        mano.iniciarCursor();
-        for(int i = 1; i <= mano.getLongitud(); i++){
-            mano.avanzarCursor();
-            System.out.println(i + " - " + mano.obtenerCursor());
-        }
-        System.out.print("\nIngrese el numero de la posicion de la carta a jugar: ");
-        int posicion = leerNumeroNatural();
-        if(posicion != 0) {
-        	return mano.obtener(posicion);
-        }
-        return null;
+    	Carta carta = null;
+    	boolean cartaValida = false;
+    	while(!cartaValida) {
+    		try {
+        		System.out.println("\nCartas disponibles:");
+                System.out.println(0 + " - " + "Si no quiere jugar cartas");
+                mano.iniciarCursor();
+                for(int i = 1; i <= mano.getLongitud(); i++){
+                    mano.avanzarCursor();
+                    System.out.println(i + " - " + mano.obtenerCursor());
+                }
+                System.out.print("\nIngrese el numero de la posicion de la carta a jugar: ");
+                int posicion = leerNumeroNatural();
+                ValidacionesUtiles.validarCarta(posicion, mano);
+                if(posicion != 0) {
+                	carta = mano.obtener(posicion);
+                }
+                carta = null;
+                cartaValida = true;
+        	} catch (Exception e) {
+        		System.out.println("Error: " + e.getMessage());
+        	}
+    	}
+        return carta;
     }
     
     public static Casillero<Ficha> preguntarCasilleroAJugar(Tablero tablero, Jugador jugador) {
