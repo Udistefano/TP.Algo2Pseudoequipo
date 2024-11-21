@@ -70,14 +70,25 @@ public class Teclado {
      * pre: --
      * @return el numero del color que el jugador elija
      */
-    public static int preguntarColor() {
+    public static int preguntarColor(Lista<Jugador> jugadores) {
         System.out.println("\nColores disponibles:");
         for (int i = 0; i < Color.values().length; i++) {
             System.out.println((i + 1) + " - " + Color.values()[i]);
         }
-
-        System.out.print("\nElija un color (escriba el numero): ");
-        return leerNumeroNatural();
+        int color = 0;
+    	boolean numeroValido = false;
+    	while(!numeroValido) {
+    		try {
+    			System.out.print("\nElija un color (escriba el numero): ");
+        		color = Teclado.leerNumeroNatural();
+        		ValidacionesUtiles.validarSiEsUnico(color, jugadores);
+        		numeroValido = true;
+        		
+    		} catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+    	}
+    	return color;
     }
 
     /**
@@ -109,6 +120,51 @@ public class Teclado {
         return leerNumeroNatural();
     }
 
+    /**
+     * pre: debe colocarse en una tipo int en el main
+     * @param mensaje
+     * @return
+     * post: pregunta la coordenada del tablero a los jugadores y valida mediante un try catch
+     */
+    public static int preguntarCoordenadaTablero(String mensaje) {
+    	int coordenada = 0;
+    	boolean numeroValido = false;
+    	while(!numeroValido) {
+    		try {
+    			System.out.print(mensaje);
+        		coordenada = Teclado.leerNumeroNatural();
+        		ValidacionesUtiles.validarTamañoTablero(coordenada);
+        		numeroValido = true;
+        		
+    		} catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+    	}
+    	return coordenada;
+    }
+    
+    /**
+     * pre: debe colocarse en una tipo int en el main
+     * @param mensaje
+     * @return
+     * post: pregunta la cantidad de jugadores a jugar
+     */
+    public static int preguntarCantidadJugadores(String mensaje) {
+    	int cantidadJugadores = 0;
+    	boolean numeroValido = false;
+    	while(!numeroValido) {
+    		try {
+    			System.out.print("\nCuantos jugadores seran en este juego?: ");
+    			cantidadJugadores = Teclado.leerNumeroNatural();
+    			ValidacionesUtiles.validarCantidadDeJugadores(cantidadJugadores);
+    			numeroValido = true;
+    		} catch (Exception e) {
+    			System.out.println("Error: " + e.getMessage());
+    		}
+    	}
+    	return cantidadJugadores;
+    }
+    
     /**
      * pre: --
      * @return lee un numero natural ingresado por el usuario
@@ -175,28 +231,6 @@ public class Teclado {
         return leerCadena().charAt(0);
     }
     
-    /**
-     * pre: debe colocarse en una tipo int en el main
-     * @param mensaje
-     * @return
-     * post: pregunta la coordenada del tablero a los jugadores yvalida mediante un try catch
-     */
-    public static int preguntarCoordenadaTablero(String mensaje) {
-    	int coordenada = 0;
-    	boolean numeroValido = false;
-    	while(!numeroValido) {
-    		try {
-    			System.out.print(mensaje);
-        		coordenada = Teclado.leerNumeroNatural();
-        		ValidacionesUtiles.validarTamañoTablero(coordenada);
-        		numeroValido = true;
-        		
-    		} catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-    	}
-    	return coordenada;
-    }
 
     //METODOS GENERALES ---------------------------------------------------------------------------------------
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------

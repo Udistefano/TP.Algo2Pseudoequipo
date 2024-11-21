@@ -99,13 +99,27 @@ public class ValidacionesUtiles {
     /**
      * pre: --
      * @param tamaño
-     * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5
+     * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5 o menor a 0
      */
     public static void validarTamañoTablero(int tamaño) throws Exception {
     	if(tamaño > 5) {
     		throw new Exception("El tamaño maximo del tablero debe ser de 5 x 5 x 5");
     	}
     	if(tamaño <= 0) {
+    		throw new Exception("El tamaño debe ser mayor a 0");
+    	}
+    }
+    
+    /**
+     * pre: --
+     * @param cantidadJugadores
+     * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5 o menor a 0
+     */
+    public static void validarCantidadDeJugadores(int cantidadJugadores) throws Exception {
+    	if(cantidadJugadores > 7) {
+    		throw new Exception("Hay un maximo de 7 jugadores");
+    	}
+    	if(cantidadJugadores <= 0) {
     		throw new Exception("El tamaño debe ser mayor a 0");
     	}
     }

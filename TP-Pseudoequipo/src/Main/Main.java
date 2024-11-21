@@ -20,19 +20,14 @@ public class Main {
 		Lista<Jugador> jugadores = new Lista<Jugador>();
 		Mazo mazo = new Mazo(cantidadDeCartas);
 		
-		System.out.print("\nCuantos jugadores seran en este juego?: ");
-		int cantidadDeJugadores = Teclado.leerNumeroNatural();
-		if ((cantidadDeJugadores > 7) || (cantidadDeJugadores <= 1)) {
-			throw new Exception("El juego es de a 2 hasta 7 jugadores");
-		}
-
+		int cantidadDeJugadores = Teclado.preguntarCantidadJugadores("\nCuantos jugadores seran en este juego?: ");
+		
 		for (int i = 1; i <= cantidadDeJugadores; i++) {
 			System.out.println("\nJugador #" + i + ":");
 			System.out.print("\nIngrese su nombre: ");
 			String nombre = Teclado.leerCadenaNoVacia();
 			// TODO: validar que no exista un jugador con ese color ya
-			int numeroDeColor = Teclado.preguntarColor();
-			ValidacionesUtiles.validarSiEsUnico(numeroDeColor, jugadores);
+			int numeroDeColor = Teclado.preguntarColor(jugadores);
 
 			Jugador jugador = new Jugador(nombre, numeroDeColor, cantidadDeFichasMaximasPermitidas);
 			jugadores.agregar(jugador);
