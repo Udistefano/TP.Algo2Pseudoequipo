@@ -10,21 +10,6 @@ public enum Movimiento {
     ADELANTE,
     ATRAS;
 
-    /**
-     * pre:
-     * @param nombre no puede ser nulo
-     * @return verdadero si existe un movimiento con el nombre pasado por parametro
-     * @throws Exception si nombre es nulo
-     */
-    public static boolean existe(String nombre) throws Exception {
-        ValidacionesUtiles.validarSiEsUnaCadenaVacia(nombre, "Nombre");
-        try {
-            Movimiento.obtener(nombre);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
     /**
      * pre:
@@ -64,7 +49,7 @@ public enum Movimiento {
     		movimientoFicha = ATRAS;
     		break;
     	default:
-    		throw new Exception("El numero debe estar entre 1 y 7, el color no se encuentra disponible");
+    		throw new Exception("El numero debe estar entre 1 y 7");
     	}
     	return movimientoFicha;
 	}

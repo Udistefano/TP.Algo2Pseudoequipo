@@ -168,18 +168,10 @@ public class Partida {
         System.out.println("Tendra que mover una ficha del tablero.");
         System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
         Casillero<Ficha> casillero = preguntarCasillero();
-        int nroMovimiento = Teclado.preguntarMovimiento();
-        Movimiento movimiento = Movimiento.getMovimientoFicha(nroMovimiento); 
         Ficha fichaAMover = casillero.getDato();
-
         ValidacionesUtiles.validarSiEsNulo(casillero.getDato(), "Ficha");
         ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaAMover);
-        if (!casillero.existeElVecino(movimiento)) {
-            throw new Exception("\nNo existe el movimiento " + movimiento);
-        }
-        if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
-            throw new Exception("\nEl casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
-        }
+        Movimiento movimiento = Teclado.preguntarMovimiento(casillero); 
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), fichaAMover);
         Bitmap.escribirFichaAlBitmap(casillero.getCasilleroVecino(movimiento), jugador.getColor());
         Bitmap.quitarFichaAlBitmap(casillero);
@@ -202,16 +194,23 @@ public class Partida {
      * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y lo devuelve
      */
     public Casillero<Ficha> preguntarCasillero() throws Exception {
-        // TODO: ?¿?¿?permitir que si el jugador ingresa coordenadas invalidas, pueda volver a ingresar de vuelta
-        int x = Teclado.preguntarCoordenada('X');
-        int y = Teclado.preguntarCoordenada('Y');
-        int z = Teclado.preguntarCoordenada('Z');
-
-        if (!tablero.existeElCasillero(x, y, z)) {
-            throw new Exception("Coordenadas de casillero invalidas");
-        }
-
-        return tablero.getCasillero(x, y, z);
+        // TODO: 
+    	Casillero casillero = null;
+    	boolean coordenadasValidas = false;
+    	while(!coordenadasValidas) {
+    		try {
+    			int x = Teclado.preguntarCoordenada('X');
+                int y = Teclado.preguntarCoordenada('Y');
+                int z = Teclado.preguntarCoordenada('Z');
+                casillero = tablero.getCasillero(x, y, z);
+                ValidacionesUtiles.validarCasillero(casillero, this.tablero);
+                coordenadasValidas = true;
+    		} catch (Exception e) {
+    			System.out.println("Error: " + e.getMessage());
+    		}    	
+    	}
+    	return casillero;
+       
     }
 
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {

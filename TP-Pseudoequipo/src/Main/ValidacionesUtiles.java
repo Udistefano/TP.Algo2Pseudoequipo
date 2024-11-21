@@ -90,7 +90,7 @@ public class ValidacionesUtiles {
     		while(jugadores.avanzarCursor()) {
     			Jugador jugadorActual = jugadores.obtenerCursor();
     			if (jugadorActual.getColor() == colorObtenido) {
-    				throw new Exception ("El color " + color + "ya esta asociado a otro jugador");
+    				throw new Exception ("El color " + color + " ya esta asociado a otro jugador");
     			}
     		}
     	}
@@ -122,6 +122,27 @@ public class ValidacionesUtiles {
     	if(cantidadJugadores <= 0) {
     		throw new Exception("El tamaño debe ser mayor a 0");
     	}
+    }
+    
+    /**
+     * pre: --
+     * @param casillero
+     * @param tablero
+     * @throws Exception si el casillero no se encientra en el tablero
+     */
+    public static void validarCasillero(Casillero casillero, Tablero tablero) throws Exception {
+    	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
+    		throw new Exception("El casillero no se encuentra en el tablero");
+    	}
+    }
+    
+    public static void validarMovimiento(Casillero casillero, Movimiento movimiento) throws Exception {
+    	if (!casillero.existeElVecino(movimiento)) {
+            throw new Exception("\nNo existe el movimiento " + movimiento);
+        }
+        if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
+            throw new Exception("\nEl casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
+        }
     }
 }
 	

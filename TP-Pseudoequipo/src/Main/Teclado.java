@@ -3,6 +3,8 @@ package Main;
 import Cartas.Carta;
 import Estructuras.Lista;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Scanner;
 
 public class Teclado {
@@ -80,7 +82,7 @@ public class Teclado {
     	while(!numeroValido) {
     		try {
     			System.out.print("\nElija un color (escriba el numero): ");
-        		color = Teclado.leerNumeroNatural();
+        		color = leerNumeroNatural();
         		ValidacionesUtiles.validarSiEsUnico(color, jugadores);
         		numeroValido = true;
         		
@@ -96,16 +98,26 @@ public class Teclado {
      * @return un movimiento valido ingresado por el usuario
      * @throws Exception si hay un error interno leyendo la cadena ingresada por el usuario
      */
-    public static int preguntarMovimiento() throws Exception {
-        System.out.println("Ingrese un movimiento: ");
-        System.out.println("Movimientos disponibles:");
-        String movimiento;
-        for (int i = 0; i < Movimiento.values().length; i++) {
-        	System.out.println((i + 1) + " - " + Movimiento.values()[i]);
-        }
-        System.out.print("\nElija un color (escriba el numero): ");
-        return leerNumeroNatural();
-
+    public static Movimiento preguntarMovimiento(Casillero casillero) throws Exception {
+    	System.out.println("Ingrese un movimiento: ");
+    	boolean movimientoValido = false;
+    	Movimiento movimiento = null;
+    	int numeroMovimiento = 0;
+    	while(!movimientoValido) {
+    		try {
+    			System.out.println("Movimientos disponibles:");
+    	        for (int i = 0; i < Movimiento.values().length; i++) {
+    	        	System.out.println((i + 1) + " - " + Movimiento.values()[i]);
+    	        }
+    	        System.out.print("\nElija un color (escriba el numero): ");
+    	        numeroMovimiento = leerNumeroNatural();
+    	        movimiento = Movimiento.getMovimientoFicha(numeroMovimiento);
+    	        ValidacionesUtiles.validarMovimiento(casillero, movimiento);
+    	        } catch (Exception e) {
+    	        	System.out.println("Error: " + e.getMessage());
+    		}
+    	}
+        return movimiento;
     }
 
     /**
