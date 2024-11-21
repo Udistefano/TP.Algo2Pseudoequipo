@@ -124,18 +124,48 @@ public class ValidacionesUtiles {
     	}
     }
     
-    /**
+    /** NO BORRAR
      * pre: --
      * @param casillero
      * @param tablero
-     * @throws Exception si el casillero no se encientra en el tablero
+     * @throws Exception si el casillero no se encientra en el tablero o esta ocupado
      */
     public static void validarCasillero(Casillero casillero, Tablero tablero) throws Exception {
     	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
     		throw new Exception("El casillero no se encuentra en el tablero");
     	}
+    	if (casillero.estaOcupado()) {
+            throw new Exception("\nEl casillero esta ocupado");
+        }
     }
     
+    /** NO BORRAR este valida cuando se pretende mover o selecionar casillero con ficha
+     * pre: --
+     * @param casillero
+     * @param tablero
+     * @param jugadorActual
+     * @throws Exception si el casillero no se  encuentra en el tablero, si la ficha pertenece a otro jugador o si no hay fichas en el casillero
+     */
+    public static void validarCasilleroAJugar(Casillero<Ficha> casillero, Tablero tablero,  Jugador jugadorActual) throws Exception {
+    	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
+    		throw new Exception("El casillero no se encuentra en el tablero");
+    	}
+    	if(casillero.getDato() == null) {
+    		throw new Exception("No hay fichas en este casillero");
+    	}
+    	Ficha ficha = casillero.getDato();
+    	if(ficha.getColor() != jugadorActual.getColor()) {
+    		throw new Exception("La ficha de este casillero no pertenece al jugador actual");
+    	}
+    	
+    }
+    
+    /**
+     * pre: --
+     * @param casillero
+     * @param movimiento
+     * @throws Exception si el movimiento no esta permitido
+     */
     public static void validarMovimiento(Casillero casillero, Movimiento movimiento) throws Exception {
     	if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("\nNo existe el movimiento " + movimiento);

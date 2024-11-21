@@ -142,9 +142,6 @@ public class Partida {
         System.out.println("\n" + jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
         System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:\n");
         Casillero<Ficha> casillero = preguntarCasillero();
-        if (casillero.estaOcupado()) {
-            throw new Exception("\nEl casillero esta ocupado");
-        }
         casillero.setDato(ficha);
         jugador.jugarFicha();
 
@@ -167,7 +164,7 @@ public class Partida {
         System.out.println("\n" + jugador + " no le quedan mas fichas para jugar");
         System.out.println("Tendra que mover una ficha del tablero.");
         System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
-        Casillero<Ficha> casillero = preguntarCasillero();
+        Casillero<Ficha> casillero = Teclado.preguntarCasilleroAJugar(tablero, jugador);
         Ficha fichaAMover = casillero.getDato();
         ValidacionesUtiles.validarSiEsNulo(casillero.getDato(), "Ficha");
         ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaAMover);

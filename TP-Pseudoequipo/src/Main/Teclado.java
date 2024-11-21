@@ -67,7 +67,24 @@ public class Teclado {
         return null;
     }
     
-    
+    public static Casillero<Ficha> preguntarCasilleroAJugar(Tablero tablero, Jugador jugador) {
+    	Casillero casillero = null;
+    	boolean coordenadasValidas = false;
+    	while(!coordenadasValidas) {
+    		try {
+    			int x = Teclado.preguntarCoordenada('X');
+                int y = Teclado.preguntarCoordenada('Y');
+                int z = Teclado.preguntarCoordenada('Z');
+                casillero = tablero.getCasillero(x, y, z);
+                ValidacionesUtiles.validarCasilleroAJugar(casillero, tablero, jugador);
+                coordenadasValidas = true;
+    		} catch (Exception e) {
+    			System.out.println("Error: " + e.getMessage());
+    		}    	
+    	}
+    	return casillero;
+       
+    }
     /**
      * pre: --
      * @return el numero del color que el jugador elija
@@ -109,10 +126,11 @@ public class Teclado {
     	        for (int i = 0; i < Movimiento.values().length; i++) {
     	        	System.out.println((i + 1) + " - " + Movimiento.values()[i]);
     	        }
-    	        System.out.print("\nElija un color (escriba el numero): ");
+    	        System.out.print("\nElija un movimiento (escriba el numero): ");
     	        numeroMovimiento = leerNumeroNatural();
     	        movimiento = Movimiento.getMovimientoFicha(numeroMovimiento);
     	        ValidacionesUtiles.validarMovimiento(casillero, movimiento);
+    	        movimientoValido = true;
     	        } catch (Exception e) {
     	        	System.out.println("Error: " + e.getMessage());
     		}
