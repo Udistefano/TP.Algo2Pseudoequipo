@@ -6,6 +6,7 @@ import Main.Jugador;
 import Main.Partida;
 import Main.Teclado;
 import Main.Turno;
+import Main.ValidacionesUtiles;
 
 public class JugadaEliminarCartasDelJugador extends Jugada {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
@@ -29,19 +30,23 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
      */
 	@Override
 	public void jugar(Partida partida, Turno turnoActual) throws Exception {
-		System.out.print("\nIngrese el nombre del usuario a eliminar: ");
-		String nombreDelJugadorContricante = Teclado.leerCadenaNoVacia();
+		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
+        ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
+		String nombre = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del usuario al cual eliminarle las cartas: ");
 		Lista<Jugador> jugadores = partida.getJugadores();
+
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();
-			if (nombreDelJugadorContricante.equals(jugadorActual.getNombre())) {
+			if (nombre.equals(jugadorActual.getNombre())) {
 				jugadorActual.vaciarMano();
+				System.out.println("\nSe eliminaron las cartas del jugador " + jugadorActual);
 				return;
 			}
 		}
-		throw new Exception("El jugador no está dentro de los jugadores");
+		
+        throw new Exception("No se hallo el jugador " + nombre + " al cual eliminarle las cartas");
 	}
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------

@@ -36,19 +36,22 @@ public class JugadaPerderTurno extends Jugada {
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
-        Jugador jugadorAPerder = null;
-        System.out.print("Ingrese el nombre del jugador al que hacerle perder un turno: ");
-        String nombreDelJugador = Teclado.leerCadenaNoVacia();
+
+        String nombre = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del jugador al que hacerle perder un turno: ");
         Lista<Jugador> jugadores = partida.getJugadores();
+        
+        // TODO: quiza hacer un jugadores.obtener(nombre) en jugadaPerderTurno y jugadaEliminarCartasDelJugador
         jugadores.iniciarCursor();
         while(jugadores.avanzarCursor()) {
         	Jugador jugadorActual = jugadores.obtenerCursor();
-        	if (jugadorActual.getNombre() == nombreDelJugador) {
-        		jugadorAPerder = jugadorActual;
-        	}
+        	if (jugadorActual.getNombre().equals(nombre)) {
+                Turno turno = partida.getTurnoSiguiente(jugadorActual);
+                turno.incrementarBloqueosRestantes(1);
+                return;
+            }
         }
-        Turno turno = partida.getTurnoSiguiente(jugadorAPerder);
-        turno.incrementarBloqueosRestantes(1);
+
+        throw new Exception("No se hallo el jugador " + nombre + " al cual perderle el turno");
     }
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------

@@ -67,9 +67,6 @@ public class Partida {
             Turno turnoActual = turnos.obtener(posicion);
             jugadorActual = turnoActual.getJugador();
 
-            
-
-//            System.out.println("\nMano de " + jugadorActual + " es: " + jugadorActual.getMano());
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
             hayGanador = verificarGanador(casilleroDestino);
             posicion++;
@@ -96,8 +93,7 @@ public class Partida {
                 turno.utilizarSubturno();
                 Jugador jugador = turno.getJugador();
                 
-
-                UtilesVarios.mostrarTextoAlrededorDeLineas("Turno del jugador" + jugador);
+                UtilesVarios.mostrarTextoAlrededorDeLineas("Turno del jugador " + jugador);
                 
                 dado.tirarDado();
                 System.out.println("\n" + jugador + " tira el dado! Dio el numero " + dado.getValor());
@@ -140,8 +136,8 @@ public class Partida {
 
         Ficha ficha = new Ficha(jugador.getColor());
         
-        System.out.println("\n" + jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
-        System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:\n");
+        System.out.println(jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
+        System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:");
         
         Casillero<Ficha> casillero = preguntarCasillero();
         
@@ -204,6 +200,7 @@ public class Partida {
     	boolean coordenadasValidas = false;
     	while(!coordenadasValidas) {
     		try {
+                System.out.println("");
     			int x = Teclado.preguntarCoordenada('X');
                 int y = Teclado.preguntarCoordenada('Y');
                 int z = Teclado.preguntarCoordenada('Z');

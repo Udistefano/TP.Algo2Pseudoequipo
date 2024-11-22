@@ -106,7 +106,7 @@ public class Jugador {
      */
     public void agregarCartaALaMano(Carta carta) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
-        mano.agregar(carta);
+        this.mano.agregar(carta);
     }
 
     /**

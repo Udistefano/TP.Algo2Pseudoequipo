@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Scanner;
 
+// TODO: quiza dividir clase Teclado, en clases Teclado y Menu???????
 public class Teclado {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
@@ -61,18 +62,18 @@ public class Teclado {
     		try {
         		System.out.println("\nCartas disponibles:");
                 System.out.println(0 + " - " + "Si no quiere jugar cartas");
+                // TODO: esto de iterar el mano e imprimirlo, podria ser mano.mostrar()
                 mano.iniciarCursor();
                 for(int i = 1; i <= mano.getLongitud(); i++){
                     mano.avanzarCursor();
                     System.out.println(i + " - " + mano.obtenerCursor());
                 }
-                System.out.print("\nIngrese el numero de la posicion de la carta a jugar: ");
-                int posicion = leerNumeroNatural();
+                System.out.print("\nIngrese el numero de la carta a jugar: ");
+                int posicion = leerNumero();
                 ValidacionesUtiles.validarCarta(posicion, mano);
                 if(posicion != 0) {
                 	carta = mano.obtener(posicion);
                 }
-                carta = null;
                 cartaValida = true;
         	} catch (Exception e) {
         		System.out.println("\nError: " + e.getMessage());
@@ -152,7 +153,7 @@ public class Teclado {
     	        }
 
     	        System.out.print("\nElija un movimiento (escriba el numero): ");
-    	        numeroMovimiento = leerNumeroNatural();
+    	        numeroMovimiento = leerNumero();
     	        movimiento = Movimiento.getMovimientoFicha(numeroMovimiento);
     	        ValidacionesUtiles.validarMovimiento(casillero, movimiento);
     	        movimientoValido = true;
@@ -223,70 +224,60 @@ public class Teclado {
     
     /**
      * pre: --
-     * @return lee un numero natural ingresado por el usuario
-     */
-    public static int leerNumeroNatural() {
-        int numeroNatural;
-
-        do {
-            numeroNatural = leerNumero();
-        } while (numeroNatural < 0);
-
-        return numeroNatural;
-    }
-
-    /**
-     * pre: --
      * @return lee un numero ingresado por el usuario
      * @throws Exception si hubo un error leyendo el input del usuario
      */
     public static Integer leerNumero() throws Exception {
-        if (teclado.hasNextInt()) {
-            Integer numero = teclado.nextInt();
-            teclado.nextLine();
-            return numero;
+        try {
+            return Integer.parseInt(teclado.nextLine());
+        } catch (Exception e) {
+            throw new Exception("Ingreso un numero invalido");
         }
-        teclado.nextLine();
-        throw new Exception("Ingreso un numero invalido");
-    }
-
-    /**
-     * pre: --
-     * @return la cadena no vacia ni nula que el usuario ingrese por teclado
-     * @throws Exception si hubo un error leyendo el input del usuario
-     */
-    public static String leerCadenaNoVacia() throws Exception {
-        String cadena = null;
-        do {
-            cadena = leerCadena();
-        } while ((cadena == null) ||
-                (cadena.isEmpty()));
-        return cadena;
-
     }
 
     /**
      * pre: --
      * @return la cadena que el usuario ingrese por teclado
-     * @throws Exception si hubo un error leyendo el input del usuario
+     * @throws Exception si hubo un error leyendo el input del usuario, o si ingreso una cadena invalida
      */
     public static String leerCadena() throws Exception {
-        if (teclado.hasNextLine()) {
-            return teclado.nextLine();
+        try {
+            String cadena = teclado.nextLine();
+            if ((cadena == null) ||
+                (cadena.isEmpty())) {
+                throw new Exception("Ingreso una cadena invalida");
+            }
+            return cadena;
+        } catch (Exception e) {
+            throw new Exception("Fallo inesperado al leer el input del usuario");
         }
-        throw new Exception("Leyendo el input del jugador");
     }
 
     /**
      * pre: --
-     * @return el caracter que el usuario ingrese por teclado
-     * @throws Exception si hubo un error leyendo el input del usuario
-     */
-    public static Character leerCaracter() throws Exception {
-        return leerCadena().charAt(0);
+     * @param mensaje no puede ser nulo ni vacio
+     * @throws Exception si mensaje es nulo o vacio
+     * post: le pregunta el nombre del jugador, valida que sea correcto, y lo regresa
+    */
+    public static String preguntarNombreDeJugador(String mensaje) throws Exception {
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(mensaje, "Mensaje a imprimir");
+        boolean esNombreInvalido = true;
+        String nombre = "";
+
+        do {
+            try {
+                System.out.print(mensaje);
+    			// TODO: validar que sea un nombre valido
+                nombre = leerCadena();
+                esNombreInvalido = false;
+            } catch (Exception e) {
+                System.out.println("\nError: Ingreso un nombre invalido");
+            }
+        } while (esNombreInvalido);
+        
+        return nombre;
     }
     
-
     //METODOS GENERALES ---------------------------------------------------------------------------------------
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

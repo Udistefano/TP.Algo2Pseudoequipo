@@ -7,11 +7,8 @@ public class Main {
 		Teclado.inicializar();
 		System.out.println("Bienvenidos al TaTeTi 3D!");
 
-		// TODO: si el usuario ingresa una palabra cuando pedimos numeros se rompe
 		int ancho = Teclado.preguntarCoordenadaTablero("\nIngrese el ancho del tablero: ");
-
 		int alto = Teclado.preguntarCoordenadaTablero("\nIngrese el alto del tablero: ");
-
 		int profundidad = Teclado.preguntarCoordenadaTablero("\nIngrese la profundidad del tablero: ");
 
 		// TODO: habria que preguntarle al usuario estas cantidades o hardcodearlo?
@@ -25,10 +22,7 @@ public class Main {
 		
 		for (int i = 1; i <= cantidadDeJugadores; i++) {
 			System.out.println("\nJugador #" + i + ":");
-			System.out.print("\nIngrese su nombre: ");
-			// TODO: validar que sea un nombre valido
-			String nombre = Teclado.leerCadenaNoVacia();
-			// TODO: validar que no exista un jugador con ese color ya
+			String nombre = Teclado.preguntarNombreDeJugador("\nIngrese su nombre: ");
 			int numeroDeColor = Teclado.preguntarColor(jugadores);
 
 			Jugador jugador = new Jugador(nombre, numeroDeColor, cantidadDeFichasMaximasPermitidas);
