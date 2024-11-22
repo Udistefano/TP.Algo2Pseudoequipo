@@ -75,7 +75,7 @@ public class Teclado {
                 carta = null;
                 cartaValida = true;
         	} catch (Exception e) {
-        		System.out.println("Error: " + e.getMessage());
+        		System.out.println("\nError: " + e.getMessage());
         	}
     	}
         return carta;
@@ -102,7 +102,7 @@ public class Teclado {
                 ValidacionesUtiles.validarCasilleroAJugar(casillero, tablero, jugador);
                 coordenadasValidas = true;
     		} catch (Exception e) {
-    			System.out.println("Error: " + e.getMessage());
+    			System.out.println("\nError: " + e.getMessage());
     		}    	
     	}
     	return casillero;
@@ -125,11 +125,11 @@ public class Teclado {
     	while(!numeroValido) {
     		try {
     			System.out.print("\nElija un color (escriba el numero): ");
-        		color = leerNumeroNatural();
+        		color = leerNumero();
         		ValidacionesUtiles.validarSiEsUnico(color, jugadores);
         		numeroValido = true;
     		} catch (Exception e) {
-                System.out.println("\nOcurrio un error al preguntar el color: " + e.getMessage() + "\n");
+                System.out.println("\nError: " + e.getMessage());
             }
     	}
     	return color;
@@ -140,24 +140,24 @@ public class Teclado {
      * @return un movimiento valido ingresado por el usuario
      * @throws Exception si hay un error interno leyendo la cadena ingresada por el usuario
      */
-    public static Movimiento preguntarMovimiento(Casillero casillero) throws Exception {
-    	System.out.println("Ingrese un movimiento: ");
+    public static Movimiento preguntarMovimiento(Casillero<Ficha> casillero) throws Exception {
     	boolean movimientoValido = false;
     	Movimiento movimiento = null;
     	int numeroMovimiento = 0;
     	while(!movimientoValido) {
     		try {
-    			System.out.println("Movimientos disponibles:");
+    			System.out.println("\nMovimientos disponibles:");
     	        for (int i = 0; i < Movimiento.values().length; i++) {
     	        	System.out.println((i + 1) + " - " + Movimiento.values()[i]);
     	        }
+
     	        System.out.print("\nElija un movimiento (escriba el numero): ");
     	        numeroMovimiento = leerNumeroNatural();
     	        movimiento = Movimiento.getMovimientoFicha(numeroMovimiento);
     	        ValidacionesUtiles.validarMovimiento(casillero, movimiento);
     	        movimientoValido = true;
-    	        } catch (Exception e) {
-    	        	System.out.println("Error: " + e.getMessage());
+            } catch (Exception e) {
+                System.out.println("\nError: " + e.getMessage());
     		}
     	}
         return movimiento;
@@ -188,12 +188,11 @@ public class Teclado {
     	while(!numeroValido) {
     		try {
     			System.out.print(mensaje);
-        		coordenada = Teclado.leerNumeroNatural();
+        		coordenada = Teclado.leerNumero();
         		ValidacionesUtiles.validarTamañoTablero(coordenada);
         		numeroValido = true;
-        		
     		} catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("\nError: " + e.getMessage());
             }
     	}
     	return coordenada;
@@ -211,12 +210,12 @@ public class Teclado {
     	boolean numeroValido = false;
     	while(!numeroValido) {
     		try {
-    			System.out.print("\nCuantos jugadores seran en este juego?: ");
-    			cantidadJugadores = Teclado.leerNumeroNatural();
+    			System.out.print(mensaje);
+    			cantidadJugadores = Teclado.leerNumero();
     			ValidacionesUtiles.validarCantidadDeJugadores(cantidadJugadores);
     			numeroValido = true;
     		} catch (Exception e) {
-    			System.out.println("Error: " + e.getMessage());
+    			System.out.println("\nError: " + e.getMessage());
     		}
     	}
     	return cantidadJugadores;
@@ -239,17 +238,16 @@ public class Teclado {
     /**
      * pre: --
      * @return lee un numero ingresado por el usuario
+     * @throws Exception si hubo un error leyendo el input del usuario
      */
-    public static int leerNumero() {
-        Integer numero = null;
-
-        do {
-            try {
-                numero = teclado.nextInt();
-            } catch (Exception e) {}
-        } while (numero == null);
-
-        return numero;
+    public static Integer leerNumero() throws Exception {
+        if (teclado.hasNextInt()) {
+            Integer numero = teclado.nextInt();
+            teclado.nextLine();
+            return numero;
+        }
+        teclado.nextLine();
+        throw new Exception("Ingreso un numero invalido");
     }
 
     /**
@@ -276,7 +274,7 @@ public class Teclado {
         if (teclado.hasNextLine()) {
             return teclado.nextLine();
         }
-        throw new Exception("Error leyendo el input por teclado del usuario");
+        throw new Exception("Leyendo el input del jugador");
     }
 
     /**

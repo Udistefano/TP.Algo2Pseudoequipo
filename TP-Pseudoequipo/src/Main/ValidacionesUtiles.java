@@ -64,7 +64,7 @@ public class ValidacionesUtiles {
     public static void validarSiFichaEstaBloqueada(Ficha ficha) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
         if (ficha.estaBloqueada()) {
-        	throw new Exception("\nNo se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
+        	throw new Exception("No se puede realizar la jugada, la ficha " + ficha + " esta bloqueada");
         }
     }
 
@@ -124,7 +124,7 @@ public class ValidacionesUtiles {
     		throw new Exception("Hay un maximo de 7 jugadores");
     	}
     	if(cantidadJugadores <= 0) {
-    		throw new Exception("El tamaño debe ser mayor a 0");
+    		throw new Exception("Tiene que haber minimo un jugador");
     	}
     }
     
@@ -139,10 +139,10 @@ public class ValidacionesUtiles {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
     	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
-    		throw new Exception("\nEl casillero no se encuentra en el tablero");
+    		throw new Exception("El casillero no se encuentra en el tablero");
     	}
     	if (casillero.estaOcupado()) {
-            throw new Exception("\nEl casillero esta ocupado");
+            throw new Exception("El casillero esta ocupado");
         }
     }
     
@@ -159,14 +159,14 @@ public class ValidacionesUtiles {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugadorActual, "Jugador");
     	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
-    		throw new Exception("\nEl casillero no se encuentra en el tablero");
+    		throw new Exception("El casillero no se encuentra en el tablero");
     	}
     	if(casillero.getDato() == null) {
-    		throw new Exception("\nNo hay fichas en este casillero");
+    		throw new Exception("No hay fichas en este casillero");
     	}
     	Ficha ficha = casillero.getDato();
     	if(ficha.getColor() != jugadorActual.getColor()) {
-    		throw new Exception("\nLa ficha de este casillero no pertenece al jugador actual");
+    		throw new Exception("La ficha de este casillero no pertenece al jugador actual");
     	}
     	
     }
@@ -179,10 +179,10 @@ public class ValidacionesUtiles {
      */
     public static void validarMovimiento(Casillero<Ficha> casillero, Movimiento movimiento) throws Exception {
     	if (!casillero.existeElVecino(movimiento)) {
-            throw new Exception("\nNo existe el movimiento " + movimiento);
+            throw new Exception("No existe el movimiento " + movimiento);
         }
         if (casillero.getCasilleroVecino(movimiento).estaOcupado()) {
-            throw new Exception("\nEl casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
+            throw new Exception("El casillero en direccion " + movimiento + " al que se quiere mover esta ocupado");
         }
     }
     
@@ -196,7 +196,7 @@ public class ValidacionesUtiles {
         ValidacionesUtiles.validarSiEsNulo(mano, "Mano");
     	if((posicionCarta < 0) ||
             (posicionCarta > mano.getLongitud())) {
-    		throw new Exception("\nElija una carta entre el 0 y " + mano.getLongitud());
+    		throw new Exception("Elija una carta entre el 0 y " + mano.getLongitud());
     	}
     }
 }
