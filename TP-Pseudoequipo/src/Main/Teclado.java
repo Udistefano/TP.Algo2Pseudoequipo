@@ -48,10 +48,13 @@ public class Teclado {
     }
 
     /**
-     * pre: --
-     * post: 
+     * pre:
+     * @param mano no puede ser nulo
+     * post: le pregunta la carta al jugador de la mano, y la retorna
+     * @throws Exception si la mano es nula
      */
     public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(mano, "Mano");
     	Carta carta = null;
     	boolean cartaValida = false;
     	while(!cartaValida) {
@@ -78,8 +81,17 @@ public class Teclado {
         return carta;
     }
     
-    public static Casillero<Ficha> preguntarCasilleroAJugar(Tablero tablero, Jugador jugador) {
-    	Casillero casillero = null;
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @param jugador no puede ser nulo
+     * post: le pregunta al jugador el casillero a jugador, lo obtiene y lo retorna
+     * @throws Exception si alguno de los parametros es nulo
+     */
+    public static Casillero<Ficha> preguntarCasilleroAJugar(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+    	Casillero<Ficha> casillero = null;
     	boolean coordenadasValidas = false;
     	while(!coordenadasValidas) {
     		try {
@@ -97,10 +109,13 @@ public class Teclado {
        
     }
     /**
-     * pre: --
+     * pre:
+     * @param jugadores no puede ser nulo
      * @return el numero del color que el jugador elija
+     * @throws Exception si jugadores es nulo
      */
-    public static int preguntarColor(Lista<Jugador> jugadores) {
+    public static int preguntarColor(Lista<Jugador> jugadores) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(jugadores, "Lista de jugadores");
         System.out.println("\nColores disponibles:");
         for (int i = 0; i < Color.values().length; i++) {
             System.out.println((i + 1) + " - " + Color.values()[i]);
@@ -113,9 +128,8 @@ public class Teclado {
         		color = leerNumeroNatural();
         		ValidacionesUtiles.validarSiEsUnico(color, jugadores);
         		numeroValido = true;
-        		
     		} catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                System.out.println("\nOcurrio un error al preguntar el color: " + e.getMessage() + "\n");
             }
     	}
     	return color;
@@ -158,16 +172,17 @@ public class Teclado {
     public static int preguntarCoordenada(char nombreDeCoordenada) throws Exception {
         // TODO: Validacion.validarLetra(coordenada)
         System.out.print("Ingrese la coordenada " + nombreDeCoordenada + ": ");
-        return leerNumeroNatural();
+        return leerNumero();
     }
 
     /**
      * pre: debe colocarse en una tipo int en el main
-     * @param mensaje
-     * @return
+     * @param mensaje no puede ser vacio ni nulo
      * post: pregunta la coordenada del tablero a los jugadores y valida mediante un try catch
+     * @throws Exception si mensaje es vacio o nulo
      */
-    public static int preguntarCoordenadaTablero(String mensaje) {
+    public static int preguntarCoordenadaTablero(String mensaje) throws Exception {
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(mensaje, "Pregunta de coordenada");
     	int coordenada = 0;
     	boolean numeroValido = false;
     	while(!numeroValido) {
@@ -186,11 +201,12 @@ public class Teclado {
     
     /**
      * pre: debe colocarse en una tipo int en el main
-     * @param mensaje
-     * @return
+     * @param mensaje no puede ser nulo ni vacio
      * post: pregunta la cantidad de jugadores a jugar
+     * @throws Exception si mensaje es vacio o nulo
      */
-    public static int preguntarCantidadJugadores(String mensaje) {
+    public static int preguntarCantidadJugadores(String mensaje) throws Exception {
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(mensaje, "Pregunta de coordenada");
     	int cantidadJugadores = 0;
     	boolean numeroValido = false;
     	while(!numeroValido) {

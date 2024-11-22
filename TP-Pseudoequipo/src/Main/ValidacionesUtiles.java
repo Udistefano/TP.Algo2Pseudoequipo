@@ -79,13 +79,14 @@ public class ValidacionesUtiles {
     }
     
     /**
-     * pre: --
-     * @param color
-     * @param jugadores
-     * @throws Exception si el color ya estaba elegido por otro jugador
+     * pre:
+     * @param color debe estar entre 1 y 7
+     * @param jugadores no puede ser nulo
+     * @throws Exception si el color ya estaba elegido por otro jugador, o si color o jugadores son invalidos
      */
     public static void validarSiEsUnico(int color, Lista<Jugador> jugadores) throws Exception {
     	Color colorObtenido = Color.getColorJugador(color);
+        ValidacionesUtiles.validarSiEsNulo(jugadores, "Jugadores");
         if (!jugadores.estaVacia()) {
     		jugadores.iniciarCursor();
     		while(jugadores.avanzarCursor()) {
@@ -98,12 +99,13 @@ public class ValidacionesUtiles {
     }
     
     /**
-     * pre: --
-     * @param tamaño
+     * pre:
+     * @param tamaño no puede ser menor a 1, ni mayor al tamaño maximo permitido del tablero
      * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5 o menor a 0
      */
     public static void validarTamañoTablero(int tamaño) throws Exception {
-    	if(tamaño > 5) {
+    	// FIXME: reparar hardcodeo del tamaño maximo del tablero, agregar constante a Tablero quiza?
+        if(tamaño > 5) {
     		throw new Exception("El tamaño maximo del tablero debe ser de 5 x 5 x 5");
     	}
     	if(tamaño <= 0) {
@@ -112,12 +114,13 @@ public class ValidacionesUtiles {
     }
     
     /**
-     * pre: --
-     * @param cantidadJugadores
-     * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5 o menor a 0
+     * pre:
+     * @param cantidadJugadores no puede ser menor a 1, ni mayor al maximo permitido de jugadores
+     * @throws Exception si la cantidad de jugadores es menor a 1, o mayor al maximo de jugadores
      */
     public static void validarCantidadDeJugadores(int cantidadJugadores) throws Exception {
-    	if(cantidadJugadores > 7) {
+    	// FIXME: reparar hardcodeo del maximo de jugadores, agregar constante a Partida quiza?
+        if(cantidadJugadores > 7) {
     		throw new Exception("Hay un maximo de 7 jugadores");
     	}
     	if(cantidadJugadores <= 0) {
@@ -126,14 +129,17 @@ public class ValidacionesUtiles {
     }
     
     /** NO BORRAR
-     * pre: --
-     * @param casillero
-     * @param tablero
-     * @throws Exception si el casillero no se encientra en el tablero o esta ocupado
+     * pre:
+     * @param casillero no puede ser nulo
+     * @param tablero no puede ser nulo
+     * @throws Exception si el casillero no se encientra en el tablero o esta ocupado, o si alguno
+     *                   de los parametros es nulo
      */
-    public static void validarCasillero(Casillero casillero, Tablero tablero) throws Exception {
+    public static void validarCasillero(Casillero<Ficha> casillero, Tablero<Ficha> tablero) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
     	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
-    		throw new Exception("El casillero no se encuentra en el tablero");
+    		throw new Exception("\nEl casillero no se encuentra en el tablero");
     	}
     	if (casillero.estaOcupado()) {
             throw new Exception("\nEl casillero esta ocupado");
@@ -141,33 +147,37 @@ public class ValidacionesUtiles {
     }
     
     /** NO BORRAR este valida cuando se pretende mover o selecionar casillero con ficha
-     * pre: --
-     * @param casillero
-     * @param tablero
-     * @param jugadorActual
-     * @throws Exception si el casillero no se  encuentra en el tablero, si la ficha pertenece a otro jugador o si no hay fichas en el casillero
+     * pre:
+     * @param casillero no puede ser nulo
+     * @param tablero no puede ser nulo
+     * @param jugadorActual no puede ser nulo
+     * @throws Exception si el casillero no se  encuentra en el tablero, si la ficha pertenece a otro jugador o si no
+     *                   hay fichas en el casillero, o si alguno de los parametros es nulo
      */
-    public static void validarCasilleroAJugar(Casillero<Ficha> casillero, Tablero tablero,  Jugador jugadorActual) throws Exception {
+    public static void validarCasilleroAJugar(Casillero<Ficha> casillero, Tablero<Ficha> tablero,  Jugador jugadorActual) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugadorActual, "Jugador");
     	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
-    		throw new Exception("El casillero no se encuentra en el tablero");
+    		throw new Exception("\nEl casillero no se encuentra en el tablero");
     	}
     	if(casillero.getDato() == null) {
-    		throw new Exception("No hay fichas en este casillero");
+    		throw new Exception("\nNo hay fichas en este casillero");
     	}
     	Ficha ficha = casillero.getDato();
     	if(ficha.getColor() != jugadorActual.getColor()) {
-    		throw new Exception("La ficha de este casillero no pertenece al jugador actual");
+    		throw new Exception("\nLa ficha de este casillero no pertenece al jugador actual");
     	}
     	
     }
     
     /**
      * pre: --
-     * @param casillero
-     * @param movimiento
+     * @param casillero no puede ser nulo
+     * @param movimiento no puede ser nulo
      * @throws Exception si el movimiento no esta permitido
      */
-    public static void validarMovimiento(Casillero casillero, Movimiento movimiento) throws Exception {
+    public static void validarMovimiento(Casillero<Ficha> casillero, Movimiento movimiento) throws Exception {
     	if (!casillero.existeElVecino(movimiento)) {
             throw new Exception("\nNo existe el movimiento " + movimiento);
         }
@@ -176,9 +186,17 @@ public class ValidacionesUtiles {
         }
     }
     
+    /**
+     * pre:
+     * @param posicionCarta no puede ser menor a 0, ni mayor a la longitud de la mano
+     * @param mano no puede ser nulo
+     * @throws Exception si mano es nulo, o si la posicion de la carta es invalida
+     */
     public static void validarCarta(int posicionCarta, Lista<Carta> mano) throws Exception {
-    	if(posicionCarta <0 || posicionCarta > mano.getLongitud()) {
-    		throw new Exception("Elija una carta entre el 0 y " + mano.getLongitud());
+        ValidacionesUtiles.validarSiEsNulo(mano, "Mano");
+    	if((posicionCarta < 0) ||
+            (posicionCarta > mano.getLongitud())) {
+    		throw new Exception("\nElija una carta entre el 0 y " + mano.getLongitud());
     	}
     }
 }

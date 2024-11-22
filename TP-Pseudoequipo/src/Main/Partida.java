@@ -97,7 +97,7 @@ public class Partida {
                 Jugador jugador = turno.getJugador();
                 
 
-                UtilesVarios.mostrarTextoAlrededorDeLineas("Turno del jugador");
+                UtilesVarios.mostrarTextoAlrededorDeLineas("Turno del jugador" + jugador);
                 
                 dado.tirarDado();
                 System.out.println("\n" + jugador + " tira el dado! Dio el numero " + dado.getValor());
@@ -139,9 +139,12 @@ public class Partida {
         }
 
         Ficha ficha = new Ficha(jugador.getColor());
+        
         System.out.println("\n" + jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
         System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:\n");
+        
         Casillero<Ficha> casillero = preguntarCasillero();
+        
         casillero.setDato(ficha);
         jugador.jugarFicha();
 
@@ -164,14 +167,20 @@ public class Partida {
         System.out.println("\n" + jugador + " no le quedan mas fichas para jugar");
         System.out.println("Tendra que mover una ficha del tablero.");
         System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
+
         Casillero<Ficha> casillero = Teclado.preguntarCasilleroAJugar(tablero, jugador);
         Ficha fichaAMover = casillero.getDato();
+
         ValidacionesUtiles.validarSiEsNulo(casillero.getDato(), "Ficha");
         ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaAMover);
+
         Movimiento movimiento = Teclado.preguntarMovimiento(casillero); 
+
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), fichaAMover);
+
         Bitmap.escribirFichaAlBitmap(casillero.getCasilleroVecino(movimiento), jugador.getColor());
         Bitmap.quitarFichaAlBitmap(casillero);
+
         return casillero.getCasilleroVecino(movimiento);
     }
 
@@ -191,8 +200,7 @@ public class Partida {
      * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y lo devuelve
      */
     public Casillero<Ficha> preguntarCasillero() throws Exception {
-        // TODO: 
-    	Casillero casillero = null;
+    	Casillero<Ficha> casillero = null;
     	boolean coordenadasValidas = false;
     	while(!coordenadasValidas) {
     		try {
@@ -200,10 +208,11 @@ public class Partida {
                 int y = Teclado.preguntarCoordenada('Y');
                 int z = Teclado.preguntarCoordenada('Z');
                 casillero = tablero.getCasillero(x, y, z);
+
                 ValidacionesUtiles.validarCasillero(casillero, this.tablero);
                 coordenadasValidas = true;
     		} catch (Exception e) {
-    			System.out.println("Error: " + e.getMessage());
+    			System.out.println("\nOcurrio un error preguntando el casillero: " + e.getMessage() + "\n");
     		}    	
     	}
     	return casillero;

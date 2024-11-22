@@ -66,25 +66,25 @@ public class Mazo {
     public Carta generarCartaAleatoria() throws Exception {
     	Carta cartaActual = null;
     	switch(TipoDeCarta.generarTipoDeCartaAleatorio()) {
-			case TipoDeCarta.CAMBIAR_COLOR_FICHA:
+			case CAMBIAR_COLOR_FICHA:
     			cartaActual = new CartaCambiarColorFicha();
     			break;
-			case TipoDeCarta.ANULAR_CASILLERO:
+			case ANULAR_CASILLERO:
     			cartaActual = new CartaAnularCasillero();
     			break;
-			case TipoDeCarta.BLOQUEAR_FICHA:
+			case BLOQUEAR_FICHA:
     			cartaActual = new CartaBloquearFicha();
     			break;
-			case TipoDeCarta.DOBLE_TURNO:
+			case DOBLE_TURNO:
     			cartaActual = new CartaDobleTurno();
     			break;
-			case TipoDeCarta.ELIMINAR_CARTAS_DEL_JUGADOR:
+			case ELIMINAR_CARTAS_DEL_JUGADOR:
     			cartaActual = new CartaEliminarCartasDelJugador();
     			break;
-			case TipoDeCarta.PERDER_TURNO:
+			case PERDER_TURNO:
     			cartaActual = new CartaPerderTurno();
     			break;
-			case TipoDeCarta.VOLVER_JUGADA_ANTERIOR:
+			case VOLVER_JUGADA_ANTERIOR:
     			cartaActual = new CartaVolverJugadaAnterior(); 		
     			break;
 			default:
