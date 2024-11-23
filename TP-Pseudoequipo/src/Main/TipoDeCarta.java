@@ -14,8 +14,6 @@ public enum TipoDeCarta {
 	private static Random random = new Random();
 	private static int CANTIDAD_DE_CARTAS = 7;
 
-	// TODO: quiza mover la logica de generarNumeroAleatorio a UtilidadesVarias, y asi reutilizarlo en Dado
-
 	/**
 	 * pre: --
 	 * @return un numero aleatorio entre 1 y CANTIDAD_DE_CARTAS

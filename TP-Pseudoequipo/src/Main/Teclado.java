@@ -5,12 +5,9 @@ import Estructuras.ListaSimple;
 
 import java.util.Scanner;
 
-// TODO: quiza dividir clase Teclado, en clases Teclado y Menu???????
 public class Teclado {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
-    // TODO: habria que preguntarle al profe si esta bien que usemos un teclado estatico, o pasarlo a partida como
-    //     : atributo
     private static Scanner teclado = null;
 
     //ATRIBUTOS -----------------------------------------------------------------------------------------------

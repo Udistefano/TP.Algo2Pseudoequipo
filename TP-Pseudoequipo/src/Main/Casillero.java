@@ -243,7 +243,6 @@ public class Casillero<T> {
     }
 
 
-    // TODO: crear enum Plano, que pueda ser ADELANTE, ATRAS, CENTRO, asi no escribimos tanto codigo repetido
     /**
      * pre:
      * @param direccion un direccion en 3D, no puede ser nulo

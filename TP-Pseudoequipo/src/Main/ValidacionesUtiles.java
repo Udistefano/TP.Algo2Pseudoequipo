@@ -79,9 +79,9 @@ public class ValidacionesUtiles {
      * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5 o menor a 0
      */
     public static void validarTamañoDelTablero(int tamaño) throws Exception {
-    	// FIXME: reparar hardcodeo del tamaño maximo del tablero, agregar constante a Tablero quiza?
-        if(tamaño > 5) {
-    		throw new Exception("El tamaño maximo del tablero debe ser de 5 x 5 x 5");
+        if(tamaño > Tablero.getTamañoMaximoDeCoordenada()) {
+    		throw new Exception("El tamaño " + tamaño + " del tablero no puede superar al tamaño maximo permitido " +
+                                Tablero.getTamañoMaximoDeCoordenada());
     	}
     	if(tamaño <= 0) {
     		throw new Exception("El tamaño debe ser mayor a 0");
@@ -94,9 +94,8 @@ public class ValidacionesUtiles {
      * @throws Exception si la cantidad de jugadores es menor a 1, o mayor al maximo de jugadores
      */
     public static void validarCantidadDeJugadores(int cantidadJugadores) throws Exception {
-    	// FIXME: reparar hardcodeo del maximo de jugadores, agregar constante a Partida quiza?
-        if(cantidadJugadores > 7) {
-    		throw new Exception("Hay un maximo de 7 jugadores");
+        if(cantidadJugadores > Partida.getCantidadMaximaDeJugadores()) {
+    		throw new Exception("Hay un maximo de " + Partida.getCantidadMaximaDeJugadores() + " jugadores");
     	}
     	if(cantidadJugadores <= 0) {
     		throw new Exception("Tiene que haber minimo un jugador");

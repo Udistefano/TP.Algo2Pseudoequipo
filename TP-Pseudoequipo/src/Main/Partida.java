@@ -6,7 +6,11 @@ import Estructuras.ListaSimpleCircular;
 
 public class Partida {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
+
+    private static int CANTIDAD_MAXIMA_DE_JUGADORES = 7;
+
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
+    
     private Tablero<Ficha> tablero = null;
     private ListaSimple<Jugador> jugadores = null;
     private Mazo mazo = null;
@@ -299,8 +303,6 @@ public class Partida {
         ValidacionesUtiles.validarSiEsNulo(direccion, "Direccion");
         ValidacionesUtiles.validarSiEsNulo(direccionContraria, "Direccion");
 
-        // FIXME: esto no anda, porque siempre es 2 como minimo, porque sumamos adentro de contarFichasSEguidasd
-        //        es un poco hardcode pero si le restamos 1 anda
         return this.contarFichasSeguidas(casillero, direccion, casillero.getDato()) +
                 this.contarFichasSeguidas(casillero, direccionContraria, casillero.getDato()) - 1;
     }
@@ -367,7 +369,15 @@ public class Partida {
      * @return el mazo de la partida
      */
     public Mazo getMazo() {
-        return mazo;
+        return this.mazo;
+    }
+
+    /**
+     * pre: --
+     * @return la cantidad maxima permitida de jugadores que puede tener una partida
+     */
+    public static int getCantidadMaximaDeJugadores() {
+        return CANTIDAD_MAXIMA_DE_JUGADORES;
     }
     
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------

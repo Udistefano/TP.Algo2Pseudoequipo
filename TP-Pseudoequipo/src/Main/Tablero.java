@@ -10,6 +10,9 @@ import Estructuras.ListaSimple;
 
 public class Tablero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
+
+    private static int TAMAÑO_MAXIMO_DE_COORDENADA = 5;
+
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
     private ListaSimple<ListaSimple<ListaSimple<Casillero<T>>>> tablero = null;
@@ -246,6 +249,14 @@ public class Tablero<T> {
      */
     public int getProfundidad() {
         return profundidad;
+    }
+
+    /**
+     * pre: --
+     * @return el tamaño maximo permitido que puede tener una coordenada
+     */
+    public static int getTamañoMaximoDeCoordenada() {
+        return TAMAÑO_MAXIMO_DE_COORDENADA;
     }
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------
