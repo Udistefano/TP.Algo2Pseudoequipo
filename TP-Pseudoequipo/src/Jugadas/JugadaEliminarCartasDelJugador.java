@@ -40,6 +40,9 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();
 			if (nombre.equals(jugadorActual.getNombre())) {
+				// TODO: implementar mazo, como cola, porque sino no tiene sentido que el jugador vacie su mano, la
+				//       devuelva al mazo, y luego cuando tire dados la vuelva a sacar???, ademas el enunciado pide cola
+				partida.getMazo().agregarManoDelJugador(jugadorActual);
 				jugadorActual.vaciarMano();
 				System.out.println("\nSe eliminaron las cartas del jugador " + jugadorActual);
 				return;

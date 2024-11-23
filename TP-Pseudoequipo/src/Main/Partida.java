@@ -131,16 +131,25 @@ public class Partida {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
         if (jugador.tieneTodasLasFichasEnElTablero()) { // Validacion quiza redundante, pero por si acaso
-            throw new Exception("\nAl jugador no le quedan mas fichas para jugar");
+            throw new Exception("Al jugador no le quedan mas fichas para jugar");
         }
 
-        Ficha ficha = new Ficha(jugador.getColor());
-        
         System.out.println(jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
-        System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:");
         
-        Casillero<Ficha> casillero = preguntarCasillero();
-        
+        Ficha ficha = new Ficha(jugador.getColor());
+        Casillero<Ficha> casillero = null;
+        boolean esCasilleroInvalido = true;
+        do {
+            try {
+                System.out.println("\nIngrese las coordenadas del casillero donde jugar una ficha:");
+                casillero = Teclado.preguntarCasillero(tablero);
+                ValidacionesUtiles.validarSiCasilleroEstaLibre(casillero, tablero);        
+                esCasilleroInvalido = false;
+            } catch (Exception e) {
+				System.out.println("\nError: " + e.getMessage());
+            }
+        } while (esCasilleroInvalido);
+
         casillero.setDato(ficha);
         jugador.jugarFicha();
 
@@ -161,59 +170,33 @@ public class Partida {
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
         System.out.println("\n" + jugador + " no le quedan mas fichas para jugar");
-        System.out.println("Tendra que mover una ficha del tablero.");
-        System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
+        System.out.println("Tendra que mover una ficha del tablero");
 
-        Casillero<Ficha> casillero = Teclado.preguntarCasilleroAJugar(tablero, jugador);
-        Ficha fichaAMover = casillero.getDato();
+        Casillero<Ficha> casillero = null;
+        Movimiento movimiento = null;
+        boolean esCasilleroInvalido = true;
+        do {
+            try {
+                System.out.println("\nIngrese las coordenadas del casillero del cual mover su ficha");
+                
+                casillero = Teclado.preguntarCasillero(tablero);
+                ValidacionesUtiles.validarSiCasilleroEstaOcupado(casillero, tablero);
+                ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
+                ValidacionesUtiles.validarFichaEsPropia(casillero.getDato(), jugador);
+                
+                movimiento = Teclado.preguntarMovimiento(casillero); 
+                esCasilleroInvalido = false;
+            } catch (Exception e) {
+				System.out.println("\nError: " + e.getMessage());
+            }
+        } while (esCasilleroInvalido);
 
-        ValidacionesUtiles.validarSiEsNulo(casillero.getDato(), "Ficha");
-        ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaAMover);
-
-        Movimiento movimiento = Teclado.preguntarMovimiento(casillero); 
-
-        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), fichaAMover);
+        tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), casillero.getDato());
 
         Bitmap.escribirFichaAlBitmap(casillero.getCasilleroVecino(movimiento), jugador.getColor());
         Bitmap.quitarFichaAlBitmap(casillero);
 
         return casillero.getCasilleroVecino(movimiento);
-    }
-
-    /**
-     * pre: --
-     * @throws Exception si no existe el casillero con las coordenadas ingresadas por el jugador
-     * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y devuelve
-     *       la ficha en ese casillero
-     */
-    public Ficha preguntarFicha() throws Exception {
-        return preguntarCasillero().getDato();
-    }
-
-    /**
-     * pre: --
-     * @throws Exception si no existe el casillero con las coordenadas ingresadas por el jugador
-     * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y lo devuelve
-     */
-    public Casillero<Ficha> preguntarCasillero() throws Exception {
-    	Casillero<Ficha> casillero = null;
-    	boolean coordenadasValidas = false;
-    	while(!coordenadasValidas) {
-    		try {
-                System.out.println("");
-    			int x = Teclado.preguntarCoordenada('X');
-                int y = Teclado.preguntarCoordenada('Y');
-                int z = Teclado.preguntarCoordenada('Z');
-                casillero = tablero.getCasillero(x, y, z);
-
-                ValidacionesUtiles.validarCasillero(casillero, this.tablero);
-                coordenadasValidas = true;
-    		} catch (Exception e) {
-    			System.out.println("\nOcurrio un error preguntando el casillero: " + e.getMessage() + "\n");
-    		}    	
-    	}
-    	return casillero;
-       
     }
 
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {

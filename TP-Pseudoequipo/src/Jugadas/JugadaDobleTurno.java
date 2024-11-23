@@ -1,7 +1,6 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Main.Jugador;
 import Main.Partida;
 import Main.Turno;
 import Main.ValidacionesUtiles;
@@ -37,8 +36,7 @@ public class JugadaDobleTurno extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-        Jugador jugador = turnoActual.getJugador();
-        jugador.sumarFicha();
+        turnoActual.getJugador().sumarFicha();
         turnoActual.agregarSubturno();
     }
 

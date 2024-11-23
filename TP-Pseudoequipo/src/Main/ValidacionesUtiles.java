@@ -30,31 +30,6 @@ public class ValidacionesUtiles {
             throw new Exception("La cadena " + nombre + " no puede ser vacia");
         }
     }
-
-    /**
-     * pre:
-     * @param caracter no debe estar vacio
-     * post: valida que el caracter no este vacio
-     */
-    public static void validarSiEsCaracterVacio(char caracter) throws Exception {
-        if (caracter == ' ') {
-            throw new Exception("El caracter no puede ser vacio");
-        }
-    }
-
-    /**
-     * pre:
-     * @param caracter debe ser una letra del abecedario
-     * post: valida que el caracter sea una letra del abecedario
-     */
-    public static void validarSiEsUnaLetra(char caracter) throws Exception {
-        int valorDecimal = Character.toLowerCase(caracter);
-        // 97 = a, 122 = z, 164 = ñ
-        if ((valorDecimal < 97) ||
-                (valorDecimal > 122 && valorDecimal != 164)) {
-            throw new Exception("El caracter no es un letra");
-        }
-    }
     
     /**
      * pre: debe existir la ficha en casillero
@@ -84,7 +59,7 @@ public class ValidacionesUtiles {
      * @param jugadores no puede ser nulo
      * @throws Exception si el color ya estaba elegido por otro jugador, o si color o jugadores son invalidos
      */
-    public static void validarSiEsUnico(int color, Lista<Jugador> jugadores) throws Exception {
+    public static void validarSiColorEsUnico(int color, Lista<Jugador> jugadores) throws Exception {
     	Color colorObtenido = Color.getColorJugador(color);
         ValidacionesUtiles.validarSiEsNulo(jugadores, "Jugadores");
         if (!jugadores.estaVacia()) {
@@ -103,7 +78,7 @@ public class ValidacionesUtiles {
      * @param tamaño no puede ser menor a 1, ni mayor al tamaño maximo permitido del tablero
      * @throws Exception si el parametro que le pasa del tamaño del tablero es mayor a 5 o menor a 0
      */
-    public static void validarTamañoTablero(int tamaño) throws Exception {
+    public static void validarTamañoDelTablero(int tamaño) throws Exception {
     	// FIXME: reparar hardcodeo del tamaño maximo del tablero, agregar constante a Tablero quiza?
         if(tamaño > 5) {
     		throw new Exception("El tamaño maximo del tablero debe ser de 5 x 5 x 5");
@@ -128,21 +103,45 @@ public class ValidacionesUtiles {
     	}
     }
     
-    /** NO BORRAR
+    /**
      * pre:
      * @param casillero no puede ser nulo
      * @param tablero no puede ser nulo
-     * @throws Exception si el casillero no se encientra en el tablero o esta ocupado, o si alguno
-     *                   de los parametros es nulo
+     * @throws Exception si el casillero no se encuentra en el tablero, o si alguno de los parametros es nulo
      */
-    public static void validarCasillero(Casillero<Ficha> casillero, Tablero<Ficha> tablero) throws Exception {
+    public static void validarSiCasilleroExiste(Casillero<Ficha> casillero, Tablero<Ficha> tablero) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
-    	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
-    		throw new Exception("El casillero no se encuentra en el tablero");
-    	}
-    	if (casillero.estaOcupado()) {
+        if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
+            throw new Exception("El casillero no se encuentra en el tablero");
+        }
+    }
+
+    /**
+     * pre:
+     * @param casillero no puede ser nulo
+     * @param tablero no puede ser nulo
+     * @throws Exception si el casillero no se encuentra en el tablero o esta ocupado, o si alguno de los parametros es
+     *                   nulo
+     */
+    public static void validarSiCasilleroEstaLibre(Casillero<Ficha> casillero, Tablero<Ficha> tablero) throws Exception {
+        validarSiCasilleroExiste(casillero, tablero);
+        if (casillero.estaOcupado()) {
             throw new Exception("El casillero esta ocupado");
+        }
+    }
+
+    /**
+     * pre:
+     * @param casillero no puede ser nulo
+     * @param tablero no puede ser nulo
+     * @throws Exception si el casillero no se encuentra en el tablero o esta libre, o si alguno de los parametros es
+     *                   nulo
+     */
+    public static void validarSiCasilleroEstaOcupado(Casillero<Ficha> casillero, Tablero<Ficha> tablero) throws Exception {
+        validarSiCasilleroExiste(casillero, tablero);
+        if (!casillero.estaOcupado()) {
+            throw new Exception("El casillero esta vacio");
         }
     }
     
@@ -154,21 +153,15 @@ public class ValidacionesUtiles {
      * @throws Exception si el casillero no se  encuentra en el tablero, si la ficha pertenece a otro jugador o si no
      *                   hay fichas en el casillero, o si alguno de los parametros es nulo
      */
-    public static void validarCasilleroAJugar(Casillero<Ficha> casillero, Tablero<Ficha> tablero,  Jugador jugadorActual) throws Exception {
+    public static void validarCasilleroAMover(Casillero<Ficha> casillero, Tablero<Ficha> tablero,  Jugador jugadorActual) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugadorActual, "Jugador");
-    	if(!tablero.existeElCasillero(casillero.getX(), casillero.getY(), casillero.getZ())){
-    		throw new Exception("El casillero no se encuentra en el tablero");
-    	}
-    	if(casillero.getDato() == null) {
-    		throw new Exception("No hay fichas en este casillero");
-    	}
+    	validarSiCasilleroEstaOcupado(casillero, tablero);
     	Ficha ficha = casillero.getDato();
-    	if(ficha.getColor() != jugadorActual.getColor()) {
+    	if(!ficha.getColor().equals(jugadorActual.getColor())) {
     		throw new Exception("La ficha de este casillero no pertenece al jugador actual");
     	}
-    	
     }
     
     /**
@@ -198,6 +191,34 @@ public class ValidacionesUtiles {
             (posicionCarta > mano.getLongitud())) {
     		throw new Exception("Elija una carta entre el 0 y " + mano.getLongitud());
     	}
+    }
+
+    /**
+     * pre:
+     * @param ficha no puede ser nulo
+     * @param jugador no puede ser nulo
+     * @throws Exception si la ficha no es del jugador, o si algun parametro es nulo
+     */
+    public static void validarFichaEsPropia(Ficha ficha, Jugador jugador) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+        if (!ficha.getColor().equals(jugador.getColor())) {
+            throw new Exception("El color de la ficha (" + ficha.getColor() + ") es distinto al del jugador (" + jugador.getColor() + ")");
+        }
+    }
+
+    /**
+     * pre:
+     * @param ficha no puede ser nulo
+     * @param jugador no puede ser nulo
+     * @throws Exception si la ficha es del jugador, o si algun parametro es nulo
+     */
+    public static void validarFichaNoEsPropia(Ficha ficha, Jugador jugador) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+        if (ficha.getColor().equals(jugador.getColor())) {
+            throw new Exception("El color de la ficha (" + ficha.getColor() + ") es igual al del jugador (" + jugador.getColor() + ")");
+        }
     }
 }
 	

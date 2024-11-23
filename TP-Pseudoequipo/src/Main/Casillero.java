@@ -125,7 +125,7 @@ public class Casillero<T> {
      * @return verdadero si hay un dato en casillero, falso si el casillero esta vacio
      */
     public boolean estaOcupado() {
-        return dato != null;
+        return this.dato != null;
     }
 
     /**

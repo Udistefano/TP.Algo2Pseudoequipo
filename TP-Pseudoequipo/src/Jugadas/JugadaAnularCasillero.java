@@ -32,7 +32,7 @@ public class JugadaAnularCasillero extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
         System.out.println("Ingrese las coordenadas del casillero el cual anular:");
-        Casillero<Ficha> casillero = partida.preguntarCasillero();
+        Casillero<Ficha> casillero = Teclado.preguntarCasillero(partida.getTablero());
 
         casillero.setDato(null);
         Bitmap.quitarFichaAlBitmap(casillero);

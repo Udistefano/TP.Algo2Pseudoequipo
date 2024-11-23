@@ -81,6 +81,35 @@ public class Teclado {
     	}
         return carta;
     }
+
+    /**
+     * pre: --
+     * @param tablero no puede ser nulo
+     * @throws Exception si no existe el casillero con las coordenadas ingresadas por el jugador, o si tablero es nulo
+     * post: le pregunta al jugador las coordenadas de un casillero, valida que exista ese casillero, y lo devuelve
+     */
+    public static Casillero<Ficha> preguntarCasillero(Tablero<Ficha> tablero) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        Casillero<Ficha> casillero = null;
+        boolean coordenadasValidas = false;
+    
+        while(!coordenadasValidas) {
+            try {
+                System.out.println("");
+                int x = Teclado.preguntarCoordenada('X');
+                int y = Teclado.preguntarCoordenada('Y');
+                int z = Teclado.preguntarCoordenada('Z');
+                casillero = tablero.getCasillero(x, y, z);
+
+                ValidacionesUtiles.validarSiCasilleroExiste(casillero, tablero);
+                coordenadasValidas = true;
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+            }    	
+        }
+    
+        return casillero;
+    }
     
     /**
      * pre:
@@ -93,22 +122,25 @@ public class Teclado {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
     	Casillero<Ficha> casillero = null;
-    	boolean coordenadasValidas = false;
-    	while(!coordenadasValidas) {
-    		try {
-    			int x = Teclado.preguntarCoordenada('X');
-                int y = Teclado.preguntarCoordenada('Y');
-                int z = Teclado.preguntarCoordenada('Z');
-                casillero = tablero.getCasillero(x, y, z);
-                ValidacionesUtiles.validarCasilleroAJugar(casillero, tablero, jugador);
-                coordenadasValidas = true;
-    		} catch (Exception e) {
+        boolean casilleroInvalido = true;
+        
+        do {
+            try {
+                casillero = preguntarCasillero(tablero);
+                ValidacionesUtiles.validarSiCasilleroEstaOcupado(casillero, tablero);
+                Ficha ficha = casillero.getDato();
+                if(!ficha.getColor().equals(jugador.getColor())) {
+                    throw new Exception("La ficha de este casillero no pertenece al jugador actual");
+                }
+                casilleroInvalido = false;
+            } catch (Exception e) {
     			System.out.println("\nError: " + e.getMessage());
-    		}    	
-    	}
+    		} 
+        } while (casilleroInvalido);
+        
     	return casillero;
-       
     }
+
     /**
      * pre:
      * @param jugadores no puede ser nulo
@@ -127,7 +159,7 @@ public class Teclado {
     		try {
     			System.out.print("\nElija un color (escriba el numero): ");
         		color = leerNumero();
-        		ValidacionesUtiles.validarSiEsUnico(color, jugadores);
+        		ValidacionesUtiles.validarSiColorEsUnico(color, jugadores);
         		numeroValido = true;
     		} catch (Exception e) {
                 System.out.println("\nError: " + e.getMessage());
@@ -190,7 +222,7 @@ public class Teclado {
     		try {
     			System.out.print(mensaje);
         		coordenada = Teclado.leerNumero();
-        		ValidacionesUtiles.validarTamañoTablero(coordenada);
+        		ValidacionesUtiles.validarTamañoDelTablero(coordenada);
         		numeroValido = true;
     		} catch (Exception e) {
                 System.out.println("\nError: " + e.getMessage());

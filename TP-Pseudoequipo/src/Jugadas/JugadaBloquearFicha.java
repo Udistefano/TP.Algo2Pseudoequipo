@@ -4,6 +4,7 @@ import Cartas.Carta;
 import Main.Casillero;
 import Main.Ficha;
 import Main.Partida;
+import Main.Teclado;
 import Main.Turno;
 import Main.ValidacionesUtiles;
 
@@ -38,14 +39,21 @@ public class JugadaBloquearFicha extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-        System.out.println("\nIngrese las coordenadas del casillero del cual se bloqueara a la ficha en el:");
-        Casillero<Ficha> casillero = partida.preguntarCasillero();
-        if (!casillero.estaOcupado()) {
-            throw new Exception("\nEl casillero " + casillero + " no tiene ninguna ficha para bloquear");
-        }
-        ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
-
-        casillero.getDato().bloquear();
+        boolean esCasilleroInvalido = true;
+        do {
+            try {
+                System.out.println("\nIngrese las coordenadas del casillero del cual se bloqueara a la ficha en el:");
+                Casillero<Ficha> casillero = Teclado.preguntarCasillero(partida.getTablero());
+                ValidacionesUtiles.validarSiCasilleroEstaOcupado(casillero, partida.getTablero());
+                ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
+        
+                casillero.getDato().bloquear();
+                esCasilleroInvalido = false;
+            } catch (Exception e) {
+                // TODO: quiza mover esto de mostrar el error a UtilidadesVarias ??
+                System.out.println("\nError: " + e.getMessage());
+            }
+        } while (esCasilleroInvalido);
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

@@ -35,26 +35,25 @@ public class JugadaCambiarColorFicha extends Jugada {
 		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
 		ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-		System.out.println("\nIngrese las coordenadas del casillero del cual cambiar el color de la ficha:");
-		Casillero<Ficha> casillero = partida.preguntarCasillero();
-		if (casillero.estaOcupado()) {
-			ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
-		}
-		if(casillero.getDato() == null) {
-			throw new Exception("\nNo se puede cambiar de color porque no hay ninguna ficha");
-		}
-
-		// TODO: en cambiarColor que pasaria si el jugador quiere cambiar el color de una ficha suya?
-		Color colorActual = turnoActual.getJugador().getColor();
-		casillero.getDato().setColor(colorActual); // Seteo el jugador de la ficha al nuevo jugador
-		Bitmap.escribirFichaAlBitmap(casillero, colorActual);
-
-		// TODO: fijarse si hace falta implementar esto de agregarFicha, quitarFicha y obtenerJugadorPorFicha
-		// 		 capaz que no, porque no afecta al final, pero quedaria bien que si un jugador se roba la ficha
-		//       de otro, podamos comprobar que tiene una ficha mas jugada, y el otro una ficha menos
-//		Jugador jugadorOriginal = partida.obtenerJugadorPorFicha(casillero.getDato());
-//		jugadorActual.agregarFicha();
-//		jugadorOriginal.quitarFicha();
+		boolean esCasilleroInvalido = true;
+		do {
+			try {
+				System.out.println("\nIngrese las coordenadas del casillero del cual cambiar el color de la ficha:");
+				Casillero<Ficha> casillero = Teclado.preguntarCasillero(partida.getTablero());
+				Color colorDelJugadorActual = turnoActual.getJugador().getColor();
+				Ficha fichaACambiar = casillero.getDato();
+	
+				ValidacionesUtiles.validarSiCasilleroEstaOcupado(casillero, partida.getTablero());
+				ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaACambiar);
+                ValidacionesUtiles.validarFichaNoEsPropia(casillero.getDato(), turnoActual.getJugador());
+	
+				fichaACambiar.setColor(colorDelJugadorActual);
+				Bitmap.escribirFichaAlBitmap(casillero, colorDelJugadorActual);
+				esCasilleroInvalido = false;
+			} catch (Exception e) {
+				System.out.println("\nError: " + e.getMessage());
+			}
+		} while (esCasilleroInvalido);
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
