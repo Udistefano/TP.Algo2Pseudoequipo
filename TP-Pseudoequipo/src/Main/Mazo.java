@@ -16,7 +16,6 @@ public class Mazo {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 
-	// FIXME: el enunciado del TP, dice que el mazo debe ser una cola de cartas, no una pila de cartas
 	public Cola<Carta> cartas = null;
     private int maximoDeCartasEnMazo = 0;
 

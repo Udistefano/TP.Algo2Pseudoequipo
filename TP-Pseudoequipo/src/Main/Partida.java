@@ -8,6 +8,7 @@ public class Partida {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
     private static int CANTIDAD_MAXIMA_DE_JUGADORES = 7;
+    private static int CANTIDAD_DE_FICHAS_NECESARIAS_PARA_GANAR = 3;
 
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     
@@ -198,94 +199,39 @@ public class Partida {
         return casillero.getCasilleroVecino(movimiento);
     }
 
+    /**
+     * pre:
+     * @param casillero mo puede ser nulo
+     * @return si hubo algun ganador respecto al casillero agregado
+     * @throws Exception si casillero es nulo
+     */
     public boolean verificarGanador(Casillero<Ficha> casillero) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
-        // FIXME: habria que agregar atributo cantidadDeFichasNecesariasParaGanar a Partida, siendo inicialmente
-        //        3??? o permitirle pasarle por parametro, y validar que haya almenos una dimension alto o ancho o
-        //        profundidad que sea de ese tamaño
-        int cantidadDeFichas = 3;
-
-        // TODO: esto seguramente contar las fichas seguidas en todas las direcciones, seguramente se pueda mejorar
-        int cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_ARRIBA,
-                Direccion.ATRAS_ABAJO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
+        
+        int cantidadDeFichas = getCantidadDeFichasNecesariasParaGanar();
+        Direccion[][] paresDeDirecciones = {
+            { Direccion.ATRAS_ARRIBA, Direccion.ATRAS_ABAJO },
+            { Direccion.ATRAS_IZQUIERDA, Direccion.ATRAS_DERECHA },
+            { Direccion.ATRAS_IZQUIERDA_ARRIBA, Direccion.ATRAS_DERECHA_ABAJO },
+            { Direccion.ATRAS_IZQUIERDA_ABAJO, Direccion.ATRAS_DERECHA_ARRIBA },
+            { Direccion.CENTRO_ARRIBA, Direccion.CENTRO_ABAJO },
+            { Direccion.CENTRO_IZQUIERDA, Direccion.CENTRO_DERECHA },
+            { Direccion.CENTRO_IZQUIERDA_ARRIBA, Direccion.CENTRO_DERECHA_ABAJO },
+            { Direccion.CENTRO_IZQUIERDA_ABAJO, Direccion.CENTRO_DERECHA_ARRIBA },
+            { Direccion.ATRAS_CENTRO, Direccion.ADELANTE_CENTRO },
+            { Direccion.ADELANTE_ARRIBA, Direccion.ADELANTE_ABAJO },
+            { Direccion.ADELANTE_IZQUIERDA, Direccion.ADELANTE_DERECHA },
+            { Direccion.ADELANTE_IZQUIERDA_ARRIBA, Direccion.ADELANTE_DERECHA_ABAJO },
+            { Direccion.ADELANTE_IZQUIERDA_ABAJO, Direccion.ADELANTE_DERECHA_ARRIBA }
+        };
+    
+        for (Direccion[] par : paresDeDirecciones) {
+            int cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, par[0], par[1]);
+            if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
+                return true;
+            }
         }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA,
-                Direccion.ATRAS_DERECHA);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ARRIBA,
-                Direccion.ATRAS_DERECHA_ABAJO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_IZQUIERDA_ABAJO,
-                Direccion.ATRAS_DERECHA_ARRIBA);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        // Plano del centro
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_ARRIBA,
-                Direccion.CENTRO_ABAJO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA,
-                Direccion.CENTRO_DERECHA);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ARRIBA,
-                Direccion.CENTRO_DERECHA_ABAJO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ATRAS_CENTRO,
-                Direccion.ADELANTE_CENTRO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.CENTRO_IZQUIERDA_ABAJO,
-                Direccion.CENTRO_DERECHA_ARRIBA);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        // Plano de adelante
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_ARRIBA,
-                Direccion.ADELANTE_ABAJO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA,
-                Direccion.ADELANTE_DERECHA);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ARRIBA,
-                Direccion.ADELANTE_DERECHA_ABAJO);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
-        cantidadDeFichasSeguidas = contarFichasSeguidasEnDireccion(casillero, Direccion.ADELANTE_IZQUIERDA_ABAJO,
-                Direccion.ADELANTE_DERECHA_ARRIBA);
-        if (cantidadDeFichas <= cantidadDeFichasSeguidas) {
-        	return true;
-        }
-
+    
         return false;
     }
 
@@ -378,6 +324,14 @@ public class Partida {
      */
     public static int getCantidadMaximaDeJugadores() {
         return CANTIDAD_MAXIMA_DE_JUGADORES;
+    }
+    
+    /**
+     * pre: --
+     * @return la cantidad necesaria de fichas en raya para ganar una partida
+     */
+    public static int getCantidadDeFichasNecesariasParaGanar() {
+        return CANTIDAD_DE_FICHAS_NECESARIAS_PARA_GANAR;
     }
     
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
