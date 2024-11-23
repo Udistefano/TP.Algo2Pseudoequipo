@@ -1,12 +1,5 @@
 package Tests;
 import Main.Bitmap;
-import Main.Casillero;
-import Main.Color;
-//import Main.ColorFichasRojo;
-
-import java.io.File;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 
 public class TestBitmap {
     public static void main(String[] args) throws Exception {
@@ -14,11 +7,11 @@ public class TestBitmap {
         Bitmap.inicializar(3, 3, 3);
         // Crear la imagen
         Bitmap.crearImagen();
-        Bitmap.colocarFicha(2, 2, 2, "colorRojo.bmp");
-        Bitmap.colocarFicha(2, 1, 2, "colorAzul.bmp");
-        Bitmap.colocarFicha(1, 3, 2, "colorAzul.bmp");
-        Bitmap.colocarFicha(2, 3, 2, "colorRojo.bmp");
-        Bitmap.colocarFicha(1, 3, 3, "colorNaranja.bmp");
+        Bitmap.escribirFicha(2, 2, 2, "colorRojo.bmp");
+        Bitmap.escribirFicha(2, 1, 2, "colorAzul.bmp");
+        Bitmap.escribirFicha(1, 3, 2, "colorAzul.bmp");
+        Bitmap.escribirFicha(2, 3, 2, "colorRojo.bmp");
+        Bitmap.escribirFicha(1, 3, 3, "colorNaranja.bmp");
         //Casillero casillero = new Casillero(1 , 3, 3);
         Bitmap.quitarFicha(1, 3, 3);
         Bitmap.escribirArchivo();

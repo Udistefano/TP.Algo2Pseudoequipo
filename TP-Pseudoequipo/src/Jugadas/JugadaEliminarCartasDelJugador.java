@@ -36,12 +36,16 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
 		String nombre = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del usuario al cual eliminarle las cartas: ");
 		Lista<Jugador> jugadores = partida.getJugadores();
 
+		// TODO: me parece que esta carta es inutil, porque el enunciado dice "Las cartas se levantan al principio de
+		//       cada turno de un mazo", y si eliminamos las cartas de un jugador, cuando sea su turno simplemente va a
+		//       levantar otras cartas
 		jugadores.iniciarCursor();
 		while(jugadores.avanzarCursor()) {
 			Jugador jugadorActual = jugadores.obtenerCursor();
 			if (nombre.equals(jugadorActual.getNombre())) {
 				// TODO: implementar mazo, como cola, porque sino no tiene sentido que el jugador vacie su mano, la
-				//       devuelva al mazo, y luego cuando tire dados la vuelva a sacar???, ademas el enunciado pide cola
+				//       devuelva al mazo, y luego cuando tire dados las vuelva a sacar???, ademas el enunciado pide
+				//       cola de cartas explicitamente
 				partida.getMazo().agregarManoDelJugador(jugadorActual);
 				jugadorActual.vaciarMano();
 				System.out.println("\nSe eliminaron las cartas del jugador " + jugadorActual);

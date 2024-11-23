@@ -48,7 +48,8 @@ public class JugadaCambiarColorFicha extends Jugada {
                 ValidacionesUtiles.validarFichaNoEsPropia(casillero.getDato(), turnoActual.getJugador());
 	
 				fichaACambiar.setColor(colorDelJugadorActual);
-				Bitmap.escribirFichaAlBitmap(casillero, colorDelJugadorActual);
+				Bitmap.escribirFicha(casillero, colorDelJugadorActual);
+				System.out.println("\nSe ha cambiado el color de la ficha del casillero " + casillero);
 				esCasilleroInvalido = false;
 			} catch (Exception e) {
 				System.out.println("\nError: " + e.getMessage());

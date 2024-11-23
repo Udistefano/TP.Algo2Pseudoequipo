@@ -3,8 +3,6 @@ package Main;
 import Cartas.Carta;
 import Estructuras.Lista;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.util.Scanner;
 
 // TODO: quiza dividir clase Teclado, en clases Teclado y Menu???????
@@ -50,27 +48,25 @@ public class Teclado {
 
     /**
      * pre:
-     * @param mano no puede ser nulo
+     * @param jugador no puede ser nulo
      * post: le pregunta la carta al jugador de la mano, y la retorna
-     * @throws Exception si la mano es nula
+     * @throws Exception si el jugador es nulo
      */
-    public static Carta preguntarCarta(Lista<Carta> mano) throws Exception {
-        ValidacionesUtiles.validarSiEsNulo(mano, "Mano");
+    public static Carta preguntarCarta(Jugador jugador) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
     	Carta carta = null;
     	boolean cartaValida = false;
+        Lista<Carta> mano = jugador.getMano();
     	while(!cartaValida) {
     		try {
         		System.out.println("\nCartas disponibles:");
                 System.out.println(0 + " - " + "Si no quiere jugar cartas");
-                // TODO: esto de iterar el mano e imprimirlo, podria ser mano.mostrar()
-                mano.iniciarCursor();
-                for(int i = 1; i <= mano.getLongitud(); i++){
-                    mano.avanzarCursor();
-                    System.out.println(i + " - " + mano.obtenerCursor());
-                }
+                jugador.mostrarMano();
+
                 System.out.print("\nIngrese el numero de la carta a jugar: ");
                 int posicion = leerNumero();
                 ValidacionesUtiles.validarCarta(posicion, mano);
+                
                 if(posicion != 0) {
                 	carta = mano.obtener(posicion);
                 }

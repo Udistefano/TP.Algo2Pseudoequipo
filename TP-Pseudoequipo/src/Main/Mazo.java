@@ -1,7 +1,7 @@
 package Main;
 
 import Estructuras.Lista;
-import Estructuras.Pila;
+import Estructuras.Cola;
 
 import Cartas.Carta;
 import Cartas.CartaAnularCasillero;
@@ -17,7 +17,7 @@ public class Mazo {
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 
 	// FIXME: el enunciado del TP, dice que el mazo debe ser una cola de cartas, no una pila de cartas
-	public Pila <Carta> cartas = null;
+	public Cola<Carta> cartas = null;
     private int maximoDeCartasEnMazo = 0;
 
 	//CONSTRUCTORES -------------------------------------------------------------------------------------------
@@ -28,11 +28,11 @@ public class Mazo {
      */
     public Mazo(int maximoCartas) throws Exception {
     	this.maximoDeCartasEnMazo = maximoCartas;
-    	this.cartas = new Pila<Carta>();
+    	this.cartas = new Cola<Carta>();
     	Carta cartaASumar = null;
     	for (int i = 0; i < maximoDeCartasEnMazo; i++) {
     		cartaASumar = generarCartaAleatoria();
-			this.cartas.apilar(cartaASumar);
+			this.cartas.acolar(cartaASumar);
     	}
     }
 
@@ -98,7 +98,7 @@ public class Mazo {
      * @param cantidadDeCartasALevantar: numero entero de cartas a levantar por el jugador y el dado. No puede ser nulo
      * @param jugador: jugador que levanta las cartas. No puede ser nulo
      * @throws Exception: si no hay suficientes cartas en el mazo, crear un nuevo mazo
-     * pos: a la mano del jugador se agregan las cartas solicitadas
+     * post: a la mano del jugador se agregan las cartas solicitadas
      */
     public void levantarCartas(int cantidadDeCartasALevantar, Jugador jugador) throws Exception {
     	ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
@@ -111,13 +111,12 @@ public class Mazo {
     		throw new Exception("No hay suficientes cartas para levantar");
     	}
     	for (int i = 0; i < cantidadDeCartasALevantar; i++) {
-    		jugador.agregarCartaALaMano(cartas.obtener());
-    		cartas.desapilar();
+    		jugador.agregarCartaALaMano(cartas.desacolar());
         }
     }
     
     /**
-     * pre: --
+     * pre:
      * @param jugador no puede ser nulo
      * @throws Exception si el jugador no tiene cartas
      * post: devuelve todas las cartas de un jugador al mazo
@@ -144,7 +143,7 @@ public class Mazo {
 	 */
 	public void agregarCarta(Carta carta) throws Exception {
 		ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
-		this.cartas.apilar(carta);
+		this.cartas.acolar(carta);
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -153,7 +152,7 @@ public class Mazo {
      * pre: --
      * @return la pila de cartas
      */
-	public Pila<Carta> getCartas() {
+	public Cola<Carta> getCartas() {
 		// FIXME: esto viola el encapsulamiento, devolver una pila asi, hay que devolver una copia
 		return cartas;
 	}
@@ -163,7 +162,7 @@ public class Mazo {
 	 * @return el maximo de cartas del mazo
 	 */
 	public int getMaximoDeCartasEnMazo() {
-		return maximoDeCartasEnMazo;
+		return this.maximoDeCartasEnMazo;
 	}
 
 	//SETTERS SIMPLES -----------------------------------------------------------------------------------------

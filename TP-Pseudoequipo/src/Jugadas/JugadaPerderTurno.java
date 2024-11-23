@@ -47,6 +47,7 @@ public class JugadaPerderTurno extends Jugada {
         	if (jugadorActual.getNombre().equals(nombre)) {
                 Turno turno = partida.getTurnoSiguiente(jugadorActual);
                 turno.incrementarBloqueosRestantes(1);
+                System.out.println("\nEl jugador " + jugadorActual + " ha perdido un turno");
                 return;
             }
         }

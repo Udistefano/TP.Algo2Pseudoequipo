@@ -128,6 +128,18 @@ public class Jugador {
         this.mano.remover(carta);
     }
 
+    /**
+     * pre: --
+     * post: muestra la mano del jugador
+     */
+    public void mostrarMano() {
+        this.mano.iniciarCursor();
+        for(int i = 1; i <= this.mano.getLongitud(); i++){
+            this.mano.avanzarCursor();
+            System.out.println(i + " - " + this.mano.obtenerCursor());
+        }
+    }
+
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
     /**
@@ -143,7 +155,7 @@ public class Jugador {
      * @return el color del jugador
      */
     public Color getColor() {
-        return color;
+        return this.color;
     }
 
     /**
@@ -151,7 +163,8 @@ public class Jugador {
      * @return la mano de cartas del jugador
      */
 	public Lista<Carta> getMano() {
-		return mano;
+        // FIXME: esto de retornar una mano, y listas y todo asi viola el encapsulamiento
+		return this.mano;
 	}
 
     /**

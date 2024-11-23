@@ -68,7 +68,11 @@ public class Partida {
             jugadorActual = turnoActual.getJugador();
 
             Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
-            hayGanador = verificarGanador(casilleroDestino);
+            // Chequeamos que casilleroDestino no sea nulo, porque si el jugador perdio un turno (tiene bloqueos)
+            // entonces devolvera un casillero nulo
+            if (casilleroDestino != null) {
+                hayGanador = verificarGanador(casilleroDestino);
+            }
             posicion++;
         }
         UtilesVarios.mostrarTextoAlrededorDeLineas("Fin de partida");
@@ -105,7 +109,7 @@ public class Partida {
                 } else {
                     casilleroDestino = mover(this.tablero, jugador);
                 }
-                Bitmap.escribirFichaAlBitmap(casilleroDestino, jugador.getColor());
+                Bitmap.escribirFicha(casilleroDestino, jugador.getColor());
 
                 Carta cartaActual = Teclado.preguntarCarta(jugador.getMano());
                 if (cartaActual != null) {
@@ -169,7 +173,7 @@ public class Partida {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
-        System.out.println("\n" + jugador + " no le quedan mas fichas para jugar");
+        System.out.print(jugador + " no le quedan mas fichas para jugar");
         System.out.println("Tendra que mover una ficha del tablero");
 
         Casillero<Ficha> casillero = null;
@@ -193,8 +197,10 @@ public class Partida {
 
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), casillero.getDato());
 
-        Bitmap.escribirFichaAlBitmap(casillero.getCasilleroVecino(movimiento), jugador.getColor());
-        Bitmap.quitarFichaAlBitmap(casillero);
+        Bitmap.escribirFicha(casillero.getCasilleroVecino(movimiento), jugador.getColor());
+        Bitmap.quitarFicha(casillero);
+        System.out.println("\nLa ficha en el casillero " + casillero + " del jugador " + jugador +
+                           " se ha movido en direccion " + movimiento);
 
         return casillero.getCasilleroVecino(movimiento);
     }
@@ -343,7 +349,8 @@ public class Partida {
     public Turno getTurnoSiguiente(Jugador jugador) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
-        for (int i = 0; i < turnos.getLongitud(); i++) {
+        // TODO: getTurnoSiguiente se puede remplazar con el equals de Turno
+        for (int i = 1; i <= turnos.getLongitud(); i++) {
             if (turnos.obtener(i).getJugador().equals(jugador)) {
                 return turnos.obtener(i);
             }

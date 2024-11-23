@@ -136,104 +136,6 @@ public class Bitmap {
 
     /**
      * pre:
-     * @param x no puede ser menor a 1
-     * @param y no puede ser menor a 1
-     * @param z no puede ser menor a 1
-     * @param rutaImagen no puede ser nulo ni vacio
-     * @throws Exception si alguno de los parametros es invalido
-     * post: coloca en las coordenadas x, y, z del tablero del juego, la ficha que se lee de la imagen rutaImagen
-     */
-    public static void colocarFicha(int x, int y, int z, String rutaImagen) throws Exception {
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Y");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Z");
-        ValidacionesUtiles.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
-
-        // Cargar la imagen desde el archivo
-        BufferedImage imagenFicha = cargarImagen(rutaImagen);
-        if (imagenFicha == null) {
-            // Aca podriamos poner una imagen por defecto
-//            throw new Exception("Hubo un error al intentar leer la imagen " + rutaImagen);
-//            System.out.println("Hubo un error al intentar leer la imagen " + rutaImagen);
-            return;
-        }
-
-        // Calcular las coordenadas donde se colocará la imagen
-        int anchoImagen = imagenFicha.getWidth();
-        int altoImagen = imagenFicha.getHeight();
-
-        // Posición del casillero (izquierda superior) en el tablero
-        int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
-        int posY = 100 + (dimensionCasilleroY) * (y - 1);
-
-        // Calcular el desplazamiento para centrar la imagen
-        int desplazamientoX = (dimensionCasilleroX - anchoImagen) / 2;
-        int desplazamientoY = (dimensionCasilleroY - altoImagen) / 2;
-
-        // Ajustar la posición de la imagen para que quede centrada
-        posX += desplazamientoX;
-        posY += desplazamientoY;
-
-        // Asegurarse de que la imagen no se salga de los límites del tablero
-        if (posX + anchoImagen > ancho || posY + altoImagen > alto) {
-            throw new Exception("La imagen no cabe en el tablero.");
-        }
-
-        // Colocar los píxeles de la imagen en la matriz del tablero
-        for (int i = 0; i < anchoImagen; i++) {
-            for (int j = 0; j < altoImagen; j++) {
-                int colorPixel = imagenFicha.getRGB(i, j);  // Obtener el color del píxel de la imagen
-                int pixelX = posX + i;
-                int pixelY = posY + j;
-
-                // Asegurarse de que los píxeles estén dentro de los límites del tablero
-                if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
-                    imagen.setRGB(pixelX, pixelY, colorPixel);  // Colocar el píxel de la imagen en el tablero
-                }
-            }
-        }
-    }
-    
-    public static void quitarFicha(int x, int y, int z) throws Exception {
-        // Validación (si quieres hacer alguna validación de las coordenadas antes)
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(y, "Y");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(z, "Z");
-
-        // Calcular las coordenadas y dimensiones de la ficha
-        int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
-        int posY = 100 + (dimensionCasilleroY) * (y - 1);
-
-        // Las dimensiones de la ficha colocada (aquí usamos la misma lógica de colocar la ficha)
-        int anchoImagen = dimensionCasilleroX - 10; // Esto es un supuesto: si la ficha cubre toda la casilla, su tamaño es el de la casilla
-        int altoImagen = dimensionCasilleroY - 10;  // Lo mismo para la altura
-
-        int desplazamientoX = (dimensionCasilleroX - anchoImagen) / 2;
-        int desplazamientoY = (dimensionCasilleroY - altoImagen) / 2;
-
-        posX += desplazamientoX;
-        posY += desplazamientoY;
-
-        // Restaurar las casillas en la región afectada por la ficha
-        for (int i = 0; i < anchoImagen; i++) {
-            for (int j = 0; j < altoImagen; j++) {
-                int pixelX = posX + i;
-                int pixelY = posY + j;
-
-                // Restaurar el color original de la casilla (color de fondo)
-                if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
-                    imagen.setRGB(pixelX, pixelY, COLOR_CASILLERO);  // Asumimos que el color original es el color de fondo
-                }
-            }
-        }
-        colorearLineasMatrizTablero();
-        escribirArchivo();
-
-
-    }
-    
-    /**
-     * pre:
      * @param rutaImagen no puede ser nulo ni vacio
      * @throws Exception si rutaImagen es nulo o vacio
      * post: lee la imagen en rutaImagen
@@ -288,10 +190,71 @@ public class Bitmap {
      * @throws Exception si alguno de los parametros es nulo
      * post: escribe al casillero la ficha con el color del jugador en la imagen salida
      */
-    public static void escribirFichaAlBitmap(Casillero<Ficha> casillero, Color color) throws Exception {
+    public static void escribirFicha(Casillero<Ficha> casillero, Color color) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(color, "Color");
-        Bitmap.colocarFicha(casillero.getX(), casillero.getY(), casillero.getZ(), Color.getRutaDeImagen(color));
+        Bitmap.escribirFicha(casillero.getX(), casillero.getY(), casillero.getZ(), Color.getRutaDeImagen(color));
+    }
+
+    /**
+     * pre:
+     * @param x no puede ser menor a 1
+     * @param y no puede ser menor a 1
+     * @param z no puede ser menor a 1
+     * @param rutaImagen no puede ser nulo ni vacio
+     * @throws Exception si alguno de los parametros es invalido
+     * post: coloca en las coordenadas x, y, z del tablero del juego, la ficha que se lee de la imagen rutaImagen
+     */
+    public static void escribirFicha(int x, int y, int z, String rutaImagen) throws Exception {
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Y");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Z");
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
+
+        // Cargar la imagen desde el archivo
+        BufferedImage imagenFicha = cargarImagen(rutaImagen);
+        if (imagenFicha == null) {
+            // Aca podriamos poner una imagen por defecto
+//            throw new Exception("Hubo un error al intentar leer la imagen " + rutaImagen);
+//            System.out.println("Hubo un error al intentar leer la imagen " + rutaImagen);
+            return;
+        }
+
+        // Calcular las coordenadas donde se colocará la imagen
+        int anchoImagen = imagenFicha.getWidth();
+        int altoImagen = imagenFicha.getHeight();
+
+        // Posición del casillero (izquierda superior) en el tablero
+        int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
+        int posY = 100 + (dimensionCasilleroY) * (y - 1);
+
+        // Calcular el desplazamiento para centrar la imagen
+        int desplazamientoX = (dimensionCasilleroX - anchoImagen) / 2;
+        int desplazamientoY = (dimensionCasilleroY - altoImagen) / 2;
+
+        // Ajustar la posición de la imagen para que quede centrada
+        posX += desplazamientoX;
+        posY += desplazamientoY;
+
+        // Asegurarse de que la imagen no se salga de los límites del tablero
+        if (posX + anchoImagen > ancho || posY + altoImagen > alto) {
+            throw new Exception("La imagen no cabe en el tablero.");
+        }
+
+        // Colocar los píxeles de la imagen en la matriz del tablero
+        for (int i = 0; i < anchoImagen; i++) {
+            for (int j = 0; j < altoImagen; j++) {
+                int colorPixel = imagenFicha.getRGB(i, j);  // Obtener el color del píxel de la imagen
+                int pixelX = posX + i;
+                int pixelY = posY + j;
+
+                // Asegurarse de que los píxeles estén dentro de los límites del tablero
+                if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
+                    imagen.setRGB(pixelX, pixelY, colorPixel);  // Colocar el píxel de la imagen en el tablero
+                }
+            }
+        }
+        
         Bitmap.escribirArchivo();
     }
 
@@ -299,12 +262,57 @@ public class Bitmap {
      * pre:
      * @param casillero no puede ser nulo
      * @throws Exception si casillero es nulo
-     * post: quita al casillero la ficha en la imagen salida
+     * post: quita de la imagen salida, la ficha del casillero
      */
-    public static void quitarFichaAlBitmap(Casillero<Ficha> casillero) throws Exception {
+    public static void quitarFicha(Casillero<Ficha> casillero) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
         Bitmap.quitarFicha(casillero.getX(), casillero.getY(), casillero.getZ());
-        Bitmap.escribirArchivo();
+    }
+
+    /**
+     * pre:
+     * @param x no puede ser menor a uno
+     * @param y no puede ser menor a uno
+     * @param z no puede ser menor a uno
+     * @throws Exception si algun parametro es menor a uno
+     * post: quita de la imagen salida, la ficha del casillero con coordenadas (x, y, z)
+     */
+    public static void quitarFicha(int x, int y, int z) throws Exception {
+        // Validación (si quieres hacer alguna validación de las coordenadas antes)
+        // TODO: validar si alguna coordenada, esta fuera del tablero en quitarFicha
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(y, "Y");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(z, "Z");
+
+        // Calcular las coordenadas y dimensiones de la ficha
+        int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;
+        int posY = 100 + (dimensionCasilleroY) * (y - 1);
+
+        // Las dimensiones de la ficha colocada (aquí usamos la misma lógica de colocar la ficha)
+        int anchoImagen = dimensionCasilleroX - 10; // Esto es un supuesto: si la ficha cubre toda la casilla, su tamaño es el de la casilla
+        int altoImagen = dimensionCasilleroY - 10;  // Lo mismo para la altura
+
+        int desplazamientoX = (dimensionCasilleroX - anchoImagen) / 2;
+        int desplazamientoY = (dimensionCasilleroY - altoImagen) / 2;
+
+        posX += desplazamientoX;
+        posY += desplazamientoY;
+
+        // Restaurar las casillas en la región afectada por la ficha
+        for (int i = 0; i < anchoImagen; i++) {
+            for (int j = 0; j < altoImagen; j++) {
+                int pixelX = posX + i;
+                int pixelY = posY + j;
+
+                // Restaurar el color original de la casilla (color de fondo)
+                if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
+                    imagen.setRGB(pixelX, pixelY, COLOR_CASILLERO);  // Asumimos que el color original es el color de fondo
+                }
+            }
+        }
+
+        colorearLineasMatrizTablero();
+        escribirArchivo();
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

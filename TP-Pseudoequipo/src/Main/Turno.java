@@ -36,7 +36,7 @@ public class Turno {
 //        if (cantidadDeBloqueos < 0) {
 //            throw new Exception("La cantidad de bloqueos no puede ser negativa");
 //        }
-		bloqueosRestantes += cantidadDeBloqueos;
+		this.bloqueosRestantes += cantidadDeBloqueos;
 	}
 
 	/**

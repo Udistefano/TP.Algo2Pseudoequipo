@@ -38,6 +38,7 @@ public class JugadaDobleTurno extends Jugada {
 
         turnoActual.getJugador().sumarFicha();
         turnoActual.agregarSubturno();
+        System.out.println("\nSe ha agregado un turno a " + turnoActual.getJugador());
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

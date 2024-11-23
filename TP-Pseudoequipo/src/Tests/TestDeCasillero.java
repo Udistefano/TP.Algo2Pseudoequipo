@@ -23,7 +23,7 @@ public class TestDeCasillero {
 
         // Testeamos que tira error crear un casillero con coordenadas invalidas
         Assertions.assertThrows(Exception.class, () -> {
-            Casillero<Integer> casillero2 = new Casillero<Integer>(5,-22, 11);
+            new Casillero<Integer>(5,-22, 11);
         });
     }
 

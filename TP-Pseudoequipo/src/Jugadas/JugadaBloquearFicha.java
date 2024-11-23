@@ -48,6 +48,7 @@ public class JugadaBloquearFicha extends Jugada {
                 ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
         
                 casillero.getDato().bloquear();
+                System.out.println("\nSe ha bloqueado la ficha en el casillero " + casillero);
                 esCasilleroInvalido = false;
             } catch (Exception e) {
                 // TODO: quiza mover esto de mostrar el error a UtilidadesVarias ??
