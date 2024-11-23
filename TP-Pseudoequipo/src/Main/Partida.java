@@ -1,17 +1,17 @@
 package Main;
 
 import Cartas.Carta;
-import Estructuras.Lista;
-import Estructuras.Vector;
+import Estructuras.ListaSimple;
+import Estructuras.ListaSimpleCircular;
 
 public class Partida {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     private Tablero<Ficha> tablero = null;
-    private Lista<Jugador> jugadores = null;
+    private ListaSimple<Jugador> jugadores = null;
     private Mazo mazo = null;
     private Dado dado = null;
-    private Vector<Turno> turnos = null;
+    private ListaSimpleCircular<Turno> turnos = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ public class Partida {
      * @throws Exception si alguno de los parametros es nulo
      * post: inicializa la partida con el tablero, jugadores y mazo pasados por parametro
      */
-    public Partida(Tablero<Ficha> tablero, Lista<Jugador> jugadores, Mazo mazo) throws Exception {
+    public Partida(Tablero<Ficha> tablero, ListaSimple<Jugador> jugadores, Mazo mazo) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugadores, "Lista de Jugadores");
         ValidacionesUtiles.validarSiEsNulo(mazo, "Mazo");
@@ -31,11 +31,10 @@ public class Partida {
         this.tablero = tablero;
         this.jugadores = jugadores;
         this.mazo = mazo;
-        // TODO: implementar ListaCircular , y hacer turnos una ListaCircular
-        this.turnos = new Vector<Turno>(jugadores.getLongitud(), null);
-        for (int i = 1; i <= jugadores.getLongitud(); i++) {
-            Turno turno = new Turno(jugadores.obtener(i));
-            this.turnos.agregar(i, turno);
+        this.turnos = new ListaSimpleCircular<Turno>();
+        this.jugadores.iniciarCursor();
+        while (this.jugadores.avanzarCursor()) {
+            this.turnos.agregar(new Turno(this.jugadores.obtenerCursor()));
         }
         this.dado = new Dado();
     }
@@ -51,25 +50,20 @@ public class Partida {
      */
     public Jugador iniciar() throws Exception {
     	boolean hayGanador = false;
-        int posicion = 1;
         Jugador jugadorActual = null;
 
         UtilesVarios.mostrarTextoAlrededorDeLineas("Inicio de partida");
+        this.turnos.iniciarCursor();
         while(!hayGanador) {
-            if (posicion > turnos.getLongitud()) {
-                posicion = 1;
-            }
+            this.turnos.avanzarCursor();
+            jugadorActual = this.turnos.obtenerCursor().getJugador();
 
-            Turno turnoActual = turnos.obtener(posicion);
-            jugadorActual = turnoActual.getJugador();
-
-            Casillero<Ficha> casilleroDestino = jugarTurno(turnoActual);
+            Casillero<Ficha> casilleroDestino = jugarTurno(this.turnos.obtenerCursor());
             // Chequeamos que casilleroDestino no sea nulo, porque si el jugador perdio un turno (tiene bloqueos)
             // entonces devolvera un casillero nulo
             if (casilleroDestino != null) {
                 hayGanador = verificarGanador(casilleroDestino);
             }
-            posicion++;
         }
         UtilesVarios.mostrarTextoAlrededorDeLineas("Fin de partida");
 
@@ -335,37 +329,13 @@ public class Partida {
         return 1 + contarFichasSeguidas(casillero.getCasilleroVecino(direccion), direccion, ficha);
     }
 
-    /**
-     * pre:
-     * @param jugador no puede ser nulo
-     * @return el turno de jugador pasado por parametro
-     * @throws Exception si el jugador es nulo
-     */
-    public Turno getTurno(Jugador jugador) throws Exception {
-        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
-
-        // TODO: getTurnoSiguiente se puede remplazar con el equals de Turno
-        for (int i = 1; i <= turnos.getLongitud(); i++) {
-            if (turnos.obtener(i).getJugador().equals(jugador)) {
-                return turnos.obtener(i);
-            }
-        }
-//        turnos.iniciarCursor();
-//        while (turnos.avanzarCursor()) {
-//            if (turnos.obtenerCursor().getJugador().equals(jugador)) {
-//                return turnos.obtenerCursor();
-//            }
-//        }
-        throw new Exception("No se encontro el turno siguiente del jugador " + jugador.getNombre());
-    }
-
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
     
     /**
      * pre: --
      * @return los turnos de la partida
      */
-    public Vector<Turno> getTurnos() {
+    public ListaSimpleCircular<Turno> getTurnos() {
         return this.turnos;
     }
     
@@ -381,8 +351,8 @@ public class Partida {
      * pre: --
      * @return una copia de los jugadores de la partida
      */
-    public Lista<Jugador> getJugadores() throws Exception {
-        Lista<Jugador> copiaDeJugadores = new Lista<Jugador>();
+    public ListaSimple<Jugador> getJugadores() throws Exception {
+        ListaSimple<Jugador> copiaDeJugadores = new ListaSimple<Jugador>();
 
         jugadores.iniciarCursor();
         while (jugadores.avanzarCursor()) {

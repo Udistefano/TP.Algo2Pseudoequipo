@@ -24,6 +24,31 @@ public class Turno {
 	
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
+	
+	/**
+     * pre:
+     * @param obj con el cual comparar a turno actual
+     * @return verdadero si obj equivale a turno actual, falso si no
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+		}
+        if (obj == null) {
+            return false;
+		}
+		if (obj instanceof Jugador) {
+			Jugador other = (Jugador) obj;
+			return this.jugador.equals(other);
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Turno other = (Turno) obj;
+		return this.jugador.equals(other.jugador);
+    }
+	
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
 	/**

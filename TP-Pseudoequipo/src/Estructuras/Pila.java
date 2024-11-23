@@ -73,7 +73,7 @@ public class Pila<T> {
 	 * pre: el elemento no es vacio
 	 * post: agrega el elemento a la pila
 	 */
-	public void apilar(Lista<T> lista) {
+	public void apilar(ListaSimple<T> lista) {
 		//validar
 		lista.iniciarCursor();
 		while (!lista.avanzarCursor()) {

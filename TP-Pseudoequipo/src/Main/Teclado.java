@@ -1,7 +1,7 @@
 package Main;
 
 import Cartas.Carta;
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 
 import java.util.Scanner;
 
@@ -144,7 +144,7 @@ public class Teclado {
      * @return el numero del color que el jugador elija
      * @throws Exception si jugadores es nulo
      */
-    public static int preguntarColor(Lista<Jugador> jugadores) throws Exception {
+    public static int preguntarColor(ListaSimple<Jugador> jugadores) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(jugadores, "Lista de jugadores");
         System.out.println("\nColores disponibles:");
         for (int i = 0; i < Color.values().length; i++) {

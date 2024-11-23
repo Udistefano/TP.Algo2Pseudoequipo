@@ -6,13 +6,13 @@ package Main;
  * Faltan los metodos tambien.
  */
 
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 
 public class Tablero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
-    private Lista<Lista<Lista<Casillero<T>>>> tablero = null;
+    private ListaSimple<ListaSimple<ListaSimple<Casillero<T>>>> tablero = null;
     private int ancho = 0;
     private int alto = 0;
     private int profundidad = 0;
@@ -33,7 +33,7 @@ public class Tablero<T> {
         this.ancho = ancho;
         this.alto = alto;
         this.profundidad = profundidad;
-        this.tablero = new Lista<Lista<Lista<Casillero<T>>>>();
+        this.tablero = new ListaSimple<ListaSimple<ListaSimple<Casillero<T>>>>();
 
         crearTablero();
         relacionarTodosLosCasillerosVecinosDelTablero();
@@ -50,11 +50,11 @@ public class Tablero<T> {
      */
     public void crearTablero() throws Exception {
         for (int x = 1; x <= getAncho(); x++) {
-            Lista<Lista<Casillero<T>>> plano = new Lista<Lista<Casillero<T>>>();
+            ListaSimple<ListaSimple<Casillero<T>>> plano = new ListaSimple<ListaSimple<Casillero<T>>>();
             tablero.agregar(plano);
 
             for (int y = 1; y <= getAlto(); y++) {
-                Lista<Casillero<T>> fila = new Lista<Casillero<T>>();
+                ListaSimple<Casillero<T>> fila = new ListaSimple<Casillero<T>>();
                 plano.agregar(fila);
 
                 for (int z = 1; z <= getProfundidad(); z++) {

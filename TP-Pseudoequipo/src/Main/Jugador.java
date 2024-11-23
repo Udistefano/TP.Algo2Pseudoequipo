@@ -1,7 +1,7 @@
 package Main;
 
 import Cartas.Carta;
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ public class Jugador {
     private int cantidadDeFichasJugadas = 0;
     private int cantidadDeFichasMaximasPermitidas = 0;
     private Color color = null;
-    private Lista<Carta> mano = null;
+    private ListaSimple<Carta> mano = null;
 
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -32,7 +32,7 @@ public class Jugador {
         this.nombre = nombre;
         this.color = Color.getColorJugador(numeroDeColor);
         this.cantidadDeFichasMaximasPermitidas = cantidadDeFichasMaximasPermitidas;
-        this.mano = new Lista<Carta>();
+        this.mano = new ListaSimple<Carta>();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -162,7 +162,7 @@ public class Jugador {
      * pre: --
      * @return la mano de cartas del jugador
      */
-	public Lista<Carta> getMano() {
+	public ListaSimple<Carta> getMano() {
         // FIXME: esto de retornar una mano, y listas y todo asi viola el encapsulamiento
 		return this.mano;
 	}
@@ -198,6 +198,6 @@ public class Jugador {
      * post: vacia la mano del jugador
      */
     public void vaciarMano() {
-        this.mano = new Lista<Carta>();
+        this.mano = new ListaSimple<Carta>();
     }
 }

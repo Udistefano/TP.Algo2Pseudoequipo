@@ -54,7 +54,7 @@ public class Cola<T> {
 	 * pre: el elemento no es vacio
 	 * post: agrega el elemento a la cola
 	 */
-	void acolar(Lista<T> lista) {
+	void acolar(ListaSimple<T> lista) {
 		//validar
 		lista.iniciarCursor();
 		while (!lista.avanzarCursor()) {

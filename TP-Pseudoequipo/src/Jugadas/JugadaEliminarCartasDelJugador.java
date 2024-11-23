@@ -1,7 +1,7 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 import Main.Jugador;
 import Main.Partida;
 import Main.Teclado;
@@ -34,7 +34,7 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
 		String nombre = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del usuario al cual eliminarle las cartas: ");
-		Lista<Jugador> jugadores = partida.getJugadores();
+		ListaSimple<Jugador> jugadores = partida.getJugadores();
 
 		// TODO: me parece que esta carta es inutil, porque el enunciado dice "Las cartas se levantan al principio de
 		//       cada turno de un mazo", y si eliminamos las cartas de un jugador, cuando sea su turno simplemente va a

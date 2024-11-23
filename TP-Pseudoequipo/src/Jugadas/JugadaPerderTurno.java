@@ -1,7 +1,7 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 import Main.*;
 
 /**
@@ -42,7 +42,7 @@ public class JugadaPerderTurno extends Jugada {
             try {
                 String nombreBuscado = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del jugador al que" +
                                                                 " hacerle perder un turno: ");
-                Lista<Jugador> jugadores = partida.getJugadores();
+                ListaSimple<Jugador> jugadores = partida.getJugadores();
                 Jugador jugadorBuscado = null;
                 // TODO: hacer un jugadores.obtener(nombre) en jugadaPerderTurno y jugadaEliminarCartasDelJugador
                 jugadores.iniciarCursor();
@@ -55,7 +55,7 @@ public class JugadaPerderTurno extends Jugada {
                     throw new Exception("No se hallo el jugador " + nombreBuscado + " al cual perderle el turno");
                 }
                 
-                Turno turno = partida.getTurno(jugadorBuscado);
+                Turno turno = partida.getTurnos().obtener(jugadorBuscado);
                 turno.incrementarBloqueosRestantes(1);
                 System.out.println("\nEl jugador " + jugadorBuscado + " ha perdido un turno");
                 esNombreInvalido = false;

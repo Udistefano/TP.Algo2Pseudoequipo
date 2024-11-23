@@ -1,7 +1,7 @@
 package Main;
 
 import Cartas.Carta;
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 
 public class ValidacionesUtiles {
     /**
@@ -59,7 +59,7 @@ public class ValidacionesUtiles {
      * @param jugadores no puede ser nulo
      * @throws Exception si el color ya estaba elegido por otro jugador, o si color o jugadores son invalidos
      */
-    public static void validarSiColorEsUnico(int color, Lista<Jugador> jugadores) throws Exception {
+    public static void validarSiColorEsUnico(int color, ListaSimple<Jugador> jugadores) throws Exception {
     	Color colorObtenido = Color.getColorJugador(color);
         ValidacionesUtiles.validarSiEsNulo(jugadores, "Jugadores");
         if (!jugadores.estaVacia()) {
@@ -185,7 +185,7 @@ public class ValidacionesUtiles {
      * @param mano no puede ser nulo
      * @throws Exception si mano es nulo, o si la posicion de la carta es invalida
      */
-    public static void validarCarta(int posicionCarta, Lista<Carta> mano) throws Exception {
+    public static void validarCarta(int posicionCarta, ListaSimple<Carta> mano) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(mano, "Mano");
     	if((posicionCarta < 0) ||
             (posicionCarta > mano.getLongitud())) {

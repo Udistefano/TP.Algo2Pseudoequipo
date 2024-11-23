@@ -1,6 +1,6 @@
 package Main;
 
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -15,7 +15,7 @@ public class Main {
 		int cantidadDeCartas = 50;
 		int cantidadDeFichasMaximasPermitidas = 3;
 		Tablero<Ficha> tablero = new Tablero<Ficha>(ancho, alto, profundidad);
-		Lista<Jugador> jugadores = new Lista<Jugador>();
+		ListaSimple<Jugador> jugadores = new ListaSimple<Jugador>();
 		Mazo mazo = new Mazo(cantidadDeCartas);
         Bitmap.inicializar(ancho, alto, profundidad);
 		

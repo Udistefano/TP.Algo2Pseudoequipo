@@ -1,12 +1,13 @@
 package Estructuras;
 
-public class Lista<T> {
+// Lista simplemente enlazada generica
+public class ListaSimpleGenerica<T> {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 
-	private Nodo<T> primero = null;
-	private int longitud = 0;
-	private Nodo<T> cursor = null;
+	protected Nodo<T> primero = null;
+	protected int longitud = 0;
+	protected Nodo<T> cursor = null;
 
 	//CONSTRUCTORES -------------------------------------------------------------------------------------------
 
@@ -14,42 +15,13 @@ public class Lista<T> {
 	 * pre:
 	 * pos: crea una lista vacia
 	 */
-	public Lista() {
+	public ListaSimpleGenerica() {
 		this.primero = null;
 		this.longitud = 0;
 		this.cursor = null;
 	}
 
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
-
-	/**
-	 * pre: --
-	 * @return una cadena con todos los elementos de la lista
-	 */
-	@Override
-	public String toString() {
-	    // TODO: este metodo toString de Lista parece muy de ChatGPT, y quiza el profe se de cuenta
-		if (this.estaVacia()) {
-	        return "Lista vacía";  // Si la lista está vacía, devolvemos un mensaje adecuado
-	    }
-	    
-	    String resultado = "[";  // Iniciamos la cadena con un corchete para indicar el inicio de la lista
-	    Nodo<T> actual = this.primero;  // Empezamos desde el primer nodo
-	    
-	    while (actual != null) {
-	        resultado += actual.getDato();  // Añadimos el dato del nodo actual a la cadena
-	        
-	        if (actual.getSiguiente() != null) {
-	            resultado += ", ";  // Si no es el último nodo, añadimos una coma para separar los elementos
-	        }
-	        
-	        actual = actual.getSiguiente();  // Avanzamos al siguiente nodo
-	    }
-	    
-	    resultado += "]";  // Cerramos la representación de la lista con un corchete
-	    return resultado;
-	}
-	
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
@@ -169,27 +141,6 @@ public class Lista<T> {
 	 */
 	public void iniciarCursor() {
 		this.cursor = null;
-	}
-
-	/**
-	 * pre : se ha iniciado un recorrido (invocando el método
-	 *       iniciarCursor()) y desde entonces no se han agregado o
-	 *       removido elementos de la Lista.
-	 * post: mueve el cursor y lo posiciona en el siguiente elemento
-	 *       del recorrido.
-	 *       El valor de retorno indica si el cursor quedó posicionado
-	 *       sobre un elemento o no (en caso de que la Lista esté vacía o
-	 *       no existan más elementos por recorrer.)
-	 */
-	public boolean avanzarCursor() {
-		if (this.cursor == null) {
-			this.cursor = this.primero;
-		} else {
-			this.cursor = this.cursor.getSiguiente();
-		}
-
-		/* pudo avanzar si el cursor ahora apunta a un nodo */
-		return (this.cursor != null);
 	}
 
 	/**

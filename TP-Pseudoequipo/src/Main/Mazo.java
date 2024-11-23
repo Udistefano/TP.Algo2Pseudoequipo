@@ -1,6 +1,6 @@
 package Main;
 
-import Estructuras.Lista;
+import Estructuras.ListaSimple;
 import Estructuras.Cola;
 
 import Cartas.Carta;
@@ -123,7 +123,7 @@ public class Mazo {
      */
     public void agregarManoDelJugador(Jugador jugador) throws Exception {
 		ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
-		Lista<Carta> manoDelJugador = jugador.getMano();
+		ListaSimple<Carta> manoDelJugador = jugador.getMano();
 		if (manoDelJugador.estaVacia()) {
 			throw new Exception("\nEl jugador " + jugador + " no tiene mas cartas en el mazo!");
 		}
