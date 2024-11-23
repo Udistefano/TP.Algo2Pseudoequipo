@@ -30,7 +30,7 @@ public class Ficha {
      */
     @Override
     public String toString() {
-        return "" + this.color; // FIXME: seguramente un toString de this.color no quede bien en Ficha
+        return "" + this.color;
     }
 
     /**

@@ -52,7 +52,7 @@ public class JugadaCambiarColorFicha extends Jugada {
 				System.out.println("\nSe ha cambiado el color de la ficha del casillero " + casillero);
 				esCasilleroInvalido = false;
 			} catch (Exception e) {
-				System.out.println("\nError: " + e.getMessage());
+				UtilesVarios.mostrarError(e);
 			}
 		} while (esCasilleroInvalido);
 	}

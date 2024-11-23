@@ -6,6 +6,7 @@ import Main.Ficha;
 import Main.Partida;
 import Main.Teclado;
 import Main.Turno;
+import Main.UtilesVarios;
 import Main.ValidacionesUtiles;
 
 public class JugadaBloquearFicha extends Jugada {
@@ -48,11 +49,10 @@ public class JugadaBloquearFicha extends Jugada {
                 ValidacionesUtiles.validarSiFichaEstaBloqueada(casillero.getDato());
         
                 casillero.getDato().bloquear();
-                System.out.println("\nSe ha bloqueado la ficha en el casillero " + casillero);
+                System.out.println("\nSe ha bloqueado la ficha en el " + casillero);
                 esCasilleroInvalido = false;
             } catch (Exception e) {
-                // TODO: quiza mover esto de mostrar el error a UtilidadesVarias ??
-                System.out.println("\nError: " + e.getMessage());
+                UtilesVarios.mostrarError(e);
             }
         } while (esCasilleroInvalido);
     }

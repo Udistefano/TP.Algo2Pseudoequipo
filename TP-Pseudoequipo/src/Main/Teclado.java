@@ -56,7 +56,7 @@ public class Teclado {
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
     	Carta carta = null;
     	boolean cartaValida = false;
-        Lista<Carta> mano = jugador.getMano();
+
     	while(!cartaValida) {
     		try {
         		System.out.println("\nCartas disponibles:");
@@ -65,16 +65,17 @@ public class Teclado {
 
                 System.out.print("\nIngrese el numero de la carta a jugar: ");
                 int posicion = leerNumero();
-                ValidacionesUtiles.validarCarta(posicion, mano);
-                
+                ValidacionesUtiles.validarCarta(posicion, jugador.getMano());
+
                 if(posicion != 0) {
-                	carta = mano.obtener(posicion);
+                	carta = jugador.getMano().obtener(posicion);
                 }
                 cartaValida = true;
         	} catch (Exception e) {
-        		System.out.println("\nError: " + e.getMessage());
+        		UtilesVarios.mostrarError(e);
         	}
     	}
+
         return carta;
     }
 
@@ -100,7 +101,7 @@ public class Teclado {
                 ValidacionesUtiles.validarSiCasilleroExiste(casillero, tablero);
                 coordenadasValidas = true;
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                UtilesVarios.mostrarError(e);
             }    	
         }
     
@@ -130,7 +131,7 @@ public class Teclado {
                 }
                 casilleroInvalido = false;
             } catch (Exception e) {
-    			System.out.println("\nError: " + e.getMessage());
+    			UtilesVarios.mostrarError(e);
     		} 
         } while (casilleroInvalido);
         
@@ -158,7 +159,7 @@ public class Teclado {
         		ValidacionesUtiles.validarSiColorEsUnico(color, jugadores);
         		numeroValido = true;
     		} catch (Exception e) {
-                System.out.println("\nError: " + e.getMessage());
+                UtilesVarios.mostrarError(e);
             }
     	}
     	return color;
@@ -186,7 +187,7 @@ public class Teclado {
     	        ValidacionesUtiles.validarMovimiento(casillero, movimiento);
     	        movimientoValido = true;
             } catch (Exception e) {
-                System.out.println("\nError: " + e.getMessage());
+                UtilesVarios.mostrarError(e);
     		}
     	}
         return movimiento;
@@ -199,7 +200,6 @@ public class Teclado {
      * @throws Exception si nombreDeCoordenada no es una letra del abecedario
      */
     public static int preguntarCoordenada(char nombreDeCoordenada) throws Exception {
-        // TODO: Validacion.validarLetra(coordenada)
         System.out.print("Ingrese la coordenada " + nombreDeCoordenada + ": ");
         return leerNumero();
     }
@@ -221,7 +221,7 @@ public class Teclado {
         		ValidacionesUtiles.validarTamañoDelTablero(coordenada);
         		numeroValido = true;
     		} catch (Exception e) {
-                System.out.println("\nError: " + e.getMessage());
+                UtilesVarios.mostrarError(e);
             }
     	}
     	return coordenada;
@@ -244,7 +244,7 @@ public class Teclado {
     			ValidacionesUtiles.validarCantidadDeJugadores(cantidadJugadores);
     			numeroValido = true;
     		} catch (Exception e) {
-    			System.out.println("\nError: " + e.getMessage());
+    			UtilesVarios.mostrarError(e);
     		}
     	}
     	return cantidadJugadores;
@@ -299,7 +299,7 @@ public class Teclado {
                 nombre = leerCadena();
                 esNombreInvalido = false;
             } catch (Exception e) {
-                System.out.println("\nError: Ingreso un nombre invalido");
+                UtilesVarios.mostrarError(e);
             }
         } while (esNombreInvalido);
         

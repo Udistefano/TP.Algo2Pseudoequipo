@@ -28,7 +28,8 @@ public class Lista<T> {
 	 */
 	@Override
 	public String toString() {
-	    if (this.estaVacia()) {
+	    // TODO: este metodo toString de Lista parece muy de ChatGPT, y quiza el profe se de cuenta
+		if (this.estaVacia()) {
 	        return "Lista vacía";  // Si la lista está vacía, devolvemos un mensaje adecuado
 	    }
 	    
@@ -149,7 +150,7 @@ public class Lista<T> {
 			}
 			cursor = cursor.getSiguiente();
 		}
-		throw new Exception("No se encontro ningun nodo con ese valor!");
+		throw new Exception("No se encontro ningun nodo con valor " + dato);
 	}
 
 	/**

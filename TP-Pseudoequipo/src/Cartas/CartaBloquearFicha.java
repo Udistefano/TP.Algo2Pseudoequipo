@@ -1,7 +1,6 @@
 package Cartas;
 
 import Jugadas.Jugada;
-import Jugadas.JugadaAnularCasillero;
 import Jugadas.JugadaBloquearFicha;
 
 public class CartaBloquearFicha extends Carta {

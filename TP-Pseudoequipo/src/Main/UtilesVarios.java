@@ -13,4 +13,13 @@ public class UtilesVarios {
         System.out.println(texto);
         System.out.println("--------------------------------------------------------------------------------");
     }
+
+    /**
+     * pre:
+     * @param e no puede ser nulo
+     * post: muestra el mensaje del error
+     */
+    public static void mostrarError(Exception e) {
+        System.out.println("\nError: " + e.getMessage());
+    }
 }

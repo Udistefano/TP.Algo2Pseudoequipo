@@ -1,7 +1,5 @@
 package Main;
 
-import Cartas.*;
-
 import java.util.Random;
 
 public enum TipoDeCarta {
@@ -16,14 +14,13 @@ public enum TipoDeCarta {
 	private static Random random = new Random();
 	private static int CANTIDAD_DE_CARTAS = 7;
 
-	// TODO: quiza hacer una clase de Utiles, y ahi generar numeros aleatorios?
+	// TODO: quiza mover la logica de generarNumeroAleatorio a UtilidadesVarias, y asi reutilizarlo en Dado
 
 	/**
 	 * pre: --
 	 * @return un numero aleatorio entre 1 y CANTIDAD_DE_CARTAS
 	 */
 	private static int generarNumeroAleatorio() {
-		// TODO: verificar si generarNumeroAleatorio contempla todas las cartas
 		return random.nextInt(1, CANTIDAD_DE_CARTAS + 1);
 	}
 

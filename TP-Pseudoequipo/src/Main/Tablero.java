@@ -166,8 +166,7 @@ public class Tablero<T> {
         ValidacionesUtiles.validarSiEsNulo(origen, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(destino, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
-        ValidacionesUtiles.validarSiFichaEstaBloqueada(ficha);
-        // TODO: quiza validar aca tambien con un Validacion.validarSiCasilleroEstaLibre(destino)???
+        
         origen.setDato(null);
         destino.setDato(ficha);
     }

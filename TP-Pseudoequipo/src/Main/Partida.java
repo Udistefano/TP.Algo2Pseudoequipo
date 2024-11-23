@@ -29,11 +29,8 @@ public class Partida {
         ValidacionesUtiles.validarSiEsNulo(mazo, "Mazo");
 
         this.tablero = tablero;
-        Bitmap.inicializar(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
-        Bitmap.crearImagen();
         this.jugadores = jugadores;
         this.mazo = mazo;
-//        this.turnos = new Lista<Turno>();
         // TODO: implementar ListaCircular , y hacer turnos una ListaCircular
         this.turnos = new Vector<Turno>(jugadores.getLongitud(), null);
         for (int i = 1; i <= jugadores.getLongitud(); i++) {
@@ -41,7 +38,6 @@ public class Partida {
             this.turnos.agregar(i, turno);
         }
         this.dado = new Dado();
-        Bitmap.escribirArchivo();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------
@@ -111,7 +107,7 @@ public class Partida {
                 }
                 Bitmap.escribirFicha(casilleroDestino, jugador.getColor());
 
-                Carta cartaActual = Teclado.preguntarCarta(jugador.getMano());
+                Carta cartaActual = Teclado.preguntarCarta(jugador);
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
                     jugador.quitarCartaDeLaMano(cartaActual);
@@ -139,7 +135,8 @@ public class Partida {
         }
 
         System.out.println(jugador + " tiene " + jugador.getCantidadDeFichasRestantes() + " fichas");
-        
+        System.out.println(jugador + " tendra que jugar una ficha");
+
         Ficha ficha = new Ficha(jugador.getColor());
         Casillero<Ficha> casillero = null;
         boolean esCasilleroInvalido = true;
@@ -150,7 +147,7 @@ public class Partida {
                 ValidacionesUtiles.validarSiCasilleroEstaLibre(casillero, tablero);        
                 esCasilleroInvalido = false;
             } catch (Exception e) {
-				System.out.println("\nError: " + e.getMessage());
+				UtilesVarios.mostrarError(e);
             }
         } while (esCasilleroInvalido);
 
@@ -173,8 +170,8 @@ public class Partida {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
-        System.out.print(jugador + " no le quedan mas fichas para jugar");
-        System.out.println("Tendra que mover una ficha del tablero");
+        System.out.println(jugador + " no le quedan mas fichas para jugar");
+        System.out.println(jugador + " tendra que mover una ficha del tablero");
 
         Casillero<Ficha> casillero = null;
         Movimiento movimiento = null;
@@ -191,13 +188,11 @@ public class Partida {
                 movimiento = Teclado.preguntarMovimiento(casillero); 
                 esCasilleroInvalido = false;
             } catch (Exception e) {
-				System.out.println("\nError: " + e.getMessage());
+				UtilesVarios.mostrarError(e);
             }
         } while (esCasilleroInvalido);
 
         tablero.mover(casillero, casillero.getCasilleroVecino(movimiento), casillero.getDato());
-
-        Bitmap.escribirFicha(casillero.getCasilleroVecino(movimiento), jugador.getColor());
         Bitmap.quitarFicha(casillero);
         System.out.println("\nLa ficha en el casillero " + casillero + " del jugador " + jugador +
                            " se ha movido en direccion " + movimiento);
@@ -343,10 +338,10 @@ public class Partida {
     /**
      * pre:
      * @param jugador no puede ser nulo
-     * @return el turno siguiente de jugador pasado por parametro
+     * @return el turno de jugador pasado por parametro
      * @throws Exception si el jugador es nulo
      */
-    public Turno getTurnoSiguiente(Jugador jugador) throws Exception {
+    public Turno getTurno(Jugador jugador) throws Exception {
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 
         // TODO: getTurnoSiguiente se puede remplazar con el equals de Turno
@@ -365,7 +360,15 @@ public class Partida {
     }
 
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------
-
+    
+    /**
+     * pre: --
+     * @return los turnos de la partida
+     */
+    public Vector<Turno> getTurnos() {
+        return this.turnos;
+    }
+    
     /**
      * pre: --
      * @return el tablero de la partida

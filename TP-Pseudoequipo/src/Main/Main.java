@@ -17,6 +17,7 @@ public class Main {
 		Tablero<Ficha> tablero = new Tablero<Ficha>(ancho, alto, profundidad);
 		Lista<Jugador> jugadores = new Lista<Jugador>();
 		Mazo mazo = new Mazo(cantidadDeCartas);
+        Bitmap.inicializar(ancho, alto, profundidad);
 		
 		int cantidadDeJugadores = Teclado.preguntarCantidadJugadores("\nCuantos jugadores seran en este juego?: ");
 		

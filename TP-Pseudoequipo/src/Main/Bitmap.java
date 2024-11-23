@@ -9,10 +9,10 @@ public class Bitmap {
 
     private static final String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
     private static final String NOMBRE_ARCHIVO_SALIDA = "salida.bmp";
-    // FIXME: mover colores constante a Color
 	private static int COLOR_FONDO = 7368816;
 	private static int COLOR_CASILLERO = 4730480;
 	private static int COLOR_LINEAS = 16777215;
+    
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
     private static int ancho = 0;
@@ -62,6 +62,8 @@ public class Bitmap {
         matrizTablero = new int[dimensionTableroX][dimensionTableroY];
 
         imagen = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
+        crearImagen();
+        escribirArchivo();
     }
 
     //METODOS DE CLASE ----------------------------------------------------------------------------------------

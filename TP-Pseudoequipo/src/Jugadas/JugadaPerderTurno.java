@@ -37,22 +37,32 @@ public class JugadaPerderTurno extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-        String nombre = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del jugador al que hacerle perder un turno: ");
-        Lista<Jugador> jugadores = partida.getJugadores();
-        
-        // TODO: quiza hacer un jugadores.obtener(nombre) en jugadaPerderTurno y jugadaEliminarCartasDelJugador
-        jugadores.iniciarCursor();
-        while(jugadores.avanzarCursor()) {
-        	Jugador jugadorActual = jugadores.obtenerCursor();
-        	if (jugadorActual.getNombre().equals(nombre)) {
-                Turno turno = partida.getTurnoSiguiente(jugadorActual);
+        boolean esNombreInvalido = true;
+        do {
+            try {
+                String nombreBuscado = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del jugador al que" +
+                                                                " hacerle perder un turno: ");
+                Lista<Jugador> jugadores = partida.getJugadores();
+                Jugador jugadorBuscado = null;
+                // TODO: hacer un jugadores.obtener(nombre) en jugadaPerderTurno y jugadaEliminarCartasDelJugador
+                jugadores.iniciarCursor();
+                while(jugadores.avanzarCursor()) {
+                    if (jugadores.obtenerCursor().getNombre().equals(nombreBuscado)) {
+                        jugadorBuscado = jugadores.obtenerCursor();
+                    }
+                }
+                if (jugadorBuscado == null) {
+                    throw new Exception("No se hallo el jugador " + nombreBuscado + " al cual perderle el turno");
+                }
+                
+                Turno turno = partida.getTurno(jugadorBuscado);
                 turno.incrementarBloqueosRestantes(1);
-                System.out.println("\nEl jugador " + jugadorActual + " ha perdido un turno");
-                return;
+                System.out.println("\nEl jugador " + jugadorBuscado + " ha perdido un turno");
+                esNombreInvalido = false;
+            } catch (Exception e) {
+                UtilesVarios.mostrarError(e);
             }
-        }
-
-        throw new Exception("No se hallo el jugador " + nombre + " al cual perderle el turno");
+        } while (esNombreInvalido);
     }
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------

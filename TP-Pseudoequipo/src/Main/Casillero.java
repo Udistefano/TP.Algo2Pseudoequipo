@@ -174,7 +174,7 @@ public class Casillero<T> {
      * @return la coordenada x
      */
     public int getX() {
-        return x;
+        return this.x;
     }
 
     /**
@@ -182,7 +182,7 @@ public class Casillero<T> {
      * @return la coordenada y
      */
     public int getY() {
-        return y;
+        return this.y;
     }
 
     /**
@@ -190,7 +190,7 @@ public class Casillero<T> {
      * @return la coordenada z
      */
     public int getZ() {
-        return z;
+        return this.z;
     }
 
     /**

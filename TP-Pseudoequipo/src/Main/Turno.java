@@ -32,10 +32,7 @@ public class Turno {
 	 * post: le suma a la cantidad de bloqueos restantes del turno, la cantidad pasada por parametro
 	 */
 	public void incrementarBloqueosRestantes(int cantidadDeBloqueos) throws Exception {
-		// FIXME: la cantidad de bloqueos debe ser positiva?
-//        if (cantidadDeBloqueos < 0) {
-//            throw new Exception("La cantidad de bloqueos no puede ser negativa");
-//        }
+	   ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeBloqueos, "Cantidad de bloqueos");
 		this.bloqueosRestantes += cantidadDeBloqueos;
 	}
 
@@ -70,8 +67,7 @@ public class Turno {
 	 * @return verdadero si al turno le quedan subturnos disponibles, falso si no le quedan
 	 */
 	public boolean haySubturnos() {
-		// FIXME: el profe cantidadDeSubturnos >= 0, no deberia ser > 0 ?????
-		return cantidadDeSubturnos > 0;
+		return this.cantidadDeSubturnos > 0;
 	}
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
