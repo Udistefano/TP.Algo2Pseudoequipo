@@ -95,6 +95,11 @@ public class Casillero<T> {
         }
     }
 
+    /**
+     * pre:
+     * @param i un numero
+     * @return el numero i invertido (si es positivo, devuelve negativo y viceversa)
+     */
     public static int invertirCoordenadaDeVecino(int i) {
         return -i;
     }
@@ -151,17 +156,17 @@ public class Casillero<T> {
     public boolean existeElVecino(Movimiento movimiento) throws Exception {
         switch (movimiento) {
             case ABAJO:
-                return vecinos[1][2][1] != null;
+                return this.vecinos[1][2][1] != null;
             case ARRIBA:
-                return vecinos[1][0][1] != null;
+                return this.vecinos[1][0][1] != null;
             case DERECHA:
-                return vecinos[2][1][1] != null;
+                return this.vecinos[2][1][1] != null;
             case IZQUIERDA:
-                return vecinos[0][1][1] != null;
+                return this.vecinos[0][1][1] != null;
             case ADELANTE:
-                return vecinos[1][1][2] != null;
+                return this.vecinos[1][1][2] != null;
             case ATRAS:
-                return vecinos[1][1][0] != null;
+                return this.vecinos[1][1][0] != null;
             default:
                 throw new Exception("No se encontro el casillero vecino para chequear su existencia");
         }
@@ -198,12 +203,14 @@ public class Casillero<T> {
      * @return el dato de tipo T
      */
     public T getDato() {
-        return dato;
+        T copiaDeDato = this.dato;
+        return copiaDeDato;
     }
 
     /**
      * pre:
-     * @param dato <p>post: setea el dato del casillero al dato pasado por parametro
+     * @param dato
+     * post: setea el dato del casillero al dato pasado por parametro
      */
     public void setDato(T dato) {
         this.dato = dato;
@@ -217,31 +224,32 @@ public class Casillero<T> {
      */
     public Casillero<T> getCasilleroVecino(Movimiento movimiento) throws Exception {
     	Direccion direccion = null;
+
     	switch(movimiento) {
-    	case ARRIBA:
-    		direccion = Direccion.CENTRO_ARRIBA;
-    		break;
-    	case ABAJO:
-    		direccion = Direccion.CENTRO_ABAJO;
-    		break;
-    	case IZQUIERDA:
-    		direccion = Direccion.CENTRO_IZQUIERDA;
-    		break;
-    	case DERECHA:
-    		direccion = Direccion.CENTRO_DERECHA;
-    		break;
-    	case ADELANTE:
-    		direccion = Direccion.ADELANTE_CENTRO;
-    		break;
-    	case ATRAS:
-    		direccion = Direccion.ATRAS_CENTRO;
-    		break;
-    	default:
-    		throw new Exception("No se encontro el casillero vecino");
+            case ARRIBA:
+                direccion = Direccion.CENTRO_ARRIBA;
+                break;
+            case ABAJO:
+                direccion = Direccion.CENTRO_ABAJO;
+                break;
+            case IZQUIERDA:
+                direccion = Direccion.CENTRO_IZQUIERDA;
+                break;
+            case DERECHA:
+                direccion = Direccion.CENTRO_DERECHA;
+                break;
+            case ADELANTE:
+                direccion = Direccion.ADELANTE_CENTRO;
+                break;
+            case ATRAS:
+                direccion = Direccion.ATRAS_CENTRO;
+                break;
+            default:
+                throw new Exception("No se encontro el casillero vecino");
     	}
+
     	return getCasilleroVecino(direccion);
     }
-
 
     /**
      * pre:
@@ -250,62 +258,92 @@ public class Casillero<T> {
      * @throws Exception si no es un direccion valido o si es nulo
      */
     public Casillero<T> getCasilleroVecino(Direccion direccion) throws Exception {
+        Casillero<T> vecino = null;
+
         switch (direccion) {
             case ATRAS_ABAJO:
-                return vecinos[1][2][0];
+                vecino = this.vecinos[1][2][0];
+                break;
             case ATRAS_ARRIBA:
-                return vecinos[1][0][0];
+                vecino = this.vecinos[1][0][0];
+                break;
             case ATRAS_CENTRO:
-                return vecinos[1][1][0];
+                vecino = this.vecinos[1][1][0];
+                break;
             case ATRAS_DERECHA:
-                return vecinos[2][1][0];
+                vecino = this.vecinos[2][1][0];
+                break;
             case ATRAS_IZQUIERDA:
-                return vecinos[0][1][0];
+                vecino = this.vecinos[0][1][0];
+                break;
             case ATRAS_DERECHA_ARRIBA:
-                return vecinos[2][0][0];
+                vecino = this.vecinos[2][0][0];
+                break;
             case ATRAS_DERECHA_ABAJO:
-                return vecinos[2][2][0];
+                vecino = this.vecinos[2][2][0];
+                break;
             case ATRAS_IZQUIERDA_ARRIBA:
-                return vecinos[0][0][0];
+                vecino = this.vecinos[0][0][0];
+                break;
             case ATRAS_IZQUIERDA_ABAJO:
-                return vecinos[0][2][0];
+                vecino = this.vecinos[0][2][0];
+                break;
             case CENTRO_ABAJO:
-                return vecinos[1][2][1];
+                vecino = this.vecinos[1][2][1];
+                break;
             case CENTRO_ARRIBA:
-                return vecinos[1][0][1];
+                vecino = this.vecinos[1][0][1];
+                break;
             case CENTRO_DERECHA:
-                return vecinos[2][1][1];
+                vecino = this.vecinos[2][1][1];
+                break;
             case CENTRO_IZQUIERDA:
-                return vecinos[0][1][1];
+                vecino = this.vecinos[0][1][1];
+                break;
             case CENTRO_DERECHA_ARRIBA:
-                return vecinos[2][0][1];
+                vecino = this.vecinos[2][0][1];
+                break;
             case CENTRO_DERECHA_ABAJO:
-                return vecinos[2][2][1];
+                vecino = this.vecinos[2][2][1];
+                break;
             case CENTRO_IZQUIERDA_ARRIBA:
-                return vecinos[0][0][1];
+                vecino = this.vecinos[0][0][1];
+                break;
             case CENTRO_IZQUIERDA_ABAJO:
-                return vecinos[0][2][1];
+                vecino = this.vecinos[0][2][1];
+                break;
             case ADELANTE_ABAJO:
-                return vecinos[1][2][2];
+                vecino = this.vecinos[1][2][2];
+                break;
             case ADELANTE_ARRIBA:
-                return vecinos[1][0][2];
+                vecino = this.vecinos[1][0][2];
+                break;
             case ADELANTE_CENTRO:
-                return vecinos[1][1][2];
+                vecino = this.vecinos[1][1][2];
+                break;
             case ADELANTE_DERECHA:
-                return vecinos[2][1][2];
+                vecino = this.vecinos[2][1][2];
+                break;
             case ADELANTE_IZQUIERDA:
-                return vecinos[0][1][2];
+                vecino = this.vecinos[0][1][2];
+                break;
             case ADELANTE_DERECHA_ARRIBA:
-                return vecinos[2][0][2];
+                vecino = this.vecinos[2][0][2];
+                break;
             case ADELANTE_DERECHA_ABAJO:
-                return vecinos[2][2][2];
+                vecino = this.vecinos[2][2][2];
+                break;
             case ADELANTE_IZQUIERDA_ARRIBA:
-                return vecinos[0][0][2];
+                vecino = this.vecinos[0][0][2];
+                break;
             case ADELANTE_IZQUIERDA_ABAJO:
-                return vecinos[0][2][2];
+                vecino = this.vecinos[0][2][2];
+                break;
             default:
                 throw new Exception("No se encontro el casillero vecino");
         }
+
+        return vecino;
     }
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------
@@ -320,7 +358,7 @@ public class Casillero<T> {
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                System.arraycopy(vecinos[i][j], 0, matriz[i][j], 0, 3);
+                System.arraycopy(this.vecinos[i][j], 0, matriz[i][j], 0, 3);
             }
         }
 
@@ -335,6 +373,6 @@ public class Casillero<T> {
      * @param z:         -1, 0 o 1 para indicar delante, centro o detrás respectivamente
      */
     public void setCasilleroVecino(Casillero<T> casillero, int x, int y, int z) {
-        vecinos[x + 1][y + 1][z + 1] = casillero;
+        this.vecinos[x + 1][y + 1][z + 1] = casillero;
     }
 }

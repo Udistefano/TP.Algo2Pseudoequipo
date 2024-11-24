@@ -152,8 +152,16 @@ public class Mazo {
      * @return la pila de cartas
      */
 	public Cola<Carta> getCartas() {
-		// FIXME: esto viola el encapsulamiento, devolver una pila asi, hay que devolver una copia
-		return cartas;
+		Cola<Carta> copiaDeCartas = new Cola<Carta>();
+		int cantidadDeCartas = this.cartas.contarElementos();
+
+		for (int i = 1; i <= cantidadDeCartas; i++) {
+			Carta carta = this.cartas.desacolar();
+			copiaDeCartas.acolar(carta);
+			this.cartas.acolar(carta);
+		}
+
+		return copiaDeCartas;
 	}
 
 	/**

@@ -281,10 +281,21 @@ public class Partida {
     
     /**
      * pre: --
+     * @throws Exception si hubo un error interno haciendo la copia de los turnos
      * @return los turnos de la partida
      */
-    public ListaSimpleCircular<Turno> getTurnos() {
-        return this.turnos;
+    public ListaSimpleCircular<Turno> getTurnos() throws Exception {
+        ListaSimpleCircular<Turno> copiaDeTurnos = new ListaSimpleCircular<Turno>();
+
+        this.turnos.iniciarCursor();
+        this.turnos.avanzarCursor();
+        Turno primerTurno = this.turnos.obtenerCursor();
+        do {
+            copiaDeTurnos.agregar(this.turnos.obtenerCursor());
+            this.turnos.avanzarCursor();
+        } while (!this.turnos.obtenerCursor().equals(primerTurno));
+
+        return copiaDeTurnos;
     }
     
     /**
@@ -292,7 +303,8 @@ public class Partida {
      * @return el tablero de la partida
      */
     public Tablero<Ficha> getTablero() {
-        return tablero;
+        Tablero<Ficha> copiaDeTablero = this.tablero;
+        return copiaDeTablero;
     }
 
     /**
@@ -315,7 +327,8 @@ public class Partida {
      * @return el mazo de la partida
      */
     public Mazo getMazo() {
-        return this.mazo;
+        Mazo copiaDeMazo = this.mazo;
+        return copiaDeMazo;
     }
 
     /**

@@ -17,6 +17,7 @@ public class Ficha {
      * post: inicializa la ficha con el simbolo y color dados
      */
     public Ficha(Color color) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(color, "Color");
         this.color = color;
         this.estadoDeBloqueo = EstadoDeBloqueo.DESBLOQUEADO;
     }
@@ -86,7 +87,8 @@ public class Ficha {
      * @return el color de la ficha
      */
     public Color getColor() {
-        return this.color;
+        Color copiaDeColor = this.color;
+        return copiaDeColor;
     }
     
     /**
@@ -94,7 +96,8 @@ public class Ficha {
      * @return el estado de bloqueo de la ficha
      */
     public EstadoDeBloqueo getEstadoDeBloqueo() {
-		return estadoDeBloqueo;
+        EstadoDeBloqueo copiaDeEstadoDeBloqueo = this.estadoDeBloqueo;
+		return copiaDeEstadoDeBloqueo;
 	}
 
     /**
@@ -122,6 +125,7 @@ public class Ficha {
      * post: cambia el color de la ficha al pasado por parametro
      */
     public void setColor(Color color) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(color, "Color");
         this.color = color;
     }
 }

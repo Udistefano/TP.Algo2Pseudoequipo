@@ -165,7 +165,6 @@ public class Tablero<T> {
      * @throws Exception asi alguno de los parametros es nulo, o si ficha esta bloqueada
      */
     public void mover(Casillero<Ficha> origen, Casillero<Ficha> destino, Ficha ficha) throws Exception {
-        // TODO: quiza no haga falta pasar ficha por parametro, si lo podemos obtener con origen.getDato()
         ValidacionesUtiles.validarSiEsNulo(origen, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(destino, "Casillero");
         ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
@@ -187,7 +186,8 @@ public class Tablero<T> {
         if (!existeElCasillero(x, y, z)) {
             throw new Exception("Coordenadas de casillero invalidas");
         }
-        return tablero.obtener(x).obtener(y).obtener(z);
+        Casillero<T> copiaDeCasillero = tablero.obtener(x).obtener(y).obtener(z);
+        return copiaDeCasillero;
     }
     
 
@@ -203,7 +203,8 @@ public class Tablero<T> {
         if (!existeElCasillero(x, y, z)) {
             throw new Exception("Coordenadas de casillero invalidas");
         }
-        return getCasillero(x, y, z).getDato();
+        T copiaDeDato = getCasillero(x, y, z).getDato();
+        return copiaDeDato;
     }
 
     /**
@@ -232,7 +233,7 @@ public class Tablero<T> {
      * @return el ancho del tablero
      */
     public int getAncho() {
-        return ancho;
+        return this.ancho;
     }
 
     /**
@@ -240,7 +241,7 @@ public class Tablero<T> {
      * @return el alto del tablero
      */
     public int getAlto() {
-        return alto;
+        return this.alto;
     }
 
     /**
@@ -248,7 +249,7 @@ public class Tablero<T> {
      * @return la profundidad del tablero
      */
     public int getProfundidad() {
-        return profundidad;
+        return this.profundidad;
     }
 
     /**

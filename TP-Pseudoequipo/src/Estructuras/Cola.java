@@ -27,14 +27,14 @@ public class Cola<T> {
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
 	//METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
 
-	/*
+	/**
 	 * post: indica si la cola tiene algún elemento.
 	 */
 	public boolean estaVacia() {
 		return (this.tamanio == 0);
 	}
 
-	/*
+	/**
 	 * pre: el elemento no es vacio
 	 * post: agrega el elemento a la cola
 	 */
@@ -50,7 +50,7 @@ public class Cola<T> {
 		this.tamanio++;
 	}
 
-	/*
+	/**
 	 * pre: el elemento no es vacio
 	 * post: agrega el elemento a la cola
 	 */
@@ -62,7 +62,7 @@ public class Cola<T> {
 		}
 	}
 
-	/*
+	/**
 	 * pre :
 	 * post: devuelve el elemento en el frente de la cola quitandolo.
 	 */
@@ -79,7 +79,7 @@ public class Cola<T> {
 		return elemento;
 	}
 
-	/*
+	/**
 	 * post: devuelve la cantidad de elementos que tiene la cola.
 	 */
 	public int contarElementos() {
@@ -89,7 +89,7 @@ public class Cola<T> {
 
 	//GETTERS SIMPLES -----------------------------------------------------------------------------------------
 
-	/*
+	/**
 	 * pre :
 	 * post: devuelve el elemento en el frente de la cola. Solo lectura
 	 */

@@ -66,8 +66,8 @@ public class Turno {
 	 * post: si al turno le quedan bloqueos restantes, le resta uno
 	 */
 	public void terminarTurno() {
-		if (bloqueosRestantes > 0) {
-			bloqueosRestantes--;
+		if (this.bloqueosRestantes > 0) {
+			this.bloqueosRestantes--;
 		}
 	}
 
@@ -84,7 +84,7 @@ public class Turno {
 	 * post: incrementa en una la cantidad de subturnos del turno
 	 */
 	public void agregarSubturno() {
-		cantidadDeSubturnos++;
+		this.cantidadDeSubturnos++;
 	}
 
 	/**
@@ -102,7 +102,8 @@ public class Turno {
 	 * @return el jugador del turno
 	 */
 	public Jugador getJugador() {
-		return jugador;
+		Jugador copiaDeJugador = this.jugador;
+		return copiaDeJugador;
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class Turno {
 	 * @return verdadero si al turno le quedan bloqueos restantes, falso si no
 	 */
 	public boolean estaBloqueado() {
-		return bloqueosRestantes > 0;
+		return this.bloqueosRestantes > 0;
 	}
 
 	/**
@@ -118,7 +119,7 @@ public class Turno {
 	 * @return la cantidad de subturnos
 	 */
 	public int getCantidadDeSubturnos() {
-		return cantidadDeSubturnos;
+		return this.cantidadDeSubturnos;
 	}
 
 	/**
@@ -126,7 +127,7 @@ public class Turno {
 	 * post: utiliza un subturno
 	 */
 	public void utilizarSubturno() {
-		cantidadDeSubturnos--;
+		this.cantidadDeSubturnos--;
 	}
 
 	//SETTERS SIMPLES -----------------------------------------------------------------------------------------

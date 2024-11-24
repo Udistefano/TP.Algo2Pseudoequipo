@@ -147,7 +147,8 @@ public class Jugador {
      * @return el nombre del jugador
      */
     public String getNombre() {
-        return nombre;
+        String copiaDeNombre = this.nombre;
+        return copiaDeNombre;
     }
 
     /**
@@ -155,16 +156,24 @@ public class Jugador {
      * @return el color del jugador
      */
     public Color getColor() {
-        return this.color;
+        Color copiaDeColor = this.color;
+        return copiaDeColor;
     }
 
     /**
      * pre: --
      * @return la mano de cartas del jugador
-     */
-	public ListaSimple<Carta> getMano() {
-        // FIXME: esto de retornar una mano, y listas y todo asi viola el encapsulamiento
-		return this.mano;
+     * @throws Exception si hubo un error interno haciendo una copia de la mano
+    */
+    public ListaSimple<Carta> getMano() throws Exception {
+        ListaSimple<Carta> copiaDeMano = new ListaSimple<Carta>();
+
+        this.mano.iniciarCursor();
+        while (this.mano.avanzarCursor()) {
+            copiaDeMano.agregar(this.mano.obtenerCursor());
+        }
+
+        return copiaDeMano;
 	}
 
     /**
