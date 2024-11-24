@@ -35,6 +35,8 @@ public class JugadaCambiarColorFicha extends Jugada {
 		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
 		ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
+		// FIXME: Que pasa si el jugador quiere cambiar color ficha, y todavia no hay ninguna ficha enemiga?,
+		//        se bugea el juego
 		boolean esCasilleroInvalido = true;
 		do {
 			try {

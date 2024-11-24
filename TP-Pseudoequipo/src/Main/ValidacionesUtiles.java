@@ -49,7 +49,7 @@ public class ValidacionesUtiles {
      */
     public static void validarSiNumeroEsMenorAUno(int numero, String nombre) throws Exception {
         if (numero < 1) {
-            throw new Exception("El numero " + nombre + " no puede ser menor a uno");
+            throw new Exception("El numero " + nombre + " " + numero + " no puede ser menor a uno");
         }
     }
     
@@ -202,7 +202,8 @@ public class ValidacionesUtiles {
         ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
         if (!ficha.getColor().equals(jugador.getColor())) {
-            throw new Exception("El color de la ficha (" + ficha.getColor() + ") es distinto al del jugador (" + jugador.getColor() + ")");
+            throw new Exception("El color de la ficha (" + ficha.getColor() + ") es distinto al del jugador (" +
+                                jugador.getColor() + ")");
         }
     }
 
@@ -216,7 +217,34 @@ public class ValidacionesUtiles {
         ValidacionesUtiles.validarSiEsNulo(ficha, "Ficha");
         ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
         if (ficha.getColor().equals(jugador.getColor())) {
-            throw new Exception("El color de la ficha (" + ficha.getColor() + ") es igual al del jugador (" + jugador.getColor() + ")");
+            throw new Exception("El color de la ficha (" + ficha.getColor() + ") es igual al del jugador (" +
+                                jugador.getColor() + ")");
+        }
+    }
+
+    public static void validarCoordenadaDeImagen(int x, int dimensionX) throws Exception {
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(dimensionX, "Dimension X");
+        if (x > dimensionX) {
+            throw new Exception("La coordenada X " + x + " no puede ser mayor a la dimension X del tablero " +
+                                dimensionX);
+        }
+    }
+
+    /**
+     * pre:
+     * @param nombre no puede ser nulo ni vacio
+     * @param jugadores no puede ser nulo
+     * @throws Exception si ya hay un jugador con el nombre pasado por parametro
+     */
+    public static void validarSiNombreEsUnico(String nombre, ListaSimple<Jugador> jugadores) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(jugadores, "Jugadores");
+        ValidacionesUtiles.validarSiEsUnaCadenaVacia(nombre, "Nombre");
+        jugadores.iniciarCursor();
+        while (jugadores.avanzarCursor()) {
+            if (jugadores.obtenerCursor().getNombre().toLowerCase().equals(nombre.toLowerCase())) {
+                throw new Exception("Ya hay un jugador con el nombre " + nombre);
+            }
         }
     }
 }

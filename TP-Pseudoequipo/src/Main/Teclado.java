@@ -281,19 +281,21 @@ public class Teclado {
     /**
      * pre: --
      * @param mensaje no puede ser nulo ni vacio
-     * @throws Exception si mensaje es nulo o vacio
+     * @param jugadores no puede ser nulo
+     * @throws Exception si alguno de los parametros es invalido
      * post: le pregunta el nombre del jugador, valida que sea correcto, y lo regresa
     */
-    public static String preguntarNombreDeJugador(String mensaje) throws Exception {
+    public static String preguntarNombreDeJugador(String mensaje, ListaSimple<Jugador> jugadores) throws Exception {
         ValidacionesUtiles.validarSiEsUnaCadenaVacia(mensaje, "Mensaje a imprimir");
+        ValidacionesUtiles.validarSiEsNulo(jugadores, "Jugadores");
         boolean esNombreInvalido = true;
         String nombre = "";
 
         do {
             try {
                 System.out.print(mensaje);
-    			// TODO: validar que sea un nombre valido
                 nombre = leerCadena();
+                ValidacionesUtiles.validarSiNombreEsUnico(nombre, jugadores);
                 esNombreInvalido = false;
             } catch (Exception e) {
                 UtilesVarios.mostrarError(e);

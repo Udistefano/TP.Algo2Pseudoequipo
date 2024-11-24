@@ -27,8 +27,6 @@
 * ValidarCasilleroNoContieneFichaBloqueada
 
 # Cosas por hacer
-* reparar metodos violando encapusulamiento devolviendo listas y vectores, pilas y demas de Clases
 * Es comportamiento esperado que un jugador pueda perderse un turno a si mismo??
+* Si el jugador se pierde turno a si mismo no funciona, creo
 * Que pasa si el jugador quiere cambiar color ficha, y todavia no hay ninguna ficha enemiga?, se bugea el juego
-* Si el jugador se pierde turno a si mismo no funciona
-* Quiza haya q Verificar que no puedan haber nombres repetidos entre jugadores

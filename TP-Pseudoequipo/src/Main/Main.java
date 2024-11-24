@@ -23,7 +23,7 @@ public class Main {
 		
 		for (int i = 1; i <= cantidadDeJugadores; i++) {
 			System.out.println("\nJugador #" + i + ":");
-			String nombre = Teclado.preguntarNombreDeJugador("\nIngrese su nombre: ");
+			String nombre = Teclado.preguntarNombreDeJugador("\nIngrese su nombre: ", jugadores);
 			int numeroDeColor = Teclado.preguntarColor(jugadores);
 
 			Jugador jugador = new Jugador(nombre, numeroDeColor, cantidadDeFichasMaximasPermitidas);

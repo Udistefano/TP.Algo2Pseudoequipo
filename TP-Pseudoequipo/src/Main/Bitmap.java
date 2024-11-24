@@ -6,57 +6,54 @@ import java.io.File;
 
 public class Bitmap {
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
-
-    private static final String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
-    private static final String NOMBRE_ARCHIVO_SALIDA = "salida.bmp";
+    
+    private static String RUTA_RELATIVA_IMAGENES = "./src/Imagenes/";
+    private static String RUTA_IMAGEN_POR_DEFECTO = RUTA_RELATIVA_IMAGENES + "colorVerde.bmp";
+    private static String NOMBRE_ARCHIVO_SALIDA = "salida.bmp";
 	private static int COLOR_FONDO = 7368816;
 	private static int COLOR_CASILLERO = 4730480;
 	private static int COLOR_LINEAS = 16777215;
     
-    //ATRIBUTOS -----------------------------------------------------------------------------------------------
-
-    private static int ancho = 0;
-    private static int x = 0;
-    private static int alto = 0;
-    private static int y = 0;
-    private static int z = 0;
-
+    private static int ancho = 1000;
+    private static int alto = 500;
+    private static int dimensionX = 0;
+    private static int dimensionY = 0;
+    private static int dimensionZ = 0;
+    
     private static int dimensionCasilleroX = 0;
     private static int dimensionTableroX = 0;
     private static int dimensionCasilleroY = 0;
     private static int dimensionTableroY = 0;
-
+    
     private static int[][] matrizCentral = null;
     private static int[][] matrizTablero = null;
-
+    
     private static BufferedImage imagen = null;
-
+    
+    //ATRIBUTOS -----------------------------------------------------------------------------------------------
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
 
     /**
      * pre:
-     * @param coordenadaX no puede ser menor a 1
-     * @param coordenadaY no puede ser menor a 1
-     * @param coordenadaZ no puede ser menor a 1
+     * @param x no puede ser menor a 1
+     * @param y no puede ser menor a 1
+     * @param z no puede ser menor a 1
      * @throws Exception cuando alguno de los parametros es menor a 1
-     * post: inicializa el bitmap, con el alto, ancho, x, y, z, y las dimensiones
+     * post: inicializa el bitmap, con los parametros x, y, z, como las dimensiones
      */
-    public static void inicializar(int coordenadaX, int coordenadaY, int coordenadaZ) throws Exception {
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(coordenadaX, "X");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(coordenadaY, "Y");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(coordenadaZ, "Z");
+    public static void inicializar(int x, int y, int z) throws Exception {
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(y, "Y");
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(z, "Z");
 
-        alto = 500;
-        ancho = 1000;
-
-        x = coordenadaX;
-        y = coordenadaY;
-        z = coordenadaZ;
-        dimensionTableroX = (ancho / z) - 10;
-        dimensionCasilleroX = dimensionTableroX / x;
+        dimensionX = x;
+        dimensionY = y;
+        dimensionZ = z;
+        dimensionTableroX = (ancho / dimensionZ) - 10;
+        dimensionCasilleroX = dimensionTableroX / dimensionX;
 
         dimensionTableroY = ((alto - 100) / 2);
-        dimensionCasilleroY = dimensionTableroY / y;
+        dimensionCasilleroY = dimensionTableroY / dimensionY;
 
         matrizCentral = new int[ancho][alto];
         matrizTablero = new int[dimensionTableroX][dimensionTableroY];
@@ -124,12 +121,12 @@ public class Bitmap {
      * post: colorea las lineas de los tableros del juego
      */
     private static void colorearLineasMatrizTablero() {
-        for (int i = 0; i < x; i++) {
+        for (int i = 0; i < dimensionX; i++) {
             for (int j = 0; j < dimensionTableroY; j++) {
                 matrizTablero[dimensionCasilleroX * i][j] = COLOR_LINEAS;
             }
         }
-        for (int i = 0; i < y; i++) {
+        for (int i = 0; i < dimensionY; i++) {
             for (int j = 0; j < dimensionTableroX; j++) {
                 matrizTablero[j][dimensionCasilleroY * i] = COLOR_LINEAS;
             }
@@ -148,12 +145,7 @@ public class Bitmap {
         try {
             return ImageIO.read(new File(generarRutaRelativa(rutaImagen)));  // Cargar la imagen desde el archivo
         } catch (Exception e) {
-            System.out.println("Hubo un error al intentar leer la imagen " + rutaImagen);
-            e.printStackTrace();
-            // FIXME: aca no tendria que tirar exception, en vez de retornar null???????, y luego en colocarFicha
-            //        catcheamos la exception, y colocamos una ficha por defecto
-            // throw new Exception("Hubo un error al intentar leer la imagen");
-            return null;
+            throw new Exception("Hubo un error al intentar leer la imagen " + rutaImagen);
         }
     }
 
@@ -162,7 +154,7 @@ public class Bitmap {
      * post: escribe en la imagen los tableros del juego
      */
     private static void escribirTablero() {
-        for (int k = 0; k < z; k++) {
+        for (int k = 0; k < dimensionZ; k++) {
             for (int i = 0; i < dimensionTableroX; i++) {
                 for (int j = 0; j < dimensionTableroY; j++) {
                     imagen.setRGB(k * (dimensionTableroX + 10) + i, 100 + j, matrizTablero[i][j]);
@@ -208,18 +200,19 @@ public class Bitmap {
      * post: coloca en las coordenadas x, y, z del tablero del juego, la ficha que se lee de la imagen rutaImagen
      */
     public static void escribirFicha(int x, int y, int z, String rutaImagen) throws Exception {
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Y");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "Z");
+        ValidacionesUtiles.validarCoordenadaDeImagen(x, dimensionX);
+        ValidacionesUtiles.validarCoordenadaDeImagen(y, dimensionY);
+        ValidacionesUtiles.validarCoordenadaDeImagen(z, dimensionZ);
         ValidacionesUtiles.validarSiEsUnaCadenaVacia(rutaImagen, "Ruta de imagen");
 
         // Cargar la imagen desde el archivo
-        BufferedImage imagenFicha = cargarImagen(rutaImagen);
-        if (imagenFicha == null) {
-            // Aca podriamos poner una imagen por defecto
-//            throw new Exception("Hubo un error al intentar leer la imagen " + rutaImagen);
-//            System.out.println("Hubo un error al intentar leer la imagen " + rutaImagen);
-            return;
+        BufferedImage imagenFicha = null;
+        try {
+            imagenFicha = cargarImagen(rutaImagen);
+        } catch (Exception e) {
+            // No es la mejor manera de manejar un error de lectura de imagen, una mejor alternativa
+            // seria crear una imagen de X color
+            imagenFicha = cargarImagen(RUTA_IMAGEN_POR_DEFECTO);
         }
 
         // Calcular las coordenadas donde se colocará la imagen
@@ -239,24 +232,25 @@ public class Bitmap {
         posY += desplazamientoY;
 
         // Asegurarse de que la imagen no se salga de los límites del tablero
-        if (posX + anchoImagen > ancho || posY + altoImagen > alto) {
+        if ((posX + anchoImagen > ancho) ||
+                (posY + altoImagen > alto)) {
             throw new Exception("La imagen no cabe en el tablero.");
         }
 
         // Colocar los píxeles de la imagen en la matriz del tablero
         for (int i = 0; i < anchoImagen; i++) {
             for (int j = 0; j < altoImagen; j++) {
-                int colorPixel = imagenFicha.getRGB(i, j);  // Obtener el color del píxel de la imagen
+                int colorPixel = imagenFicha.getRGB(i, j); // Obtener el color del píxel de la imagen
                 int pixelX = posX + i;
                 int pixelY = posY + j;
 
                 // Asegurarse de que los píxeles estén dentro de los límites del tablero
                 if (pixelX >= 0 && pixelX < ancho && pixelY >= 0 && pixelY < alto) {
-                    imagen.setRGB(pixelX, pixelY, colorPixel);  // Colocar el píxel de la imagen en el tablero
+                    imagen.setRGB(pixelX, pixelY, colorPixel); // Colocar el píxel de la imagen en el tablero
                 }
             }
         }
-        
+
         Bitmap.escribirArchivo();
     }
 
@@ -280,11 +274,9 @@ public class Bitmap {
      * post: quita de la imagen salida, la ficha del casillero con coordenadas (x, y, z)
      */
     public static void quitarFicha(int x, int y, int z) throws Exception {
-        // Validación (si quieres hacer alguna validación de las coordenadas antes)
-        // TODO: validar si alguna coordenada, esta fuera del tablero en quitarFicha
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(x, "X");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(y, "Y");
-        ValidacionesUtiles.validarSiNumeroEsMenorAUno(z, "Z");
+        ValidacionesUtiles.validarCoordenadaDeImagen(x, dimensionX);
+        ValidacionesUtiles.validarCoordenadaDeImagen(y, dimensionY);
+        ValidacionesUtiles.validarCoordenadaDeImagen(z, dimensionZ);
 
         // Calcular las coordenadas y dimensiones de la ficha
         int posX = (z - 1) * (dimensionTableroX + 10) + (x - 1) * dimensionCasilleroX;

@@ -1,7 +1,6 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Estructuras.ListaSimple;
 import Main.*;
 
 /**
@@ -37,25 +36,16 @@ public class JugadaPerderTurno extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
+        // FIXME: Es comportamiento esperado que un jugador pueda perderse un turno a si mismo??
+        //        Si el jugador se pierde turno a si mismo no funciona, creo
         boolean esNombreInvalido = true;
         do {
             try {
-                String nombreBuscado = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del jugador al que" +
-                                                                " hacerle perder un turno: ");
-                ListaSimple<Jugador> jugadores = partida.getJugadores();
-                Jugador jugadorBuscado = null;
-                // TODO: hacer un jugadores.obtener(nombre) en jugadaPerderTurno y jugadaEliminarCartasDelJugador
-                jugadores.iniciarCursor();
-                while(jugadores.avanzarCursor()) {
-                    if (jugadores.obtenerCursor().getNombre().equals(nombreBuscado)) {
-                        jugadorBuscado = jugadores.obtenerCursor();
-                    }
-                }
-                if (jugadorBuscado == null) {
-                    throw new Exception("No se hallo el jugador " + nombreBuscado + " al cual perderle el turno");
-                }
-                
+                System.out.print("\nIngrese el nombre del jugador al que hacerle perder un turno: ");
+                String nombreBuscado = Teclado.leerCadena();
+                Jugador jugadorBuscado = partida.getJugadores().obtener(nombreBuscado);
                 Turno turno = partida.getTurnos().obtener(jugadorBuscado);
+
                 turno.incrementarBloqueosRestantes(1);
                 System.out.println("\nEl jugador " + jugadorBuscado + " ha perdido un turno");
                 esNombreInvalido = false;
