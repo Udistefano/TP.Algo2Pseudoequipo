@@ -36,7 +36,6 @@ public class JugadaDobleTurno extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-        turnoActual.getJugador().sumarFicha();
         turnoActual.agregarSubturno();
         System.out.println("\nSe ha agregado un turno a " + turnoActual.getJugador());
     }

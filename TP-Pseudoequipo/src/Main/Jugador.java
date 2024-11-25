@@ -117,15 +117,6 @@ public class Jugador {
 
     /**
      * pre: --
-     * post: Metodo que suma una ficha cuando el jugador utiliza la carta de doble turno
-     */
-    public void sumarFicha() {
-    	this.cantidadDeFichasMaximasPermitidas++;
-    }
-
-
-    /**
-     * pre: --
      * post: muestra la mano del jugador
      */
     public void mostrarMano() {

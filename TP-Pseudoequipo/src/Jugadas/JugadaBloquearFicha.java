@@ -3,7 +3,6 @@ package Jugadas;
 import Cartas.Carta;
 import Main.Casillero;
 import Main.Ficha;
-import Main.Jugador;
 import Main.Partida;
 import Main.Teclado;
 import Main.Turno;
@@ -41,6 +40,13 @@ public class JugadaBloquearFicha extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
+		try {
+			ValidacionesUtiles.validarSiHayFichasHabilitadasEnElTablero(partida.getTablero(), turnoActual.getJugador());	
+		} catch (Exception e) {
+			UtilesVarios.mostrarError(e);
+			return;
+		}
+        
         boolean esCasilleroInvalido = true;
         do {
             try {

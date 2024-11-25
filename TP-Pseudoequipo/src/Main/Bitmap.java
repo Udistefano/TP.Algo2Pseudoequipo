@@ -305,7 +305,6 @@ public class Bitmap {
             }
         }
 
-        colorearLineasMatrizTablero();
         escribirArchivo();
     }
 

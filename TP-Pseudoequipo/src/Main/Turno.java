@@ -57,7 +57,7 @@ public class Turno {
 	 * post: le suma a la cantidad de bloqueos restantes del turno, la cantidad pasada por parametro
 	 */
 	public void incrementarBloqueosRestantes(int cantidadDeBloqueos) throws Exception {
-	   ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeBloqueos, "Cantidad de bloqueos");
+	    ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeBloqueos, "Cantidad de bloqueos");
 		this.bloqueosRestantes += cantidadDeBloqueos;
 	}
 
@@ -73,18 +73,10 @@ public class Turno {
 
 	/**
 	 * pre: --
-	 * post: incrementa en una la cantidad de subturnos del turno
+	 * @return verdadero si al turno le quedan bloqueos restantes, falso si no
 	 */
-	public void iniciarTurno() {
-		agregarSubturno();
-	}
-
-	/**
-	 * pre: --
-	 * post: incrementa en una la cantidad de subturnos del turno
-	 */
-	public void agregarSubturno() {
-		this.cantidadDeSubturnos++;
+	public boolean estaBloqueado() {
+		return this.bloqueosRestantes > 0;
 	}
 
 	/**
@@ -108,18 +100,20 @@ public class Turno {
 
 	/**
 	 * pre: --
-	 * @return verdadero si al turno le quedan bloqueos restantes, falso si no
-	 */
-	public boolean estaBloqueado() {
-		return this.bloqueosRestantes > 0;
-	}
-
-	/**
-	 * pre: --
 	 * @return la cantidad de subturnos
 	 */
 	public int getCantidadDeSubturnos() {
 		return this.cantidadDeSubturnos;
+	}
+	
+	//SETTERS SIMPLES -----------------------------------------------------------------------------------------
+
+	/**
+	 * pre: --
+	 * post: incrementa en una la cantidad de subturnos del turno
+	 */
+	public void agregarSubturno() {
+		this.cantidadDeSubturnos++;
 	}
 
 	/**
@@ -129,6 +123,4 @@ public class Turno {
 	public void utilizarSubturno() {
 		this.cantidadDeSubturnos--;
 	}
-
-	//SETTERS SIMPLES -----------------------------------------------------------------------------------------
 }

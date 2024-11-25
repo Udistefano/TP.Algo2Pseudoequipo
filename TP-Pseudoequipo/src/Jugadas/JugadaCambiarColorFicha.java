@@ -35,6 +35,13 @@ public class JugadaCambiarColorFicha extends Jugada {
 		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
 		ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
+		try {
+			ValidacionesUtiles.validarSiHayFichasEnemigasHabilitadasEnElTablero(partida.getTablero(), turnoActual.getJugador());	
+		} catch (Exception e) {
+			UtilesVarios.mostrarError(e);
+			return;
+		}
+
 		boolean esCasilleroInvalido = true;
 		do {
 			try {
@@ -42,7 +49,7 @@ public class JugadaCambiarColorFicha extends Jugada {
 				Casillero<Ficha> casillero = Teclado.preguntarCasillero(partida.getTablero());
 				Color colorDelJugadorActual = turnoActual.getJugador().getColor();
 				Ficha fichaACambiar = casillero.getDato();
-	
+
 				ValidacionesUtiles.validarSiCasilleroEstaOcupado(casillero, partida.getTablero());
 				ValidacionesUtiles.validarSiFichaEstaBloqueada(fichaACambiar);
                 ValidacionesUtiles.validarFichaNoEsPropia(casillero.getDato(), turnoActual.getJugador());

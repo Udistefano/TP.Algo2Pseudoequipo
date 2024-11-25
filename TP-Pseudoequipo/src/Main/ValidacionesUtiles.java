@@ -247,5 +247,56 @@ public class ValidacionesUtiles {
             }
         }
     }
+
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @param jugador no puede ser nulo
+     * @throws Exception si no hay fichas enemigas en el tablero, o si algun parametro es nulo
+     */
+    public static void validarSiHayFichasEnemigasHabilitadasEnElTablero(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+
+        for (int x = 1; x <= tablero.getAncho(); x++) {
+            for (int y = 1; y <= tablero.getAlto(); y++) {
+                for (int z = 1; z <= tablero.getProfundidad(); z++) {
+                    Ficha ficha = tablero.obtener(x, y, z);
+                    if ((ficha != null) &&
+                            (!ficha.getColor().equals(jugador.getColor())) &&
+                            (!ficha.estaBloqueada())) {
+                        return;
+                    }
+                }
+            }
+        }
+
+        throw new Exception("No hay fichas enemigas habilitadas en el tablero");
+    }
+
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @param jugador no puede ser nulo
+     * @throws Exception si no hay fichas en el tablero, o si algun parametro es nulo
+     */
+    public static void validarSiHayFichasHabilitadasEnElTablero(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+
+        for (int x = 1; x <= tablero.getAncho(); x++) {
+            for (int y = 1; y <= tablero.getAlto(); y++) {
+                for (int z = 1; z <= tablero.getProfundidad(); z++) {
+                    Ficha ficha = tablero.obtener(x, y, z);
+                    if ((ficha != null) &&
+                            (!ficha.estaBloqueada())) {
+                        return;
+                    }
+                }
+            }
+        }
+
+        throw new Exception("No hay fichas habilitadas en el tablero");
+    }
 }
 	
