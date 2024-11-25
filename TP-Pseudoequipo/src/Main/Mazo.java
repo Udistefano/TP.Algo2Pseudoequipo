@@ -99,19 +99,22 @@ public class Mazo {
      * @throws Exception: si no hay suficientes cartas en el mazo, crear un nuevo mazo
      * post: a la mano del jugador se agregan las cartas solicitadas
      */
-    public void levantarCartas(int cantidadDeCartasALevantar, Jugador jugador) throws Exception {
+    public int levantarCartas(int cantidadDeCartasALevantar, Jugador jugador) throws Exception {
     	ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 		ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeCartasALevantar, "Cartas a levantar");
-
-		if (!jugador.getMano().estaVacia()) {
-			agregarManoDelJugador(jugador);
+		if (jugador.getCantidadDeCartasRestantes() < 1) {
+			throw new Exception("El jugador no tiene mas lugar en la mano para agregar cartas");
 		}
-    	if (cantidadDeCartasALevantar > cartas.contarElementos()) {
-    		throw new Exception("No hay suficientes cartas para levantar");
-    	}
-    	for (int i = 0; i < cantidadDeCartasALevantar; i++) {
-    		jugador.agregarCartaALaMano(cartas.desacolar());
-        }
+		
+		int cantidadDeCartasLevantadas = cantidadDeCartasALevantar;
+		if (cantidadDeCartasALevantar > jugador.getCantidadDeCartasRestantes()) {
+			cantidadDeCartasLevantadas = jugador.getCantidadDeCartasRestantes();
+		}
+		for (int i = 0; i < cantidadDeCartasLevantadas; i++) {
+			jugador.agregarCartaALaMano(cartas.desacolar());
+		}
+
+		return cantidadDeCartasLevantadas;
     }
     
     /**

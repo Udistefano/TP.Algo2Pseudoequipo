@@ -27,6 +27,11 @@
 * ValidarCasilleroNoContieneFichaBloqueada
 
 # Cosas por hacer
-* Es comportamiento esperado que un jugador pueda perderse un turno a si mismo??
+
 * Si el jugador se pierde turno a si mismo no funciona, creo
-* Que pasa si el jugador quiere cambiar color ficha, y todavia no hay ninguna ficha enemiga?, se bugea el juego
+
+* Si el jugador quiere jugar la carta cambiar color ficha, pero no hay fichas enemigas, tirar exception (la validacion), y decirle al jugador que no hay fichas enemigas para cambiarle el color 
+
+* Hacer que solamente se puedan elegir tamaño tableros de tamaño 3x3x3, 4x4x5, o 5x5x5
+
+* Antes de permitirle al jugador mover ficha, fijarse si tiene fichas en el tablero, si no tiene fichas, tirar exception (la validacion), y decirle al jugador que no tiene fichas para mover

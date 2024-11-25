@@ -3,6 +3,7 @@ package Jugadas;
 import Cartas.Carta;
 import Main.Casillero;
 import Main.Ficha;
+import Main.Jugador;
 import Main.Partida;
 import Main.Teclado;
 import Main.Turno;

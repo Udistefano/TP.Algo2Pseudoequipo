@@ -97,15 +97,18 @@ public class Partida {
                 dado.tirarDado();
                 System.out.println("\n" + jugador + " tira el dado! Dio el numero " + dado.getValor());
                 System.out.println(jugador + " levanta " + dado.getValor() + " cartas del mazo");
-                mazo.levantarCartas(dado.getValor(), jugador);
+                levantarCartas(jugador, dado.getValor());
 
                 if (!jugador.tieneTodasLasFichasEnElTablero()) {
                     casilleroDestino = jugadaInicial(this.tablero, jugador);
+                } else if (!jugador.tieneAlgunaFichaEnElTablero()) {
+                    System.out.println("\n" + jugador + " no tiene fichas en el tablero para mover");
                 } else {
                     casilleroDestino = mover(this.tablero, jugador);
                 }
                 Bitmap.escribirFicha(casilleroDestino, jugador.getColor());
 
+                // TODO: quiza en vez de comparar con null, agregar tipo de carta NO_JUGAR_TURNO
                 Carta cartaActual = Teclado.preguntarCarta(jugador);
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
@@ -117,6 +120,27 @@ public class Partida {
         turno.terminarTurno();
 
         return casilleroDestino;
+    }
+
+    /**
+     * pre:
+     * @param jugador no puede ser nulo
+     * @param cantidadDeCartasALevantar no puede ser menor a 1
+     * @throws Exception si el jugador es nulo, o la cantidad de cartas a levantar es menor a 1
+     * post: levanta la cantidad de cartas del mazo pasadas por parametro, y las agrega a la mano del jugador
+     */
+    private void levantarCartas(Jugador jugador, int cantidadDeCartasALevantar) throws Exception {
+        ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeCartasALevantar, "Cantidad de cartas a levantar");
+        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
+
+        try {
+            int cantidadDeCartasLevantadas = mazo.levantarCartas(cantidadDeCartasALevantar, jugador);
+            if (cantidadDeCartasLevantadas < cantidadDeCartasALevantar) {
+                System.out.println("\n" + jugador + " solo pudo levantar " + cantidadDeCartasLevantadas + " cartas del mazo");
+            }
+        } catch (Exception e) {
+            UtilesVarios.mostrarError(e);
+        }
     }
 
     /**

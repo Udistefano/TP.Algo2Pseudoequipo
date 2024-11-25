@@ -1,11 +1,11 @@
 package Jugadas;
 
 import Cartas.Carta;
-import Estructuras.ListaSimple;
 import Main.Jugador;
 import Main.Partida;
 import Main.Teclado;
 import Main.Turno;
+import Main.UtilesVarios;
 import Main.ValidacionesUtiles;
 
 public class JugadaEliminarCartasDelJugador extends Jugada {
@@ -33,24 +33,21 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
 		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-		ListaSimple<Jugador> jugadores = partida.getJugadores();
-		String nombre = Teclado.preguntarNombreDeJugador("\nIngrese el nombre del usuario al cual eliminarle las cartas: ", jugadores);
+		boolean esNombreInvalido = true;
+		do {
+			try {
+				System.out.print("\nIngrese el nombre del jugador al cual eliminarle las cartas: ");
+				String nombreBuscado = Teclado.leerCadena();
+				Jugador jugadorBuscado = partida.getJugadores().obtener(nombreBuscado);
 
-		// TODO: me parece que esta carta es inutil, porque el enunciado dice "Las cartas se levantan al principio de
-		//       cada turno de un mazo", y si eliminamos las cartas de un jugador, cuando sea su turno simplemente va a
-		//       levantar otras cartas
-		jugadores.iniciarCursor();
-		while(jugadores.avanzarCursor()) {
-			Jugador jugadorActual = jugadores.obtenerCursor();
-			if (nombre.equals(jugadorActual.getNombre())) {
-				partida.getMazo().agregarManoDelJugador(jugadorActual);
-				jugadorActual.vaciarMano();
-				System.out.println("\nSe eliminaron las cartas del jugador " + jugadorActual);
-				return;
+				partida.getMazo().agregarManoDelJugador(jugadorBuscado);
+				
+				System.out.println("\nSe eliminaron las cartas del jugador " + nombreBuscado);
+				esNombreInvalido = false;	
+			} catch (Exception e) {
+				UtilesVarios.mostrarError(e);
 			}
-		}
-		
-        throw new Exception("No se hallo el jugador " + nombre + " al cual eliminarle las cartas");
+		} while (esNombreInvalido);
 	}
 
 //GETTERS SIMPLES -----------------------------------------------------------------------------------------

@@ -36,8 +36,6 @@ public class JugadaPerderTurno extends Jugada {
         ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
-        // FIXME: Es comportamiento esperado que un jugador pueda perderse un turno a si mismo??
-        //        Si el jugador se pierde turno a si mismo no funciona, creo
         boolean esNombreInvalido = true;
         do {
             try {
@@ -47,6 +45,7 @@ public class JugadaPerderTurno extends Jugada {
                 Turno turno = partida.getTurnos().obtener(jugadorBuscado);
 
                 turno.incrementarBloqueosRestantes(1);
+                
                 System.out.println("\nEl jugador " + jugadorBuscado + " ha perdido un turno");
                 esNombreInvalido = false;
             } catch (Exception e) {

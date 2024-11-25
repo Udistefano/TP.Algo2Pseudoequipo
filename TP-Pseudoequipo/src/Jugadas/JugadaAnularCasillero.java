@@ -36,6 +36,7 @@ public class JugadaAnularCasillero extends Jugada {
 
         casillero.setDato(null);
         Bitmap.quitarFicha(casillero);
+
         System.out.println("\nSe ha anulado el casillero " + casillero);
     }
 

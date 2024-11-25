@@ -7,6 +7,9 @@ import java.util.Objects;
 
 public class Jugador {
 	//ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
+    
+    private static int CANTIDAD_MAXIMA_DE_CARTAS_EN_MANO = 7;
+
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
     private String nombre = null;
@@ -29,6 +32,7 @@ public class Jugador {
         ValidacionesUtiles.validarSiEsNulo(nombre, "Nombres");
         ValidacionesUtiles.validarSiNumeroEsMenorAUno(numeroDeColor, "Numero de color");
         ValidacionesUtiles.validarSiNumeroEsMenorAUno(cantidadDeFichasMaximasPermitidas, "Cantidad de fichas maximas permitidas");
+        
         this.nombre = nombre;
         this.color = Color.getColorJugador(numeroDeColor);
         this.cantidadDeFichasMaximasPermitidas = cantidadDeFichasMaximasPermitidas;
@@ -51,6 +55,8 @@ public class Jugador {
             return false;
         if (obj instanceof String)
             return nombre.equals((String) obj);
+        if (obj instanceof Color)
+            return color.equals((Color) obj);
         if (getClass() != obj.getClass())
             return false;
 
@@ -117,16 +123,6 @@ public class Jugador {
     	this.cantidadDeFichasMaximasPermitidas++;
     }
 
-    /**
-     * pre:
-     * @param carta no puede ser nula
-     * @throws Exception si la carta es nula
-     * post: quita la carta de la mano del jugador
-     */
-    public void quitarCartaDeLaMano(Carta carta) throws Exception {
-        ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
-        this.mano.remover(carta);
-    }
 
     /**
      * pre: --
@@ -200,6 +196,22 @@ public class Jugador {
         return cantidadDeFichasMaximasPermitidas - cantidadDeFichasJugadas;
     }
 
+    /**
+     * pre: --
+     * @return la cantidad de cartas maxima permitida en la mano del jugador
+     */
+    public int getCantidadDeCartasMaximasPermitidas() {
+        return CANTIDAD_MAXIMA_DE_CARTAS_EN_MANO;
+    }
+
+    /**
+     * pre: --
+     * @return la cantidad de cartas que le quedan al jugador
+     */
+    public int getCantidadDeCartasRestantes() {
+        return CANTIDAD_MAXIMA_DE_CARTAS_EN_MANO - this.mano.getLongitud();
+    }
+
     //SETTERS SIMPLES -----------------------------------------------------------------------------------------
 
     /**
@@ -208,5 +220,16 @@ public class Jugador {
      */
     public void vaciarMano() {
         this.mano = new ListaSimple<Carta>();
+    }
+
+    /**
+     * pre:
+     * @param carta no puede ser nula
+     * @throws Exception si la carta es nula
+     * post: quita la carta de la mano del jugador
+     */
+    public void quitarCartaDeLaMano(Carta carta) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(carta, "Carta");
+        this.mano.remover(carta);
     }
 }
