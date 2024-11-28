@@ -1,15 +1,19 @@
 package Cartas;
 
 import Jugadas.Jugada;
-import Jugadas.JugadaPerderTurno;
+import Jugadas.JugadaVolverJugadaAnterior;
 
 public class CartaVolverJugadaAnterior extends Carta {
 
     //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
     //ATRIBUTOS -----------------------------------------------------------------------------------------------
     //CONSTRUCTORES -------------------------------------------------------------------------------------------
-    public CartaVolverJugadaAnterior() {}
-	//METODOS DE CLASE ----------------------------------------------------------------------------------------
+    
+    public CartaVolverJugadaAnterior() {
+        super();
+    }
+	
+    //METODOS DE CLASE ----------------------------------------------------------------------------------------
     //METODOS GENERALES ---------------------------------------------------------------------------------------
     //METODOS DE COMPORTAMIENTO -------------------------------------------------------------------------------
     
@@ -20,7 +24,7 @@ public class CartaVolverJugadaAnterior extends Carta {
 
 	@Override
 	public Jugada getJugada() throws Exception {
-		return new JugadaPerderTurno(this);
+		return new JugadaVolverJugadaAnterior(this);
 	}
     
     //GETTERS SIMPLES -----------------------------------------------------------------------------------------

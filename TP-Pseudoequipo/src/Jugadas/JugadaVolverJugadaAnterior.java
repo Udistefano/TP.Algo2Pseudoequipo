@@ -1,8 +1,11 @@
 package Jugadas;
 
 import Cartas.Carta;
+import Main.Bitmap;
 import Main.Partida;
 import Main.Turno;
+import Main.UtilesVarios;
+import Main.ValidacionesUtiles;
 
 public class JugadaVolverJugadaAnterior extends Jugada {
     /**
@@ -23,6 +26,15 @@ public class JugadaVolverJugadaAnterior extends Jugada {
      */
     @Override
     public void jugar(Partida partida, Turno turnoActual) throws Exception {
-        // TODO: implementar jugada volver jugada anterior
+        ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
+        ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno actual");
+
+        try {
+            partida.volverEstadoDePartidaAnterior();
+            Bitmap.escribirArchivo();
+            System.out.println("\nSe ha vuelto a la jugada anterior.");
+        } catch (Exception e) {
+            UtilesVarios.mostrarError(e);
+        }
     }
 }

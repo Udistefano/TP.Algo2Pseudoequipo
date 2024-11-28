@@ -19,6 +19,7 @@ public class Partida {
     private Mazo mazo = null;
     private Dado dado = null;
     private ListaSimpleCircular<Turno> turnos = null;
+    private EstadoDePartida estadoAnterior = null;
 
     // CONSTRUCTORES
     // -------------------------------------------------------------------------------------------
@@ -46,6 +47,7 @@ public class Partida {
             this.turnos.agregar(new Turno(this.jugadores.obtenerCursor()));
         }
         this.dado = new Dado();
+        guardarEstadoDePartidaAnterior();
     }
 
     // METODOS DE CLASE
@@ -72,8 +74,7 @@ public class Partida {
 
             Casillero<Ficha> casilleroDestino = jugarTurno(this.turnos.obtenerCursor());
             // Chequeamos que casilleroDestino no sea nulo, porque si el jugador perdio un
-            // turno (tiene bloqueos)
-            // entonces devolvera un casillero nulo
+            // turno (tiene bloqueos) entonces devolvera un casillero nulo
             if (casilleroDestino != null) {
                 hayGanador = verificarGanador(casilleroDestino);
             }
@@ -125,6 +126,7 @@ public class Partida {
                     jugador.quitarCartaDeLaMano(cartaActual);
                     this.mazo.agregarCarta(cartaActual);
                 }
+                guardarEstadoDePartidaAnterior();
             }
         }
         turno.terminarTurno();
@@ -177,6 +179,29 @@ public class Partida {
         } catch (Exception e) {
             UtilesVarios.mostrarError(e);
         }
+    }
+
+    /**
+     * pre: --
+     * @throws Exception si no se pudo guardar el estado de la partida
+     * post: guarda el estado de la partida actual
+     */
+    public void guardarEstadoDePartidaAnterior() throws Exception {
+        this.estadoAnterior = new EstadoDePartida(this.tablero, this.jugadores, this.mazo);
+    }
+
+    /**
+     * pre: --
+     * @throws Exception si el estado anterior es nulo
+     * post: restaura el estado de la partida anterior
+     */
+    public void volverEstadoDePartidaAnterior() throws Exception {
+        if (this.estadoAnterior == null) {
+            throw new Exception("No se ha guardado ningun estado de la partida anterior");
+        }
+        this.tablero = this.estadoAnterior.getTablero();
+        this.jugadores = this.estadoAnterior.getJugadores();
+        this.mazo = this.estadoAnterior.getMazo();
     }
 
     /**

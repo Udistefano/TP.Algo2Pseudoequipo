@@ -9,7 +9,9 @@ public class CartaEliminarCartasDelJugador extends Carta {
 	//ATRIBUTOS -----------------------------------------------------------------------------------------------
 	//CONSTRUCTORES -------------------------------------------------------------------------------------------
 		
-		public CartaEliminarCartasDelJugador() {}
+		public CartaEliminarCartasDelJugador() {
+			super();
+		}
 
 	//METODOS DE CLASE ----------------------------------------------------------------------------------------
 	//METODOS GENERALES ---------------------------------------------------------------------------------------
