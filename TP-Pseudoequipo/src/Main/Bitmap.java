@@ -77,7 +77,7 @@ public class Bitmap {
 
         colorearMatrizTablero();
         colorearLineasMatrizTablero();
-        escribirTablero();
+        escribirTableroVacio();
     }
 
     /**
@@ -153,7 +153,7 @@ public class Bitmap {
      * pre: --
      * post: escribe en la imagen los tableros del juego
      */
-    private static void escribirTablero() {
+    public static void escribirTableroVacio() {
         for (int k = 0; k < dimensionZ; k++) {
             for (int i = 0; i < dimensionTableroX; i++) {
                 for (int j = 0; j < dimensionTableroY; j++) {
@@ -175,6 +175,32 @@ public class Bitmap {
             System.out.println("Hubo un error al intentar escribir la imagen del juego al archivo " + NOMBRE_ARCHIVO_SALIDA);
             e.printStackTrace();
         }
+    }
+
+    /**
+     * pre:
+     * @param tablero no puede ser nulo
+     * @throws Exception si tablero es nulo
+     * post: escribe en la imagen salida, las fichas del tablero
+     */
+    public static void escribirTablero(Tablero<Ficha> tablero) throws Exception {
+        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
+
+        for (int x = 1; x <= tablero.getAncho(); x++) {
+            for (int y = 1; y <= tablero.getAlto(); y++) {
+                for (int z = 1; z <= tablero.getProfundidad(); z++) {
+                    Casillero<Ficha> casillero = tablero.getCasillero(x, y, z);
+                    Ficha ficha = casillero.getDato();
+                    if (ficha != null) {
+                        escribirFicha(casillero, ficha.getColor());
+                    } else {
+                        quitarFicha(casillero);
+                    }
+                }
+            }
+        }
+
+        Bitmap.escribirArchivo();
     }
 
     /**

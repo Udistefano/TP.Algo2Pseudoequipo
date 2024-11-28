@@ -145,6 +145,7 @@ public class Tablero<T> {
      * @param z     no puede ser menor a 1 ni mayor a getProfundidad()
      * @param ficha no puede ser nula
      * @throws Exception si no existe el casillero o si la ficha es nula
+     * post: Agrega la ficha al casillero en las coordenadas pasadas por parametro
      */
     public void agregar(int x, int y, int z, T ficha) throws Exception {
         if (!existeElCasillero(x, y, z)) {

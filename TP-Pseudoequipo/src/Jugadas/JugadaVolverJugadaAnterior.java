@@ -31,8 +31,8 @@ public class JugadaVolverJugadaAnterior extends Jugada {
 
         try {
             partida.volverEstadoDePartidaAnterior();
-            Bitmap.escribirArchivo();
-            System.out.println("\nSe ha vuelto a la jugada anterior.");
+            Bitmap.escribirTablero(partida.getTablero());
+            System.out.println("\nSe ha vuelto a la jugada anterior");
         } catch (Exception e) {
             UtilesVarios.mostrarError(e);
         }

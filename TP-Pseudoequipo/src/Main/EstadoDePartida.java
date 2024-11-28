@@ -19,10 +19,28 @@ public class EstadoDePartida {
         ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
         ValidacionesUtiles.validarSiEsNulo(jugadores, "Jugadores");
         ValidacionesUtiles.validarSiEsNulo(mazo, "Mazo");
+
+        this.tablero = new Tablero<Ficha>(tablero.getAncho(), tablero.getAlto(), tablero.getProfundidad());
+        this.jugadores = new ListaSimple<Jugador>();
+        this.mazo = new Mazo(mazo.getMaximoDeCartasEnMazo());
         
-        this.tablero = tablero;
-        this.jugadores = jugadores;
-        this.mazo = mazo;
+        for (int x = 1; x <= this.tablero.getAncho(); x++) {
+            for (int y = 1; y <= this.tablero.getAlto(); y++) {
+                for (int z = 1; z <= this.tablero.getProfundidad(); z++) {
+                    Ficha ficha = tablero.obtener(x, y, z);
+                    if (ficha != null) {
+                        this.tablero.agregar(x, y, z, ficha);
+                    }
+                }
+            }
+        }
+
+        for (int i = 1; i <= jugadores.getLongitud(); i++) {
+            Jugador jugador = jugadores.obtener(i);
+            this.jugadores.agregar(jugador);
+        }
+
+        // TODO: copiar mazo en estado de partida
     }
 
     /**

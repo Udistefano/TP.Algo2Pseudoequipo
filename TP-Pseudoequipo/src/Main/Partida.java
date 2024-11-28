@@ -47,7 +47,6 @@ public class Partida {
             this.turnos.agregar(new Turno(this.jugadores.obtenerCursor()));
         }
         this.dado = new Dado();
-        guardarEstadoDePartidaAnterior();
     }
 
     // METODOS DE CLASE
@@ -107,6 +106,7 @@ public class Partida {
                 System.out.println("\n" + jugador + " tira el dado! Dio el numero " + dado.getValor());
                 System.out.println(jugador + " levanta " + dado.getValor() + " cartas del mazo");
                 levantarCartas(jugador, dado.getValor());
+                guardarEstadoDePartidaAnterior();
 
                 if (!jugador.tieneTodasLasFichasEnElTablero()) {
                     casilleroDestino = jugadaInicial(this.tablero, jugador);
@@ -126,7 +126,6 @@ public class Partida {
                     jugador.quitarCartaDeLaMano(cartaActual);
                     this.mazo.agregarCarta(cartaActual);
                 }
-                guardarEstadoDePartidaAnterior();
             }
         }
         turno.terminarTurno();
