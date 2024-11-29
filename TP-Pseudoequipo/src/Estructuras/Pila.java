@@ -33,15 +33,15 @@ public class Pila<T> {
         String resultado = "";
         Nodo<T> actual = this.tope;
 
-        // Recorremos los nodos de la pila desde el tope hasta el fondo
+		// Recorremos la pila y concatenamos los datos de los nodos
         while (actual != null) {
-            resultado += actual.getDato();  // Agregamos el dato del nodo a la cadena
+            resultado += actual.getDato(); 
             if (actual.getSiguiente() != null) {
-                resultado += " , ";  // Si no es el último nodo, agregamos una flecha
+                resultado += " , ";
             } else {
             	resultado += "";
             }
-            actual = actual.getSiguiente();  // Avanzamos al siguiente nodo
+            actual = actual.getSiguiente();
         }
 
         return resultado;

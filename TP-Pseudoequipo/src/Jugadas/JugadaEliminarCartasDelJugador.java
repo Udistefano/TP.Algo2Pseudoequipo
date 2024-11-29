@@ -33,6 +33,8 @@ public class JugadaEliminarCartasDelJugador extends Jugada {
 		ValidacionesUtiles.validarSiEsNulo(partida, "Partida");
         ValidacionesUtiles.validarSiEsNulo(turnoActual, "Turno");
 
+		// TODO: implementar que si el jugador se borra sus cartas, entonces no se rompe en Partida, cuando quiera
+		//       eliminar la carta que jugo
 		boolean esNombreInvalido = true;
 		do {
 			try {

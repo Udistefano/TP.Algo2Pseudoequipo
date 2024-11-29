@@ -15,7 +15,7 @@ public class CartaAnularCasillero extends Carta {
     
     @Override
 	protected String getTituloPorDefecto() {
-		return "Carta eliminar cartas de jugador";
+		return "Carta anular casillero";
 	}
 
 	@Override

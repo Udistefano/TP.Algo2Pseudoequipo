@@ -237,6 +237,7 @@ public class Partida {
 
         casillero.setDato(ficha);
         jugador.jugarFicha();
+        System.out.println("\nSe ha jugado la ficha del jugador " + jugador + " en el casillero " + casillero);
 
         return casillero;
     }

@@ -53,16 +53,18 @@ public class Jugador {
             return true;
         if (obj == null)
             return false;
-        if (obj instanceof String)
-            return nombre.equals((String) obj);
+        if (obj instanceof String) {
+            String nombreDelOtro = (String) obj;
+            return this.nombre.toLowerCase().equals(nombreDelOtro.toLowerCase());
+        }
         if (obj instanceof Color)
             return color.equals((Color) obj);
         if (getClass() != obj.getClass())
             return false;
 
         Jugador other = (Jugador) obj;
-        return (nombre.equals(other.nombre)) &&
-                (color.equals(other.color));
+        return (this.nombre.equals(other.nombre)) &&
+                (this.color.equals(other.color));
     }
 
     /**

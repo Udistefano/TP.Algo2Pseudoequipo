@@ -127,7 +127,7 @@ public class Mazo {
 		ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
 		ListaSimple<Carta> manoDelJugador = jugador.getMano();
 		if (manoDelJugador.estaVacia()) {
-			throw new Exception("\nEl jugador " + jugador + " no tiene mas cartas en el mazo!");
+			throw new Exception("El jugador " + jugador + " no tiene mas cartas en el mazo!");
 		}
 
     	manoDelJugador.iniciarCursor();

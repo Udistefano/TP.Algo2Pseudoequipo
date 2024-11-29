@@ -144,25 +144,6 @@ public class ValidacionesUtiles {
         }
     }
     
-    /** NO BORRAR este valida cuando se pretende mover o selecionar casillero con ficha
-     * pre:
-     * @param casillero no puede ser nulo
-     * @param tablero no puede ser nulo
-     * @param jugadorActual no puede ser nulo
-     * @throws Exception si el casillero no se  encuentra en el tablero, si la ficha pertenece a otro jugador o si no
-     *                   hay fichas en el casillero, o si alguno de los parametros es nulo
-     */
-    public static void validarCasilleroAMover(Casillero<Ficha> casillero, Tablero<Ficha> tablero,  Jugador jugadorActual) throws Exception {
-        ValidacionesUtiles.validarSiEsNulo(casillero, "Casillero");
-        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
-        ValidacionesUtiles.validarSiEsNulo(jugadorActual, "Jugador");
-    	validarSiCasilleroEstaOcupado(casillero, tablero);
-    	Ficha ficha = casillero.getDato();
-    	if(!ficha.getColor().equals(jugadorActual.getColor())) {
-    		throw new Exception("La ficha de este casillero no pertenece al jugador actual");
-    	}
-    }
-    
     /**
      * pre: --
      * @param casillero no puede ser nulo

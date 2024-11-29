@@ -104,36 +104,6 @@ public class Teclado {
     
         return casillero;
     }
-    
-    /**
-     * pre:
-     * @param tablero no puede ser nulo
-     * @param jugador no puede ser nulo
-     * post: le pregunta al jugador el casillero a jugador, lo obtiene y lo retorna
-     * @throws Exception si alguno de los parametros es nulo
-     */
-    public static Casillero<Ficha> preguntarCasilleroAJugar(Tablero<Ficha> tablero, Jugador jugador) throws Exception {
-        ValidacionesUtiles.validarSiEsNulo(tablero, "Tablero");
-        ValidacionesUtiles.validarSiEsNulo(jugador, "Jugador");
-    	Casillero<Ficha> casillero = null;
-        boolean casilleroInvalido = true;
-        
-        do {
-            try {
-                casillero = preguntarCasillero(tablero);
-                ValidacionesUtiles.validarSiCasilleroEstaOcupado(casillero, tablero);
-                Ficha ficha = casillero.getDato();
-                if(!ficha.getColor().equals(jugador.getColor())) {
-                    throw new Exception("La ficha de este casillero no pertenece al jugador actual");
-                }
-                casilleroInvalido = false;
-            } catch (Exception e) {
-    			UtilesVarios.mostrarError(e);
-    		} 
-        } while (casilleroInvalido);
-        
-    	return casillero;
-    }
 
     /**
      * pre:
