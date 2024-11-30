@@ -123,7 +123,11 @@ public class Partida {
                 Carta cartaActual = Teclado.preguntarCarta(jugador);
                 if (cartaActual != null) {
                     cartaActual.getJugada().jugar(this, turno);
-                    jugador.quitarCartaDeLaMano(cartaActual);
+                    // Chequeamos que el jugador tenga la carta antes de quitarsela de la mano, porque quiza elimino
+                    // sus propias cartas
+                    if (jugador.getMano().existe(cartaActual)) {
+                        jugador.quitarCartaDeLaMano(cartaActual);
+                    }
                     this.mazo.agregarCarta(cartaActual);
                 }
             }
@@ -237,7 +241,7 @@ public class Partida {
 
         casillero.setDato(ficha);
         jugador.jugarFicha();
-        System.out.println("\nSe ha jugado la ficha del jugador " + jugador + " en el casillero " + casillero);
+        System.out.println("\nSe ha jugado la ficha del jugador " + jugador + " en el " + casillero);
 
         return casillero;
     }

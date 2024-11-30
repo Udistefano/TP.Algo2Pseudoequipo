@@ -83,8 +83,8 @@ public class ValidacionesUtiles {
     		throw new Exception("El tamaño " + tamaño + " del tablero no puede superar al tamaño maximo permitido " +
                                 Tablero.getTamañoMaximoDeCoordenada());
     	}
-    	if(tamaño <= 0) {
-    		throw new Exception("El tamaño debe ser mayor a 0");
+    	if(tamaño < Tablero.getTamañoMinimoDeCoordenada()) {
+    		throw new Exception("El tamaño debe ser mayor a " + Tablero.getTamañoMinimoDeCoordenada());
     	}
     }
     

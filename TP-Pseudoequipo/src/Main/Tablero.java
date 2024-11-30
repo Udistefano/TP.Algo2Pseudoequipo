@@ -12,6 +12,7 @@ public class Tablero<T> {
 //ATRIBUTOS DE CLASE --------------------------------------------------------------------------------------
 
     private static int TAMAÑO_MAXIMO_DE_COORDENADA = 5;
+    private static int TAMAÑO_MINIMO_DE_COORDENADA = 3;
 
 //ATRIBUTOS -----------------------------------------------------------------------------------------------
 
@@ -259,6 +260,14 @@ public class Tablero<T> {
      */
     public static int getTamañoMaximoDeCoordenada() {
         return TAMAÑO_MAXIMO_DE_COORDENADA;
+    }
+
+    /**
+     * pre: --
+     * @return el tamaño minimo permitido que puede tener una coordenada
+     */
+    public static int getTamañoMinimoDeCoordenada() {
+        return TAMAÑO_MINIMO_DE_COORDENADA;
     }
 
 //SETTERS SIMPLES -----------------------------------------------------------------------------------------

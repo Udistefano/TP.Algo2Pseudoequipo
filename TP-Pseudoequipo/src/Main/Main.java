@@ -11,12 +11,11 @@ public class Main {
 		int alto = Teclado.preguntarCoordenadaTablero("\nIngrese el alto del tablero: ");
 		int profundidad = Teclado.preguntarCoordenadaTablero("\nIngrese la profundidad del tablero: ");
 
-		// TODO: habria que preguntarle al usuario estas cantidades o hardcodearlo?
-		int cantidadDeCartas = 50;
-		int cantidadDeFichasMaximasPermitidas = 3;
+		int CANTIDAD_DE_CARTAS = 60;
+		int CANTIDAD_DE_FICHAS_MAXIMAS_PERMITIDAS = 3;
 		Tablero<Ficha> tablero = new Tablero<Ficha>(ancho, alto, profundidad);
 		ListaSimple<Jugador> jugadores = new ListaSimple<Jugador>();
-		Mazo mazo = new Mazo(cantidadDeCartas);
+		Mazo mazo = new Mazo(CANTIDAD_DE_CARTAS);
         Bitmap.inicializar(ancho, alto, profundidad);
 		
 		int cantidadDeJugadores = Teclado.preguntarCantidadJugadores("\nCuantos jugadores seran en este juego?: ");
@@ -26,7 +25,7 @@ public class Main {
 			String nombre = Teclado.preguntarNombreDeJugador("\nIngrese su nombre: ", jugadores);
 			int numeroDeColor = Teclado.preguntarColor(jugadores);
 
-			Jugador jugador = new Jugador(nombre, numeroDeColor, cantidadDeFichasMaximasPermitidas);
+			Jugador jugador = new Jugador(nombre, numeroDeColor, CANTIDAD_DE_FICHAS_MAXIMAS_PERMITIDAS);
 			jugadores.agregar(jugador);
 		}
 
