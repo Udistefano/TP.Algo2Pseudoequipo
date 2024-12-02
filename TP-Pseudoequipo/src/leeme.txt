@@ -1,8 +1,5 @@
 Hola profe, le adjuntamos nuestro trabajo.
 Le queriamos comunicar que la compañera Silvina Vilchez Sanchez (padron:111215) nos comunicó que dejó la materia por lo cual no participo en el trabajo.
-
-Al proyecto le falta resolver el efecto de varias cartas y el uso del mazo en el main del juego.
-El manejo de Exceptions, que cuando tire exception vuelva a correr el programa y que no corte el flujo de este.
-Tambien el manual del usuario y el del programador.
-Todo lo demas lo consideramos terminado, el juego funciona.
+Arreglamos todo lo que quedaba pendiente.
+Atte Pseuequipo.
 
